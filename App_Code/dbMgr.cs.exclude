@@ -31,8 +31,7 @@ public class dbMgr
     public void connDB()
     {
         string strConn = "server=localhost;database=SKL_LIFELAB;uid=sa;pwd=Cater247915";
-        //string strConn = "server=10.11.50.46,3341;database=SKL_LIFELAB;uid=SKL_LIFELABUsr;pwd=LIFE0132"; //Test
-        //string strConn = "server=10.11.11.23,3341;database=SKL_LIFELAB;uid=SKL_LIFELABUsr;pwd=LIFE1331"; //Formal
+        
         _sqlConn = new SqlConnection(strConn);
 
     }
