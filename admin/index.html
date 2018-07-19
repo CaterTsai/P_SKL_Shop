@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="block">
+            <button class="ctrl" onclick="onBtnClearRun()">重製Lab Run排行榜</button><br />
+        </div>
+        
+        <div class="block">
+            <button class="ctrl" onclick="onBtnClearCity()">重製Lab City顯示</button><br />
+        </div>
+        
+        <div class="block">
+            <label for="autoClearDay">自動重置時間(日)</label><br />
+            <input id="autoClearDay" type="number" min="1" max="120" /><br />
+            <button class="update" onclick="onBtnUpdateAutoClearDay()">Update</button>
+        </div>
+
+        <div class="block">
+            <label for="shareMsg">分享顯示文字</label><br />
+            <input id="shareMsg" type="text" maxlength="40"/><br />
+            <button class="update" onclick="onBtnUpdateShareMsg()">Update</button>
+        </div>
+
+        <div class="block">
+            <label for="labRunResetT">Lab Run返回時間</label><br />
+            <input id="labRunResetT" type="number" min="1" max="120" /><br />
+            <button class="update" onclick="onBtnUpdateLabRunReset()">Update</button>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="admin.js"></script>
+</body>
+</html>

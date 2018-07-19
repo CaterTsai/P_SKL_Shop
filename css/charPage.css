@@ -1,0 +1,64 @@
+﻿div.charMsg {
+    position: absolute;
+    width: 95%;
+    top: 2vh;
+    text-align: center;
+    font-size: 3vh;
+    color: rgb(255, 255, 255);
+    line-height: 5vh;
+}
+
+div.charDiv {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    top: 7vh;
+    text-align: center;
+}
+
+
+img.character {
+    top: 0px;
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+img.slide{
+    display:none;
+}
+
+img.head {
+    z-index: 5;
+}
+
+img.body {
+    z-index: 10;
+}
+
+img.leg {
+    z-index: 5;
+}
+
+/*-------------------------------*/
+img.headBtn {
+    position: absolute;
+    top: 5vh;
+    height: 8vh;
+}
+
+img.legBtn {
+    position: absolute;
+    top: 25vh;
+    height: 8vh;
+}
+
+img.btnLeft {
+    left: -5vw;
+}
+
+img.btnRight {
+    right: -5vw;
+}

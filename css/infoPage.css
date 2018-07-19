@@ -1,0 +1,55 @@
+﻿div.infoMsg {
+    position: absolute;
+    width: 95%;
+    top: 5vh;
+    text-align: center;
+    font-size: 3vh;
+    color: rgb(255, 255, 255);
+    line-height: 5vh;
+}
+
+div.career {
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    height: 5vh;
+}
+
+div.gender {
+    position: absolute;
+    top: 65%;
+    width: 90%;
+    height: 5vh;
+}
+
+div.careerInputDiv{
+    left:30%;
+    width:70%;
+    height:100%;
+    background-color:white;
+}
+
+select.careerSelect{
+    border:0 none;
+    outline: none;
+    width:100%;
+    height:100%;
+    font-size:2.8vh;
+    font-family: 'font', sans-serif;
+    text-align:center;
+    
+    border-radius: 0px;
+}
+
+
+
+select.genderSelect{
+    border:0 none;
+    outline: none;
+    width:100%;
+    height:100%;
+    font-size:2.8vh;
+    font-family: 'font', sans-serif;
+    text-align:center;
+    border-radius: 0px;
+}

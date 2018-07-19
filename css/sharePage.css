@@ -1,0 +1,54 @@
+﻿canvas.charCanvas {
+    position: absolute;
+    pointer-events: none;
+    top: 20%;
+    height: 65%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+
+div.shareMsg{
+    position: absolute;
+    width: 95%;
+    top: 3vh;
+    text-align: center;
+    font-size: 3vh;
+    color: rgb(255, 255, 255);
+    line-height: 4vh;
+}
+
+div.shareBtn{
+    position:absolute;
+    width:100%;
+    height:10vh;
+    top:85%;
+}
+
+div.fb{
+    position:absolute;
+    left:0px;
+    width:50%;
+    height:10vh;
+}
+
+div.line{
+    position:absolute;
+    right:0px;
+    width:50%;
+    height:10vh;
+}
+
+img.shareMsgImg {
+    width:100%;
+    height:100%;
+}
+
+img.shareBtn{
+    height:70%;
+}
+
+p.shareMsg{
+    margin:0;
+}

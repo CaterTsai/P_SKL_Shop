@@ -1,0 +1,45 @@
+﻿
+div.nickMsg {
+    position: absolute;
+    width: 95%;
+    top: 5vh;
+    text-align: center;
+    font-size: calc( (100vw / 0.6) * 0.03);
+    color: rgb(255, 255, 255);
+    line-height: calc( (100vw / 0.6) * 0.04);
+}
+
+@media only screen and (min-width: 769px) {
+    div.nick {
+        position: absolute;
+        width: calc(100vh * (9 / 16) * 0.8);
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 768px) {
+    div.nick {
+        position: absolute;
+        top: 50%;
+        width: 90%;
+        height: 5vh;
+    }
+}
+
+p.title {
+    display: inline-block;
+    margin: 0px;
+    vertical-align: middle;
+    font-size: 3vh;
+}
+
+
+input.nickInput {
+    padding: 0px;
+    border: 0 none;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 3vh;
+    text-align: center;
+    font-family: 'font', sans-serif;
+}

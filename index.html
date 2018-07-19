@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang=zh-TW>
+<head>
+    <meta charset="UTF-8">
+    <title>Life Lab</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="css/lifelab.min.css"/>
+    <!--<link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/nickPage.css" />
+    <link rel="stylesheet" href="css/infoPage.css" />
+    <link rel="stylesheet" href="css/charPage.css" />
+    <link rel="stylesheet" href="css/sharePage.css" />-->
+</head>
+<body>
+
+    <div class="content noSroll">
+        <img src="assets/img/mobile_background.jpg" class="background bottom XcenterWrapper" />
+        <img src="assets/img/mobile_interface.png" class="interface XcenterWrapper" />
+        <img src="assets/img/mobile_interface_light.png" class="top interface XcenterWrapper" />
+
+        <div class="interface XcenterWrapper">
+            <!--nick page-->
+            <div id="nickPage">
+                <div class="nickMsg XcenterWrapper">
+                    輸入暱稱並送出<br />
+                    你的專屬角色就會<br />
+                    出現在右方螢幕中喔!
+                </div>
+                <div id="nickName" class="nick XcenterWrapper">
+                    <div class="inputName">
+                        <p class="title">暱稱</p>
+                    </div>
+                    <div class="input">
+                        <input id="nickInput" class="nickInput" type="text" placeholder="五個中文字" />
+                    </div>
+                </div>
+                <img id="btnGoNick" class="btnGo XcenterWrapper" style="display:none" src="assets/img/mobile_image_go.png" onclick="onBtnGONick()" />
+            </div>
+
+            <!--info page-->
+            <div id="inputMsg" style="display:none">
+                <div class="infoMsg XcenterWrapper">
+                    接下來<br />
+                    選擇你的<u>職業</u>與<u>性別</u><br />
+                    創造屬於你的專屬角色!
+                </div>
+                <div id="careerDiv" class="career XcenterWrapper">
+                    <div class="inputName">
+                        <p class="title">職業</p>
+                    </div>
+                    <div class="input">
+                        <select id="careerSelect" class="careerSelect">
+                            <option value="1">製造</option>
+                            <option value="2">營造</option>
+                            <option value="3">零售批發</option>
+                            <option value="4">水電供應</option>
+                            <option value="5">休閒娛樂</option>
+                            <option value="6">農林漁牧</option>
+                            <option value="7">醫療社工</option>
+                            <option value="8">金融保險</option>
+                            <option value="9">資訊通訊</option>
+                            <option value="10">藝術設計</option>
+                            <option value="11">文化教育</option>
+                            <option value="12">國防與公家機關</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div id="genderDiv" class="gender XcenterWrapper">
+                    <div class="inputName">
+                        <p class="title">性別</p>
+                    </div>
+                    <div class="input">
+                        <select id="genderSelect" class="genderSelect">
+                            <option value="1">男性</option>
+                            <option value="2">女性</option>
+                        </select>
+                    </div>
+                </div>
+                <img class="btnGo XcenterWrapper" src="assets/img/mobile_image_go.png" onclick="onBtnGOInfo()" />
+            </div>
+
+            <!--charactor page-->
+            <div id="charactorPage" style="display:none">
+                <div class="charMsg XcenterWrapper">
+                    請選擇角色造型
+                </div>
+                <div id="charactorDiv" class="charDiv">
+                    <div id="headDiv">
+                        <img class="btnLeft headBtn" src="assets/img/mobile_image_left.png" onclick="onBtnHeadLeft()" />
+                        <img class="btnRight headBtn" src="assets/img/mobile_image_right.png" onclick="onBtnHeadRight()" />
+                    </div>
+                    <div id="legDiv">
+                        <img class="btnLeft legBtn" src="assets/img/mobile_image_left.png" onclick="onBtnLegLeft()" />
+                        <img class="btnRight legBtn" src="assets/img/mobile_image_right.png" onclick="onBtnLegRight()" />
+                    </div>
+                </div>
+                <img class="btnGo XcenterWrapper" src="assets/img/mobile_image_go.png" onclick="onBtnGOChar()" />
+            </div>
+
+            <div id="sharePage" style="display:none">
+                <div class="shareMsg XcenterWrapper">
+                    <p id="shareMsg" class="shareMsg">你的專屬人物產生囉，趕快分享給朋友吧。</p>
+                </div>
+                <canvas id="charCanvas" width="238" height="630" class="charCanvas top"></canvas>
+                <div class="shareBtn">
+                    <div class="fb">
+                        <img class="shareBtn XcenterWrapper" src="assets/img/fb_icon.png" onclick="onBtnFB()" />
+                    </div>
+                    <div class="line">
+                        <img class="shareBtn XcenterWrapper" src="assets/img/line_icon.png" onclick="onBtnLine()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/lifelab.min.js"></script>
+
+</body>
+</html>

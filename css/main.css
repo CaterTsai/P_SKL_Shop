@@ -1,0 +1,165 @@
+﻿@font-face {
+    font-family: 'font';
+    src: url('../assets/font.woff2') format('woff2');
+    font-weight: lighter;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'font', sans-serif;
+}
+
+p, input{
+    font-family: 'font', sans-serif;
+}
+
+div.noSroll {
+    /*overflow: hidden;*/
+}
+
+.noselect {
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+	                    supported by Chrome and Opera */
+}
+
+.buttonImg {
+    cursor: pointer;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.centerWrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.XcenterWrapper {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+.fullWrapper {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%; /*for mozilla*/
+}
+
+div.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+div.interface{
+    position: absolute;
+    top: calc(100vw * 0.45);
+    width: 55vw;
+    height: 53vh;
+}
+
+/*#region Z-index */
+.bottom {
+    z-index: 0;
+}
+
+.middle {
+    z-index: 5;
+}
+
+.top {
+    z-index: 10;
+}
+
+.popout {
+    z-index: 15;
+}
+/*#endregion */
+
+div.inputName{
+    position: absolute;
+    top:0px;
+    width:30%;
+    height:100%;
+    font-size:0;
+    background-color:#3f4871;
+    color:white;
+    text-align:center;
+}
+
+div.inputName:before {
+  content: "";
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+div.input{
+    position: absolute;
+    top:0%;
+    left:30%;
+    width:70%;
+    height:100%;
+    background-color:white;
+}
+
+img.btnGo{
+    position: absolute;
+    top: calc(0.6 * 100vh * 0.5);
+    width: 80%;
+}
+
+/*#region Image */
+@media only screen and (min-width: 769px) {
+    img.background {
+        height: 100%;
+    }
+
+    img.interface {
+        position: absolute;
+        top: 3vh;
+        /*width: 56.28vh;*/
+        width:calc(100vh * (9 / 16));
+        pointer-events:none;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 768px) {
+
+
+    img.interface{
+        position:absolute;
+        top:5%;
+        width:100%;
+        pointer-events:none;
+    }
+
+    img.background {
+        width:calc(100vh * (9 / 16));
+        min-width:100vw;
+        overflow: hidden;
+    }
+}
+
+/*#endregion */
+
+
+
+
