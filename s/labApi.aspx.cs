@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-public partial class backstage : System.Web.UI.Page
+public partial class s_labApi : System.Web.UI.Page
 {
     private dbMgrLab _dbMgr = new dbMgrLab();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         _dbMgr.connDB();
-
         handleActive();
     }
 
@@ -114,13 +111,6 @@ public partial class backstage : System.Web.UI.Page
                     config.value_1 = Convert.ToInt32(Request["RunResetT"]);
 
                     _dbMgr.updateConfigData(config);
-                    rep.result = true;
-                    break;
-                }
-            //Wall
-            case "addWallLog":
-                {
-                    _dbMgr.addWallLog(Convert.ToInt32(Request["type"]));
                     rep.result = true;
                     break;
                 }
@@ -275,7 +265,7 @@ public partial class backstage : System.Web.UI.Page
                     else
                     {
                         rep.result = true;
-                        if(shareTo == "line")
+                        if (shareTo == "line")
                         {
                             _dbMgr.updateShare(ukey, 0, 1);
                         }
@@ -316,7 +306,7 @@ public partial class backstage : System.Web.UI.Page
                     List<string> shareList = new List<string>();
                     listShare(ref shareList);
 
-                    foreach(var name in shareList)
+                    foreach (var name in shareList)
                     {
                         _dbMgr.updateShare(name, 1, 0);
                     }
@@ -405,7 +395,7 @@ public partial class backstage : System.Web.UI.Page
             gfx.DrawString(data.dist.ToString("0000"), font2, brush, new PointF(137, 335));
             gfx.DrawString(data.umbrella.ToString("0000"), font2, brush, new PointF(137, 406));
             gfx.DrawString(data.coin.ToString("0000"), font2, brush, new PointF(137, 480));
-            
+
             gfx.DrawImage(c, 498, 77, 204, 553);
         }
 
@@ -449,13 +439,13 @@ public partial class backstage : System.Web.UI.Page
 
     private void listShare(ref List<string> shareList)
     {
-        
+
         var dir = new DirectoryInfo(Server.MapPath("~/s/shareImg"));
-        
+
         foreach (var file in dir.GetFiles())
         {
             shareList.Add(Path.GetFileNameWithoutExtension(file.Name));
         }
-        
+
     }
 }

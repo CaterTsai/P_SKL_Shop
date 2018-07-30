@@ -14,6 +14,7 @@ public class cityDisplayData
     public int gender { get; set; }
     public int group { get; set; }
     public int rank { get; set; }
+    public int score { get; set; }
 
     public cityDisplayData()
     {
