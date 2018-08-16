@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-public partial class s_labApi : System.Web.UI.Page
+public partial class labApi : System.Web.UI.Page
 {
     private dbMgrLab _dbMgr = new dbMgrLab();
 
@@ -364,7 +364,7 @@ public partial class s_labApi : System.Web.UI.Page
             if (data != null)
             {
                 createImage(uKey, ref data, ref imgData);
-                createSharePage(uKey, data.runTime);
+                createSharePage(uKey, data.runTime, data.carType);
             }
             else
             {
@@ -408,11 +408,11 @@ public partial class s_labApi : System.Web.UI.Page
         bytes = null;
     }
 
-    private void createSharePage(string uKey, float second)
+    private void createSharePage(string uKey, float second, int carType)
     {
         string imgUrl, title, desc, shareUrl;
         imgUrl = parameter._serverUrl + "s/shareImg/" + uKey + ".jpg";
-        shareUrl = parameter._websiteUrl;
+        shareUrl = parameter._videoUrl + carType.ToString();
         title = "";
         desc = "";
         for (int i = 0; i < parameter._shareLevel.Count(); i++)

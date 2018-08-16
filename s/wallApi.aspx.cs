@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-public partial class s_wallApi : System.Web.UI.Page
+public partial class wallApi : System.Web.UI.Page
 {
-    private dbMgr _dbMgr = new dbMgr();
+    private dbMgrWall _dbMgr = new dbMgrWall();
     protected void Page_Load(object sender, EventArgs e)
     {
         _dbMgr.connDB();

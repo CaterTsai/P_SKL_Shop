@@ -12,7 +12,7 @@ using System.IO;
 
 public partial class backstage : System.Web.UI.Page
 {
-    private dbMgrLab _dbMgr = new dbMgrLab();
+    private dbMgr _dbMgr = new dbMgr();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -112,6 +112,31 @@ public partial class backstage : System.Web.UI.Page
                     configData config = new configData();
                     config.id = configData.ConfigMap["RunResetT"];
                     config.value_1 = Convert.ToInt32(Request["RunResetT"]);
+
+                    _dbMgr.updateConfigData(config);
+                    rep.result = true;
+                    break;
+                }
+            case "getBoxType":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_1;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBoxType":
+                {
+                    configData config = new configData();
+                    config.id = configData.ConfigMap["RunBoxType"];
+                    config.value_1 = Convert.ToInt32(Request["BoxType"]);
 
                     _dbMgr.updateConfigData(config);
                     rep.result = true;

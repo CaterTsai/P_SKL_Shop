@@ -95,17 +95,17 @@ function toSClearCity() {
 
 function toSGetRunResetTime() {
     $.post(
-    "../s/backstage.aspx",
-    {
-        active: "getLabRunRestTime"
-    },
-    'json'
-).done(
-    function (data) {
-        var result = JSON.parse(data);
-        $("#labRunResetT").val(result["data"]);
-    }
-)
+        "../s/backstage.aspx",
+        {
+            active: "getLabRunRestTime"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#labRunResetT").val(result["data"]);
+        }
+    )
 }
 
 function toSUpdateRunResetTime() {
@@ -116,6 +116,38 @@ function toSUpdateRunResetTime() {
         {
             active: "updateRunRestTime",
             RunResetT: newTime
+        },
+        'json'
+    ).done(
+        function (data) {
+            alert("更新成功");
+        }
+    )
+}
+
+function toSGetBoxType() {
+    $.post(
+        "../s/backstage.aspx",
+        {
+            active: "getBoxType"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#labRunBoxType").val(result["data"]);
+        }
+    )
+}
+
+function toSUpdateBoxType() {
+    var boxType = $("#labRunBoxType").val();
+
+    $.post(
+        "../s/backstage.aspx",
+        {
+            active: "updateBoxType",
+            BoxType: boxType
         },
         'json'
     ).done(
@@ -146,10 +178,15 @@ function onBtnUpdateLabRunReset() {
     toSUpdateRunResetTime();
 }
 
+function onBtnUpdateLabBoxType() {
+    toSUpdateBoxType();
+
+}
 //------------------------------------
 window.onload
 {
     toSGetShareMsg();
     toSGetAutoClearDay();
     toSGetRunResetTime();
+    toSGetBoxType();
 }

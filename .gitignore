@@ -12,7 +12,7 @@ Bin/
 assets/
 s/share/
 s/shareImg/
-.config
+*.config
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

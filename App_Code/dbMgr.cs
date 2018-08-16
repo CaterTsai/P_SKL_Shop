@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 /// <summary>
 /// dbMgr 的摘要描述
 /// </summary>
-public class dbMgrLab
+public class dbMgr
 {
     private SqlConnection _sqlConn = null;
     private List<int> _runDefaultRank = new List<int>(new int[] {
@@ -24,7 +24,7 @@ public class dbMgrLab
         ,100
         }
     );
-    public dbMgrLab()
+    public dbMgr()
     {
     }
 
@@ -40,6 +40,30 @@ public class dbMgrLab
     }
 
     #region Add
+    public void addWallLog(int type)
+    {
+        using (SqlCommand cmd = new SqlCommand("addWallData", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.TinyInt).Value = type;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     public void addRunData(string guid)
     {
         using (SqlCommand cmd = new SqlCommand("addRunData", _sqlConn))
