@@ -12,7 +12,7 @@ var _gIsMobile = false;
 function toSCreateMobileData() {
     if (_gGuid != "") {
         $.post(
-        "s/backstage.aspx",
+        "s/labApi.aspx",
         {
             active: "addMobileData"
             , guid: _gGuid
@@ -30,7 +30,7 @@ function toSCreateCityData() {
     _nickName = $('#nickInput').val();
 
     $.post(
-        "s/backstage.aspx",
+        "s/labApi.aspx",
         {
             active: "addCityData"
             , guid: _gGuid
@@ -52,7 +52,7 @@ function toSUpdateUserData() {
     var jsonData = JSON.stringify(mobileData);
     console.log(jsonData);
     $.post(
-        "s/backstage.aspx",
+        "s/labApi.aspx",
         {
             active: "updateMobileData"
             , guid: _gGuid
@@ -68,7 +68,7 @@ function toSUpdateUserData() {
 
 function toSGetShareMsg() {
     $.post(
-        "s/backstage.aspx",
+        "s/labApi.aspx",
         {
             active: "getShareMsg"
         },
@@ -90,7 +90,7 @@ function toSShare(shareTo, callback) {
     imgData = imgData.split(',')[1];
 
     $.post(
-        "s/backstage.aspx",
+        "s/labApi.aspx",
         {
             active: "getShareUrl"
             , guid: _gGuid

@@ -25,7 +25,8 @@ public class configData
         { "MobileMsg", 1},
         { "AutoClearDay", 2},
         { "RunResetT", 3},
-        { "RunBoxType", 4}
+        { "RunBoxType", 4},
+        { "RunStartT", 5}
     };
 }
 

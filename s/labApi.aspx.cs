@@ -157,10 +157,11 @@ public partial class labApi : System.Web.UI.Page
                 {
                     configData runResetT = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"]);
                     configData boxType = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
+                    configData runStartT = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"]);
                     runSetting setting = new runSetting();
                     setting.resetSecond = runResetT.value_1;
                     setting.boxType = boxType.value_1;
-
+                    setting.startSecond = runStartT.value_1;
                     rep.result = true;
                     rep.data = setting;
                     break;
@@ -364,7 +365,7 @@ public partial class labApi : System.Web.UI.Page
             if (data != null)
             {
                 createImage(uKey, ref data, ref imgData);
-                createSharePage(uKey, data.runTime, data.carType);
+                createSharePage(uKey, data.runTime, data.carType - 1); //TODO
             }
             else
             {

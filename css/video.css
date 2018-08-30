@@ -23,7 +23,7 @@ html, body {
 }
 
 div.noSroll {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .wrapper {

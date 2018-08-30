@@ -117,8 +117,9 @@ public class dbMgrBar
                             barData c = new barData();
                             c.nickName = data["nickName"].ToString();
                             c.nickName = c.nickName.Replace(" ", string.Empty);
-                            c.ans1 = data["ans1"].ToString();
-                            c.ans1 = c.ans1.Replace(" ", string.Empty);
+
+                            DateTime date = DateTime.Parse(data["ans1"].ToString());
+                            c.ans1 = date.ToString("yyyy-MM-dd");
                             c.ans2 = Convert.ToInt32(data["ans2"]);
                             c.ans3 = Convert.ToInt32(data["ans3"]);
                             c.ans4 = Convert.ToInt32(data["ans4"]);

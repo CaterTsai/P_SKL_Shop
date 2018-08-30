@@ -495,7 +495,9 @@ public class dbMgrLab
                         rData.specialItem = Convert.ToInt32(data["specialItem"]);
                         rData.umbrella = Convert.ToInt32(data["umbrella"]);
                         rData.runTime = (float)Convert.ToDouble(data["runTime"]);
-						rData.score = rData.coin * 10 + rData.dist; //TODO
+                        rData.carType = Convert.ToInt32(data["carType"]); //TODO;
+
+                        rData.score = rData.coin * 10 + rData.dist; //TODO
                     }
                     else
                     {

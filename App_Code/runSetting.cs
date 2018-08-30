@@ -10,9 +10,11 @@ public class runSetting
 {
     public int resetSecond { get; set; }
     public int boxType { get; set; }
+    public int startSecond { get; set; }
     public runSetting()
     {
         resetSecond = 20;
         boxType = 1;
+        startSecond = 5;
     }
 }
