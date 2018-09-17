@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class barData
 {
+    public string guid { get; set; }
     public string nickName { get; set; }
     public string ans1 { get; set; }
     public int ans2 { get; set; }

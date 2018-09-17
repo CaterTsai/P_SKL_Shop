@@ -26,7 +26,8 @@ public class configData
         { "AutoClearDay", 2},
         { "RunResetT", 3},
         { "RunBoxType", 4},
-        { "RunStartT", 5}
+        { "RunStartT", 5},
+        { "BarQRShowT", 6}
     };
 }
 

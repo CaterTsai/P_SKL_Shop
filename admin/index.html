@@ -12,34 +12,50 @@
 
     <div class="container">
         <div class="block">
-            <button class="ctrl" onclick="onBtnClearRun()">重製Lab Run排行榜</button><br />
+            <button class="ctrl" onclick="onBtnClearRun()">重置Lab Run排行榜</button><br />
         </div>
-        
+        <hr />
         <div class="block">
-            <button class="ctrl" onclick="onBtnClearCity()">重製Lab City顯示</button><br />
+            <button class="ctrl" onclick="onBtnClearCity()">重置Lab City顯示</button><br />
         </div>
         
+        <hr />
         <div class="block">
             <label for="autoClearDay">自動重置時間(日)</label><br />
             <input id="autoClearDay" type="number" min="1" max="120" /><br />
             <button class="update" onclick="onBtnUpdateAutoClearDay()">Update</button>
         </div>
-
+        <hr />
         <div class="block">
             <label for="shareMsg">分享顯示文字</label><br />
             <input id="shareMsg" type="text" maxlength="40"/><br />
             <button class="update" onclick="onBtnUpdateShareMsg()">Update</button>
         </div>
-
+        <hr />
         <div class="block">
-            <label for="labRunResetT">Lab Run返回時間</label><br />
+            <label for="labRunStartT">Lab Run遊戲Start鍵啟動時間(秒)</label><br />
+            <input id="labRunStartT" type="number" min="1" max="120" /><br />
+            <button class="update" onclick="onBtnUpdateLabRunStart()">Update</button>
+        </div>
+        <hr />
+        <div class="block">
+            <label for="labRunResetT">Lab Run結束，QR Code頁倒數返回時間(秒)</label><br />
             <input id="labRunResetT" type="number" min="1" max="120" /><br />
             <button class="update" onclick="onBtnUpdateLabRunReset()">Update</button>
         </div>
-
+        <hr />
         <div class="block">
-            <label for="labRunResetT">寶箱種類(0:預設)</label><br />
-            <input id="labRunBoxType" type="number" min="0" max="6" /><br />
+            <label for="labRunBoxType">寶箱種類</label><br />
+            <select id="labRunBoxType">
+                <option value="0" >預設</option>
+                <option value="1">新年</option>
+                <option value="2">中元節</option>
+                <option value="3">情人節</option>
+                <option value="4">農曆新年</option>
+                <option value="5">聖誕節</option>
+                <option value="6">萬聖節</option>
+            </select>
+            <br />
             <button class="update" onclick="onBtnUpdateLabBoxType()">Update</button>
         </div>
     </div>

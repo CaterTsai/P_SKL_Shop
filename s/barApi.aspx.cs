@@ -62,6 +62,15 @@ public partial class barApi : System.Web.UI.Page
                     //TODO
                     //Update DB State?
                 }
+            case "getBarSetting":
+                {
+                    configData barQRT = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
+                    bartenderSettingcs setting = new bartenderSettingcs();
+                    setting.qrDisplaySecond = barQRT.value_1;
+                    rep.result = true;
+                    rep.data = setting;
+                    break;
+                }
 
             //Bar
             case "getBarLiquorDisplay":

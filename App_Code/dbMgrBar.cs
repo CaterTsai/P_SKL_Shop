@@ -114,7 +114,9 @@ public class dbMgrBar
                                 break;
                             }
 
+                            
                             barData c = new barData();
+                            c.guid = data["uKey"].ToString();
                             c.nickName = data["nickName"].ToString();
                             c.nickName = c.nickName.Replace(" ", string.Empty);
 
@@ -181,7 +183,58 @@ public class dbMgrBar
             }
         }
     }
-    
+
+    public configData getConfigData(int id)
+    {
+
+        configData config = new configData();
+        using (SqlCommand cmd = new SqlCommand("getConfig", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = id;
+            try
+            {
+                _sqlConn.Open();
+                using (var data = cmd.ExecuteReader())
+                {
+                    if (data.HasRows)
+                    {
+                        data.Read();
+                        if (!data.IsDBNull(data.GetOrdinal("value_1")))
+                        {
+                            config.value_1 = Convert.ToInt32(data["value_1"]);
+                        }
+
+                        if (!data.IsDBNull(data.GetOrdinal("value_2")))
+                        {
+                            config.value_2 = (float)Convert.ToDouble(data["value_2"]);
+                        }
+
+                        if (!data.IsDBNull(data.GetOrdinal("value_3")))
+                        {
+                            config.value_3 = Convert.ToString(data["value_3"]);
+                            config.value_3 = config.value_3.Replace(" ", string.Empty);
+                        }
+                    }
+                    else
+                    {
+                        config = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+
+        }
+        return config;
+    }
     #endregion
-    
+
 }

@@ -1,7 +1,7 @@
 ﻿//AJAX
 function toSGetShareMsg() {
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "getShareMsg"
         },
@@ -18,7 +18,7 @@ function toSGetShareMsg() {
 function toSUpdateShareMsg() {
     var newMsg = $("#shareMsg").val();
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "updateShareMsg",
             msg: newMsg
@@ -34,7 +34,7 @@ function toSUpdateShareMsg() {
 
 function toSGetAutoClearDay() {
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "getAutoClearDay"
         },
@@ -52,7 +52,7 @@ function toSUpdateAutoClearDay() {
     var newDay = $("#autoClearDay").val();
 
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "updateAutoClearDay",
             day: newDay
@@ -67,7 +67,7 @@ function toSUpdateAutoClearDay() {
 
 function toSClearRun() {
     $.post(
-    "../s/backstage.aspx",
+    "../s/labApi.aspx",
     {
         active: "clearRun"
     },
@@ -81,7 +81,7 @@ function toSClearRun() {
 
 function toSClearCity() {
     $.post(
-    "../s/backstage.aspx",
+    "../s/labApi.aspx",
     {
         active: "clearCity"
     },
@@ -93,9 +93,41 @@ function toSClearCity() {
     )
 }
 
+function toSGetRunStartTime() {
+    $.post(
+        "../s/labApi.aspx",
+        {
+            active: "getLabRunStartTime"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#labRunStartT").val(result["data"]);
+        }
+    )
+}
+
+function toSUpdateRunStartTime() {
+    var newTime = $("#labRunStartT").val();
+
+    $.post(
+        "../s/labApi.aspx",
+        {
+            active: "updateRunStartTime",
+            RunStartT: newTime
+        },
+        'json'
+    ).done(
+        function (data) {
+            alert("更新成功");
+        }
+    )
+}
+
 function toSGetRunResetTime() {
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "getLabRunRestTime"
         },
@@ -112,7 +144,7 @@ function toSUpdateRunResetTime() {
     var newTime = $("#labRunResetT").val();
 
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "updateRunRestTime",
             RunResetT: newTime
@@ -127,7 +159,7 @@ function toSUpdateRunResetTime() {
 
 function toSGetBoxType() {
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "getBoxType"
         },
@@ -135,7 +167,7 @@ function toSGetBoxType() {
     ).done(
         function (data) {
             var result = JSON.parse(data);
-            $("#labRunBoxType").val(result["data"]);
+            $("#labRunBoxType")[0].selectedIndex = result["data"];
         }
     )
 }
@@ -144,7 +176,7 @@ function toSUpdateBoxType() {
     var boxType = $("#labRunBoxType").val();
 
     $.post(
-        "../s/backstage.aspx",
+        "../s/labApi.aspx",
         {
             active: "updateBoxType",
             BoxType: boxType
@@ -174,6 +206,10 @@ function onBtnUpdateAutoClearDay() {
     toSUpdateAutoClearDay();
 }
 
+function onBtnUpdateLabRunStart() {
+    toSUpdateRunStartTime();
+}
+
 function onBtnUpdateLabRunReset() {
     toSUpdateRunResetTime();
 }
@@ -187,6 +223,7 @@ window.onload
 {
     toSGetShareMsg();
     toSGetAutoClearDay();
+    toSGetRunStartTime();
     toSGetRunResetTime();
     toSGetBoxType();
 }

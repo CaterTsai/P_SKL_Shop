@@ -89,6 +89,31 @@ public partial class labApi : System.Web.UI.Page
                     rep.result = true;
                     break;
                 }
+            case "getLabRunStartTime":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_1;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateRunStartTime":
+                {
+                    configData config = new configData();
+                    config.id = configData.ConfigMap["RunStartT"];
+                    config.value_1 = Convert.ToInt32(Request["RunStartT"]);
+
+                    _dbMgr.updateConfigData(config);
+                    rep.result = true;
+                    break;
+                }
             case "getLabRunRestTime":
                 {
                     var config = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"]);
@@ -109,6 +134,31 @@ public partial class labApi : System.Web.UI.Page
                     configData config = new configData();
                     config.id = configData.ConfigMap["RunResetT"];
                     config.value_1 = Convert.ToInt32(Request["RunResetT"]);
+
+                    _dbMgr.updateConfigData(config);
+                    rep.result = true;
+                    break;
+                }
+            case "getBoxType":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_1;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBoxType":
+                {
+                    configData config = new configData();
+                    config.id = configData.ConfigMap["RunBoxType"];
+                    config.value_1 = Convert.ToInt32(Request["BoxType"]);
 
                     _dbMgr.updateConfigData(config);
                     rep.result = true;
@@ -382,6 +432,7 @@ public partial class labApi : System.Web.UI.Page
         m.Position = 0;
 
         Bitmap bg = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/assets/mobile_image_fb.png"));
+        Bitmap button = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/assets/btnPlay.png"));
         Bitmap c = (Bitmap)Bitmap.FromStream(m);
 
         Font font1 = new Font("華康儷粗黑", 44, FontStyle.Bold);
@@ -397,7 +448,9 @@ public partial class labApi : System.Web.UI.Page
             gfx.DrawString(data.umbrella.ToString("0000"), font2, brush, new PointF(137, 406));
             gfx.DrawString(data.coin.ToString("0000"), font2, brush, new PointF(137, 480));
 
+            
             gfx.DrawImage(c, 498, 77, 204, 553);
+            gfx.DrawImage(button, 490, 253, 220, 220);
         }
 
         var path = Server.MapPath("~/s/shareImg/" + uKey + ".jpg");
