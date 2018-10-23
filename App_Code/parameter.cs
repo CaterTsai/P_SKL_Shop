@@ -10,11 +10,8 @@ public class parameter
 {
     public parameter()
     {
-        //
-        // TODO: 在這裡新增建構函式邏輯
-        //
     }
-    public static string _serverUrl = "http://192.168.1.141/";
+    public static string _serverUrl = "http://192.168.1.120/";
     //public static string _serverUrl = "https://skllifelab.skl.com.tw/";
     public static string _websiteUrl = "https://lifelab.skl.com.tw/";
     public static string _videoUrl = _serverUrl + "video.html?vType=";
@@ -29,11 +26,11 @@ public class parameter
     );
 
     public static List<string> _shareTitle = new List<string>(new string[] {
-        "我不想人生還沒開始就結束！",
-        "生無可戀？好險人生可以砍掉重練！",
-        "普通的分數、普通的人生、普通的我。",
-        "遊戲有終點，人生卻只能拼命為鐘點！",
-        "人生沒有滿分，最適合的人生要自己生！"
+        "一開始就結束也沒關係，來吧我們安慰你！",
+        "努力過後我才發現，好險可以砍掉重練！",
+        "為什麼我總是感覺自己特別普通？可能因為你確實比較普通吧",
+        "遊戲結束可以重來，人生呢？讓專業的來！",
+        "跑得高分有實力，滿分人生靠設計"
         }
     );
 

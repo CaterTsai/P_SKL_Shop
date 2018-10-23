@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web.Security.AntiXss;
 
 public partial class labApi : System.Web.UI.Page
 {
@@ -22,10 +23,30 @@ public partial class labApi : System.Web.UI.Page
     {
         var active = Request["active"];
         response rep = new response();
+        
         rep.active = active;
         switch (active)
         {
             //admin
+            case "login":
+                {
+                    var sysID = System.Web.Configuration.WebConfigurationManager.AppSettings["adminID"];
+                    var sysPW = System.Web.Configuration.WebConfigurationManager.AppSettings["adminPW"];
+                    var ID = Request["id"];
+                    var PW = Request["pw"];
+
+                    if(ID == sysID && PW == sysPW)
+                    {
+                        rep.result = true;
+                        rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.data = sysID;
+                    }
+                    break;
+                }
             case "getShareMsg":
                 {
                     var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"]);
@@ -44,12 +65,20 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "updateShareMsg":
                 {
-                    configData config = new configData();
-                    config.id = configData.ConfigMap["MobileMsg"];
-                    config.value_3 = Request["msg"];
+                    if(checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["MobileMsg"];
+                        config.value_3 = Request["msg"];
 
-                    _dbMgr.updateConfigData(config);
-                    rep.result = true;
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = true;
+                    }
+                    
                     break;
                 }
             case "getAutoClearDay":
@@ -69,24 +98,46 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "updateAutoClearDay":
                 {
-                    configData config = new configData();
-                    config.id = configData.ConfigMap["AutoClearDay"];
-                    config.value_1 = Convert.ToInt32(Request["day"]);
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["AutoClearDay"];
+                        config.value_1 = Convert.ToInt32(Request["day"]);
 
-                    _dbMgr.updateConfigData(config);
-                    rep.result = true;
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             case "clearRun":
                 {
-                    _dbMgr.clearRun();
-                    rep.result = true;
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        _dbMgr.clearRun();
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                        
                     break;
                 }
             case "clearCity":
                 {
-                    _dbMgr.clearCity();
-                    rep.result = true;
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        _dbMgr.clearCity();
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             case "getLabRunStartTime":
@@ -106,12 +157,19 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "updateRunStartTime":
                 {
-                    configData config = new configData();
-                    config.id = configData.ConfigMap["RunStartT"];
-                    config.value_1 = Convert.ToInt32(Request["RunStartT"]);
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["RunStartT"];
+                        config.value_1 = Convert.ToInt32(Request["RunStartT"]);
 
-                    _dbMgr.updateConfigData(config);
-                    rep.result = true;
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             case "getLabRunRestTime":
@@ -131,12 +189,19 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "updateRunRestTime":
                 {
-                    configData config = new configData();
-                    config.id = configData.ConfigMap["RunResetT"];
-                    config.value_1 = Convert.ToInt32(Request["RunResetT"]);
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["RunResetT"];
+                        config.value_1 = Convert.ToInt32(Request["RunResetT"]);
 
-                    _dbMgr.updateConfigData(config);
-                    rep.result = true;
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }                    
                     break;
                 }
             case "getBoxType":
@@ -156,12 +221,20 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "updateBoxType":
                 {
-                    configData config = new configData();
-                    config.id = configData.ConfigMap["RunBoxType"];
-                    config.value_1 = Convert.ToInt32(Request["BoxType"]);
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["RunBoxType"];
+                        config.value_1 = Convert.ToInt32(Request["BoxType"]);
 
-                    _dbMgr.updateConfigData(config);
-                    rep.result = true;
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                        break;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             //Lab Run
@@ -374,6 +447,12 @@ public partial class labApi : System.Web.UI.Page
         }
         var repJson = JsonConvert.SerializeObject(rep);
         Response.Write(repJson);
+    }
+
+    private bool checkAdminKey(string key)
+    {
+        var syskey = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
+        return key == syskey;
     }
 
     private string getShortGUID()

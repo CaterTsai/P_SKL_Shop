@@ -1,4 +1,37 @@
-﻿//AJAX
+﻿var adminKey = "";
+
+//AJAX
+function toSLogin() {
+    var adminID = $("#ID").val();
+    var adminPW = $("#PW").val();
+    $.post(
+        "../s/labApi.aspx",
+        {
+            active: "login",
+            id: adminID,
+            pw: adminPW
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            
+            if(result["result"])   
+            {
+                adminKey = result["data"];
+                alert("登入成功");
+                document.getElementById("login").style.display = "none";
+                document.getElementById("ctrlPlane").style.display = "block";
+                loadData();
+            }
+            else
+            {
+                alert("帳號或密碼錯誤");
+            }
+        }
+    )
+}
+
 function toSGetShareMsg() {
     $.post(
         "../s/labApi.aspx",
@@ -21,13 +54,19 @@ function toSUpdateShareMsg() {
         "../s/labApi.aspx",
         {
             active: "updateShareMsg",
+            key:adminKey,
             msg: newMsg
         },
         'json'
     ).done(
         function (data) {
-            alert("更新成功");
-
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
         }
     )
 }
@@ -42,7 +81,6 @@ function toSGetAutoClearDay() {
     ).done(
         function (data) {
             var result = JSON.parse(data);
-            console.log(result["data"]);
             $("#autoClearDay").val(result["data"]);
         }
     )
@@ -55,12 +93,19 @@ function toSUpdateAutoClearDay() {
         "../s/labApi.aspx",
         {
             active: "updateAutoClearDay",
+            key: adminKey,
             day: newDay
         },
         'json'
     ).done(
         function (data) {
-            alert("更新成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
         }
     )
 }
@@ -69,12 +114,19 @@ function toSClearRun() {
     $.post(
     "../s/labApi.aspx",
     {
-        active: "clearRun"
+        active: "clearRun",
+        key: adminKey
     },
     'json'
     ).done(
         function (data) {
-            alert("清除Run資料成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("清除Run資料成功");
+            }
+            else {
+                alert("清除Run資料失敗");
+            }
         }
     )
 }
@@ -83,12 +135,19 @@ function toSClearCity() {
     $.post(
     "../s/labApi.aspx",
     {
-        active: "clearCity"
+        active: "clearCity",
+        key: adminKey
     },
     'json'
     ).done(
         function (data) {
-            alert("清除City資料成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("清除City資料成功");
+            }
+            else {
+                alert("清除City資料失敗");
+            }
         }
     )
 }
@@ -115,12 +174,19 @@ function toSUpdateRunStartTime() {
         "../s/labApi.aspx",
         {
             active: "updateRunStartTime",
+            key: adminKey,
             RunStartT: newTime
         },
         'json'
     ).done(
         function (data) {
-            alert("更新成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
         }
     )
 }
@@ -147,12 +213,19 @@ function toSUpdateRunResetTime() {
         "../s/labApi.aspx",
         {
             active: "updateRunRestTime",
+            key: adminKey,
             RunResetT: newTime
         },
         'json'
     ).done(
         function (data) {
-            alert("更新成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
         }
     )
 }
@@ -179,51 +252,102 @@ function toSUpdateBoxType() {
         "../s/labApi.aspx",
         {
             active: "updateBoxType",
+            key: adminKey,
             BoxType: boxType
         },
         'json'
     ).done(
         function (data) {
-            alert("更新成功");
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
         }
     )
 }
 
 //------------------------------------
 function onBtnClearRun() {
-    toSClearRun();
+    if (adminKey != "") {
+        toSClearRun();
+    }
+    else {
+        alert("請先登入");
+    }
 }
 
 function onBtnClearCity() {
-    toSClearCity();
+    if (adminKey != "") {
+        toSClearCity();
+    }
+    else {
+        alert("請先登入");
+    }
 }
 
 function onBtnUpdateShareMsg() {
-    toSUpdateShareMsg();
+    if (adminKey != "") {
+        toSUpdateShareMsg();
+    }
+    else {
+        alert("請先登入");
+    }
 }
 
 function onBtnUpdateAutoClearDay() {
-    toSUpdateAutoClearDay();
+    if (adminKey != "") {
+        toSUpdateAutoClearDay();
+    }
+    else {
+        alert("請先登入");
+    }
 }
 
 function onBtnUpdateLabRunStart() {
-    toSUpdateRunStartTime();
+    if (adminKey != "") {
+        toSUpdateRunStartTime();
+    }
+    else {
+        alert("請先登入");
+    }
 }
 
 function onBtnUpdateLabRunReset() {
-    toSUpdateRunResetTime();
+    if (adminKey != "") {
+        toSUpdateRunResetTime();
+    }
+    else {
+        alert("請先登入");
+    }    
 }
 
 function onBtnUpdateLabBoxType() {
-    toSUpdateBoxType();
-
+    if (adminKey != "")
+    {
+        toSUpdateBoxType();
+    }
+    else
+    {
+        alert("請先登入");
+    }
 }
-//------------------------------------
-window.onload
-{
+
+function onBtnLogin() {
+    toSLogin();
+}
+
+function loadData() {
     toSGetShareMsg();
     toSGetAutoClearDay();
     toSGetRunStartTime();
     toSGetRunResetTime();
     toSGetBoxType();
+}
+//------------------------------------
+window.onload
+{
+
 }
