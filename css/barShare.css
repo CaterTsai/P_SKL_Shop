@@ -1,0 +1,261 @@
+﻿@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+a, label, p, input{
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight:200;
+}
+
+a{
+    color:#00baff;
+}
+
+
+.noselect {
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+	                    supported by Chrome and Opera */
+}
+
+.buttonImg {
+    cursor: pointer;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.centerWrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.XcenterWrapper {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+.YcenterWrapper {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.fullWrapper {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%; /*for mozilla*/
+}
+
+/*========================================*/
+div.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow-x:hidden;
+    background-color:rgb(10,10,10);
+}
+
+div.warpBG{
+    position: absolute;
+    width: calc(9/16 * 100vh);
+    max-width:100vw;
+    height: 100vh;
+}
+
+div.textDiv{
+    position:absolute;
+    width:calc(9/16 * 100vh * 0.8);
+    max-width:80vw;
+    height:17vh;
+    max-height:calc(0.4 * 80vw);
+    bottom:calc(0.4 * 80vw * 0.25);
+    
+}
+
+div.touchAreaDiv{
+    position:absolute;
+    right:0;
+    width:50%;
+    height:100%;
+}
+
+div.nameDiv{
+    width:80%;
+    height:40%;
+}
+
+div.fbDiv{
+    width:100%;
+    height:60%;
+}
+
+div.leftTextDiv{
+    position:absolute;
+
+    left:0;
+    width:70%;
+    height:100%;
+}
+
+div.rightBtnDiv{
+    position:absolute;
+
+    right:0;
+    width:30%;
+    height:100%;
+    text-align:center;
+}
+
+div.dataInputDiv
+{
+    width:90%;
+    height:30%;
+    margin-top:2px;
+}
+
+div.leftDataDiv
+{
+    position:absolute;
+    left:0;
+    width:50%;
+    height:30%;
+    text-align:center;
+}
+
+div.rightDataDiv {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height:30%;
+    text-align: center;
+}
+
+div.textCenter{
+    text-align: center;
+}
+
+img.background {
+    height: 100%;
+}
+
+img.table{
+    position:absolute;
+    bottom:0px;
+    width:100%;
+}
+
+img.light{
+    position:absolute;
+    width: 100%;
+    bottom:calc(0.62 * 100vw * 0.92);
+}
+
+img.liquor{
+    position:absolute;
+    width: 80%;
+    bottom:calc(0.62 * 100vw * 0.9);
+}
+
+img.btnSend{
+    position:absolute;
+    width:100%;
+}
+
+img.fbShareBtn{
+    width:80%;
+}
+
+img.dr{
+    position:absolute;
+    width:100%;
+    bottom:0;
+}
+
+img.bottle{
+    width:90%;
+    bottom:calc(0.62 * 100vw * 0.92);
+}
+
+img.lotteryBtn{
+    height:25%;
+    bottom:0;
+}
+
+input[type=text].inputNickName{
+    position:absolute;
+    background: transparent;
+    border: none;
+    font-size:1.5vh;
+    color:#fecf8d;
+    margin-left:5px;
+    width:50%;
+}
+
+input[type=text].dataInput{
+    width:80%;
+    border: none;
+    background: rgba(0, 0, 0, 100);
+    color:#fecf8d;
+    font-size:calc(0.4 * 80vw * 0.13);
+    padding: 2px 0px 2px 5px;
+}
+
+input[type=text].dataInput::placeholder {
+    color:#fecf8d;
+}
+
+
+label.basic, p.basic{
+    color:#fecf8d;
+    letter-spacing:2.5px;
+    transform: scale(1,1.25);
+}
+
+p.title{
+    text-align:center;
+    font-size:calc(0.4 * 80vw * 0.135);
+}
+
+label.titleSmall, p.titleSmall{
+    text-align:center;
+    font-size:calc(0.4 * 80vw * 0.13);
+}
+
+p.content{    
+    font-size:calc(0.4 * 80vw * 0.1);
+    line-height:100%;
+}
+
+p.pTitleShare{
+    margin-top:0px;
+}
+
+p.pResult{
+    margin-top:4vh;
+}
+
+label.pTitleData, p.pTitleData{
+    margin-top:0px;
+    margin-bottom:0px;
+}
+

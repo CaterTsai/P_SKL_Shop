@@ -41,5 +41,10 @@ public class parameter
     //{2}:description
     //{3}:video url
     public static string _shareUrlT = "<!DOCTYPE html><html><head><title></title><meta property=\"og:image\" content=\"{0}\" /><meta property=\"og:title\" content=\"{1}\" /><meta property=\"og:description\" content=\"{2}\" /></head><body><script>window.location = \"{3}\";</script></body></html>";
-    
+
+    //{0}:image url
+    //{1}:title
+    //{2}:description
+    public static string _barShareUrlT = "<!DOCTYPE html><html><head><title></title><meta property=\"og:image\" content=\"{0}\" /><meta property=\"og:title\" content=\"{1}\" /><meta property=\"og:description\" content=\"{2}\" /></head><body><script>window.location = \"{3}\";</script></body></html>";
+
 }
