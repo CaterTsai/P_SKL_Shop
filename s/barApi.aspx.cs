@@ -87,10 +87,24 @@ public partial class barApi : System.Web.UI.Page
                     break;
                 }
             //Mobile
-            case "createSharePage":
+            case "setLiquorNickname":
                 {
                     var uKey = Request["guid"];
+                    var nickName = Request["nickname"];
+                    _dbMgr.setBarLiquorNickname(uKey, nickName);
                     checkShare(uKey);
+                    rep.result = true;
+                    break;
+                }
+            case "addBarMobileData":
+                {
+                    var uKey = Request["guid"];
+                    var name = Request["userName"];
+                    var phone = Request["mobile"];
+
+                    _dbMgr.addBarMobile(uKey, name, phone);
+
+                    
                     rep.result = true;
                     break;
                 }
@@ -118,13 +132,19 @@ public partial class barApi : System.Web.UI.Page
         bool result = true;
         if (!File.Exists(Server.MapPath("~/s/barShareImg/" + uKey + ".jpg")))
         {
-            createImage(uKey);
-            createSharePage(uKey);
+            barData data = _dbMgr.getBarLiquorData(uKey);
+            if(data != null)
+            {
+                string shareStr = getShareMsg(ref data);
+                createImage(uKey, shareStr);
+                createSharePage(uKey);
+            }
+            
         }
         return result;
     }
 
-    private void createImage(string uKey)
+    private void createImage(string uKey, string shareStr)
     {
 
         Bitmap bg = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/assets/bar_ShareBG.png"));
@@ -133,7 +153,7 @@ public partial class barApi : System.Web.UI.Page
         
         SolidBrush brush = new SolidBrush(Color.White);
         RectangleF rect = new RectangleF(412, 123, 714, 332);
-        string shareStr = "正經歷創業維艱的你，天生獨立自主又有著甜蜜濃郁的Life Style。你的白日夢冒險將會在美國西岸展開，享受加州陽光與葡萄酒，看幾部西部冒險電影，還會與好萊塢明星來場豔遇。";
+        
         using (Graphics gfx = Graphics.FromImage(bg))
         {
 
@@ -153,8 +173,8 @@ public partial class barApi : System.Web.UI.Page
     {
         string imgUrl, title, desc, shareUrl;
         imgUrl = parameter._serverUrl + "s/barShareImg/" + uKey + ".jpg";
-        title = "";
-        desc = "";
+        title = parameter._barShareTitle;
+        desc = parameter._barShareDesc;
         shareUrl = parameter._websiteUrl;
         string sharePage = String.Format(parameter._shareUrlT, imgUrl, title, desc, shareUrl);
 
@@ -167,5 +187,40 @@ public partial class barApi : System.Web.UI.Page
                 sw.WriteLine(sharePage);
             }
         }
+    }
+
+    private string getShareMsg(ref barData data)
+    {
+        string shareMsg = "";
+        if (data.ans2 == 0 || data.ans3 == 0 || data.ans4 == 0 || data.ans5 == 0)
+        {
+            string lifeNumberText = parameter._barAns1[0];
+            string foodText = parameter._barAns2[0];
+            string lifeStateText = parameter._barAns3[0];
+            string retireText = parameter._barAns5[0];
+            shareMsg = String.Format(parameter._barShareMsgT, lifeStateText, lifeNumberText, foodText, retireText);
+        }
+        else
+        {
+            int lifeNumber = getLifeNum(data.ans1);
+            string lifeNumberText = parameter._barAns1[lifeNumber - 1];
+            string foodText = parameter._barAns2[data.ans2 - 1];
+            string lifeStateText = parameter._barAns3[data.ans3 - 1];
+            string retireText = parameter._barAns5[data.ans5 - 1];
+            shareMsg = String.Format(parameter._barShareMsgT, lifeStateText, lifeNumberText, foodText, retireText);
+        }
+        return shareMsg;
+    }
+
+    private int getLifeNum(string birth)
+    {
+        DateTime date = DateTime.Parse(birth);
+        
+        int SpiritNumber = (date.Year / 1000) + ((date.Year / 100) % 10) + ((date.Year / 10) % 10) + (date.Year % 10) + (date.Month / 10) + (date.Month % 10) + (date.Day / 10) + (date.Day % 10);
+        while (SpiritNumber >= 10)
+        {
+            SpiritNumber = (SpiritNumber / 10) + (SpiritNumber % 10);
+        }
+        return SpiritNumber;
     }
 }

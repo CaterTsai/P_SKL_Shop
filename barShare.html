@@ -17,12 +17,12 @@
     <div class="content">
         <img class="background XcenterWrapper" src="assets/barPage/bg.jpg" />
 
-        <div class="warpBG XcenterWrapper" id="barDiv">
+        <div class="warpBG XcenterWrapper" id="barDiv" style="display:none;">
             <img class="table" src="assets/barPage/table.jpg" />
             <img class="light XcenterWrapper" src="assets/barPage/light.png" />
-            <img class="liquor XcenterWrapper" src="assets/barPage/test.png" />
+            <img id="liquor" class="liquor XcenterWrapper" src="assets/barPage/test.png" />
             <div id="sendDiv" class="textDiv XcenterWrapper" >
-                <p class="basic title">請為你的特調取個響亮亮的名稱吧！</p>
+                <p class="basic title">請為你的人生特調取個響亮亮的名字吧！</p>
                 <div class="nameDiv XcenterWrapper">
                     <img class="btnSend centerWrapper" src="assets/barPage/btnSend.png" />
                     <input id="nickName" class="inputNickName YcenterWrapper" type="text" maxlength="7" placeholder="特調暱稱" />
@@ -30,10 +30,10 @@
                 </div>
             </div>
             <div id="shareDiv" class="textDiv XcenterWrapper" style="display:none">
-                <p class="basic title pTitleShare">特調已送至後方展架！</p>
+                <p class="basic title pTitleShare">特調已送至後方展架陳列！</p>
                 <div class="fbDiv">
-                    <div class="leftTextDiv" onclick="onBtnTest()">
-                        <p class="basic content">快分享到Facebook，看看Dr. Robot分析你的白日夢冒險會在哪裡展開！</p>
+                    <div class="leftTextDiv">
+                        <p class="basic content">快分享到FB，看看你的白日夢冒險會在哪裡展開！</p>
                     </div>
                     <div class="rightBtnDiv">
                         <img class="fbShareBtn" onclick="onBtnShare()" src="assets/barPage/btnFB.png" />
@@ -48,12 +48,12 @@
             <img class="bottle XcenterWrapper" src="assets/barPage/bottle.png" />
 
             <div id="dataDiv" class="textDiv textCenter XcenterWrapper">
-                <p class="basic titleSmall pTitleData">快留下資料參加抽獎！</p>
+                <p class="basic titleSmall pTitleData">留下資料參加抽獎！</p>
                 <input type="checkbox" id="datacheck">
-                <label for="datacheck" class="basic titleSmall pTitleData">我已同意<a href="#">個人資料告知事項</a></label>
+                <label for="datacheck" class="basic titleSmall pTitleData">我同意<a href="#">個人資料告知事項</a></label>
                 <div class="dataInputDiv">
                     <div class="leftDataDiv">
-                        <input class="dataInput centerWrapper" id="nameData" type="text" placeholder="姓名" maxlength="5"/>
+                        <input class="dataInput centerWrapper" id="nameData" type="text" placeholder="姓名" maxlength="10"/>
                     </div>
                     <div class="rightDataDiv">
                         <input class="dataInput centerWrapper" id="mobileData" type="text" placeholder="電話" maxlength="10" />

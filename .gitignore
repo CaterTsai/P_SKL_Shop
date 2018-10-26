@@ -302,3 +302,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /s/liquor
+/s/barShare
+/s/barShareImg
+/testShare.html

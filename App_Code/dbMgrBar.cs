@@ -54,7 +54,32 @@ public class dbMgrBar
         }
     }
     
-    
+    public void addBarMobile(string guid, string name, string phone)
+    {
+        using (SqlCommand cmd = new SqlCommand("addBarMobileData", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@name", SqlDbType.NChar).Value = name;
+            cmd.Parameters.Add("@phone", SqlDbType.NChar).Value = phone;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     #endregion
 
     #region Update
@@ -90,6 +115,32 @@ public class dbMgrBar
         }
     }
     
+    public void setBarLiquorNickname(string guid, string nickname)
+    {
+        using (SqlCommand cmd = new SqlCommand("setBarLiquorNickname", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@nickName", SqlDbType.NChar).Value = nickname;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
+
     #endregion
 
     #region Get
@@ -184,6 +235,50 @@ public class dbMgrBar
         }
     }
 
+    public barData getBarLiquorData(string guid)
+    {
+        using (SqlCommand cmd = new SqlCommand("getBarLiquorData", _sqlConn))
+        {
+            barData bData = new barData() ;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            try
+            {
+                _sqlConn.Open();
+                using (var data = cmd.ExecuteReader())
+                {
+                    if (data.HasRows)
+                    {
+                        data.Read();
+                        bData.nickName = data["nickName"].ToString();
+                        bData.nickName = bData.nickName.Replace(" ", string.Empty);
+                        bData.ans1 = data["ans1"].ToString();
+                        bData.ans2 = Convert.ToInt32(data["ans2"]);
+                        bData.ans3 = Convert.ToInt32(data["ans3"]);
+                        bData.ans4 = Convert.ToInt32(data["ans4"]);
+                        bData.ans5 = Convert.ToInt32(data["ans5"]);
+                    }
+                    else
+                    {
+                        bData = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+
+            return bData;
+        }
+    }
+
     public configData getConfigData(int id)
     {
 
@@ -235,6 +330,8 @@ public class dbMgrBar
         }
         return config;
     }
+
+    
     #endregion
 
 }
