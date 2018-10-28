@@ -50,7 +50,7 @@
             <div id="dataDiv" class="textDiv textCenter XcenterWrapper">
                 <p class="basic titleSmall pTitleData">留下資料參加抽獎！</p>
                 <input type="checkbox" id="datacheck">
-                <label for="datacheck" class="basic titleSmall pTitleData">我同意<a href="#">個人資料告知事項</a></label>
+                <label for="datacheck" class="basic titleSmall pTitleData">我同意<a href="#" onclick="onBtnTerm()">個人資料告知事項</a></label>
                 <div class="dataInputDiv">
                     <div class="leftDataDiv">
                         <input class="dataInput centerWrapper" id="nameData" type="text" placeholder="姓名" maxlength="10"/>
@@ -66,6 +66,12 @@
                     感謝你的參與！<br>
                     人生設計所神秘大獎等著你。
                 </p>
+            </div>
+
+            <div id="termsDiv" class="termDiv centerWrapper" style="display:none;">
+                <p class="title">新光人壽保險股份有限公司蒐集處理及利用個人資料告知書</p>
+                <pre id="termText" class="term"></pre>
+                <img class="btnClose XcenterWrapper" src="assets/barPage/close.png" onclick="onBtnClose()"/>
             </div>
         </div>
     </div>

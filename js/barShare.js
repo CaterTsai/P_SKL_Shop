@@ -73,18 +73,34 @@ function onBtnLottery()
 {
     var userName = $("#nameData").val();
     var mobile = $("#mobileData").val();
-
-    if (userName.length > 0 && mobile.length > 0)
+    var term = $("#datacheck").is(':checked');
+    if (userName.length == 0 || mobile.length == 0)
+    {   
+        alert("請先填入個人資料");
+    }
+    else if(!term)
+    {
+        alert("請勾選同意個人資料告知事項");
+    }
+    else
     {
         //toSAddBarMobileData(userName, mobile);
         $("#dataDiv").fadeOut();
         $("#resultDiv").fadeIn();
     }
-    else
-    {
-        alert("請先填入個人資料");
-    }
     
+}
+
+//------------------------------
+function onBtnTerm()
+{
+    $("#termsDiv").show();
+}
+
+//------------------------------
+function onBtnClose()
+{
+    $("#termsDiv").hide();
 }
 
 
@@ -141,7 +157,7 @@ function loadTerms() {
     $.get(
 		"assets/barPage/offerTerms.txt",
 		function (data) {
-		    $("#offerTerms").text(data);
+		    $("#termText").text(data);
 		},
 		"text"
 	);
@@ -150,4 +166,5 @@ function loadTerms() {
 window.load
 {
     getUrlParameter();
+    loadTerms();
 }
