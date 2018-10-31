@@ -50,9 +50,9 @@ function onBtnSend()
     var nickName = $("#nickName").val();
     if (nickName.length > 0)
     {
-        //toSSetLiquorNickname(nickName);
-        $("#sendDiv").fadeOut();
-        $("#shareDiv").fadeIn();
+        toSSetLiquorNickname(nickName);
+        //$("#sendDiv").fadeOut();
+        //$("#shareDiv").fadeIn();
     }
     else
     {
@@ -84,9 +84,9 @@ function onBtnLottery()
     }
     else
     {
-        //toSAddBarMobileData(userName, mobile);
-        $("#dataDiv").fadeOut();
-        $("#resultDiv").fadeIn();
+        toSAddBarMobileData(userName, mobile);
+        //$("#dataDiv").fadeOut();
+        //$("#resultDiv").fadeIn();
     }
     
 }
@@ -109,10 +109,10 @@ function onBtnClose()
 function fbShare(guid)
 {
     var hashTag = encodeURIComponent("#LIFELab人生設計所");
-    var reurl = encodeURIComponent("http://artgital.com/barShare.html?from=afterShare&guid=" + guid + "");
-    var url = encodeURIComponent("http://artgital.com/testShare.html");
+    var reurl = encodeURIComponent("http://skllifelab.skl.com.tw/barShare.html?from=afterShare&guid=" + guid);
+    var url = encodeURIComponent("http://skllifelab.skl.com.tw/s/barShare/" + guid + ".html");
     var share_url = "https://www.facebook.com/dialog/share?"
-        + "app_id=304914879841201"
+        + "app_id=2160056277354327"
         + "&href=" + url
         + "&hashtag=" + hashTag
         + "&redirect_uri=" + reurl;

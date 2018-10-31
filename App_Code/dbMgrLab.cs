@@ -44,7 +44,6 @@ public class dbMgrLab
     {
         using (SqlCommand cmd = new SqlCommand("addRunData", _sqlConn))
         {
-
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
             cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
@@ -571,53 +570,7 @@ public class dbMgrLab
         return config;
     }
     #endregion
-
-    #region Admin
-    public void clearRun()
-    {
-        using (SqlCommand cmd = new SqlCommand("clearRun", _sqlConn))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                _sqlConn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                _sqlConn.Close();
-                cmd.Dispose();
-            }
-        }
-    }
-
-    public void clearCity()
-    {
-        using (SqlCommand cmd = new SqlCommand("clearCity", _sqlConn))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                _sqlConn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                _sqlConn.Close();
-                cmd.Dispose();
-            }
-        }
-    }
-    #endregion
-
+    
     #region Private Method
     private int getRank(int score)
     {

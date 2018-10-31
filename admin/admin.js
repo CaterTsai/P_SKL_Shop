@@ -5,7 +5,7 @@ function toSLogin() {
     var adminID = $("#ID").val();
     var adminPW = $("#PW").val();
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "login",
             id: adminID,
@@ -34,7 +34,7 @@ function toSLogin() {
 
 function toSGetShareMsg() {
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "getShareMsg"
         },
@@ -51,7 +51,7 @@ function toSGetShareMsg() {
 function toSUpdateShareMsg() {
     var newMsg = $("#shareMsg").val();
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "updateShareMsg",
             key:adminKey,
@@ -73,7 +73,7 @@ function toSUpdateShareMsg() {
 
 function toSGetAutoClearDay() {
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "getAutoClearDay"
         },
@@ -90,7 +90,7 @@ function toSUpdateAutoClearDay() {
     var newDay = $("#autoClearDay").val();
 
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "updateAutoClearDay",
             key: adminKey,
@@ -112,7 +112,7 @@ function toSUpdateAutoClearDay() {
 
 function toSClearRun() {
     $.post(
-    "../s/labApi.aspx",
+    "../s/adminApi.aspx",
     {
         active: "clearRun",
         key: adminKey
@@ -133,7 +133,7 @@ function toSClearRun() {
 
 function toSClearCity() {
     $.post(
-    "../s/labApi.aspx",
+    "../s/adminApi.aspx",
     {
         active: "clearCity",
         key: adminKey
@@ -154,7 +154,7 @@ function toSClearCity() {
 
 function toSGetRunStartTime() {
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "getLabRunStartTime"
         },
@@ -171,7 +171,7 @@ function toSUpdateRunStartTime() {
     var newTime = $("#labRunStartT").val();
 
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "updateRunStartTime",
             key: adminKey,
@@ -193,7 +193,7 @@ function toSUpdateRunStartTime() {
 
 function toSGetRunResetTime() {
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "getLabRunRestTime"
         },
@@ -210,7 +210,7 @@ function toSUpdateRunResetTime() {
     var newTime = $("#labRunResetT").val();
 
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "updateRunRestTime",
             key: adminKey,
@@ -232,7 +232,7 @@ function toSUpdateRunResetTime() {
 
 function toSGetBoxType() {
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "getBoxType"
         },
@@ -249,7 +249,7 @@ function toSUpdateBoxType() {
     var boxType = $("#labRunBoxType").val();
 
     $.post(
-        "../s/labApi.aspx",
+        "../s/adminApi.aspx",
         {
             active: "updateBoxType",
             key: adminKey,

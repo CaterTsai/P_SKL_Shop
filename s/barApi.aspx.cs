@@ -66,6 +66,7 @@ public partial class barApi : System.Web.UI.Page
                     setting.qrDisplaySecond = barQRT.value_1;
                     rep.result = true;
                     rep.data = setting;
+                    
                     break;
                 }
 
@@ -92,7 +93,7 @@ public partial class barApi : System.Web.UI.Page
                     var uKey = Request["guid"];
                     var nickName = Request["nickname"];
                     _dbMgr.setBarLiquorNickname(uKey, nickName);
-                    checkShare(uKey);
+                    checkShare(uKey, nickName);
                     rep.result = true;
                     break;
                 }
@@ -127,7 +128,7 @@ public partial class barApi : System.Web.UI.Page
         return guid;
     }
 
-    private bool checkShare(string uKey)
+    private bool checkShare(string uKey, string nickame)
     {
         bool result = true;
         if (!File.Exists(Server.MapPath("~/s/barShareImg/" + uKey + ".jpg")))
@@ -136,7 +137,7 @@ public partial class barApi : System.Web.UI.Page
             if(data != null)
             {
                 string shareStr = getShareMsg(ref data);
-                createImage(uKey, shareStr);
+                createImage(uKey, shareStr, nickame);
                 createSharePage(uKey);
             }
             
@@ -144,22 +145,27 @@ public partial class barApi : System.Web.UI.Page
         return result;
     }
 
-    private void createImage(string uKey, string shareStr)
+    private void createImage(string uKey, string shareStr, string nickname)
     {
 
         Bitmap bg = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/assets/bar_ShareBG.png"));
         Bitmap cup = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/liquor/" + uKey + ".png"));
         Font font = new Font("Noto Sans CJK TC Regular", 31, FontStyle.Regular);
-        
+        Font font2 = new Font("Noto Sans CJK TC Regular", 12, FontStyle.Regular);
+
         SolidBrush brush = new SolidBrush(Color.White);
         RectangleF rect = new RectangleF(412, 123, 714, 332);
         
         using (Graphics gfx = Graphics.FromImage(bg))
         {
-
             gfx.Flush();
             gfx.DrawString(shareStr, font, brush, rect);
             gfx.DrawImage(cup, -8, 38, 413, 566);
+
+            gfx.TranslateTransform(bg.Width * 0.5f, bg.Height * 0.5f);
+            gfx.RotateTransform(-5);
+            SizeF textSize = gfx.MeasureString(nickname, font2);
+            gfx.DrawString(nickname, font2, brush, -408 - (textSize.Width * 0.5f), 13 - (textSize.Height * 0.5f));
             
         }
 

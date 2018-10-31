@@ -22,21 +22,26 @@
             <img class="light XcenterWrapper" src="assets/barPage/light.png" />
             <img id="liquor" class="liquor XcenterWrapper" src="assets/barPage/test.png" />
             <div id="sendDiv" class="textDiv XcenterWrapper" >
-                <p class="basic title">請為你的人生特調取個響亮亮的名字吧！</p>
-                <div class="nameDiv XcenterWrapper">
-                    <img class="btnSend centerWrapper" src="assets/barPage/btnSend.png" />
-                    <input id="nickName" class="inputNickName YcenterWrapper" type="text" maxlength="7" placeholder="特調暱稱" />
-                    <div class="touchAreaDiv" onclick="onBtnSend()"></div>
+                <div class="centerWrapper nameTextDiv">
+                    <p class="basic title">請為你的人生特調取個響亮亮的名字吧！</p>
+                    <div class="nameDiv XcenterWrapper">
+                        <img class="btnSend centerWrapper" src="assets/barPage/btnSend.png" />
+                        <input id="nickName" class="inputNickName YcenterWrapper" type="text" maxlength="7" placeholder="特調暱稱" />
+                        <div class="touchAreaDiv" onclick="onBtnSend()"></div>
+                    </div>
                 </div>
+
             </div>
             <div id="shareDiv" class="textDiv XcenterWrapper" style="display:none">
-                <p class="basic title pTitleShare">特調已送至後方展架陳列！</p>
-                <div class="fbDiv">
-                    <div class="leftTextDiv">
-                        <p class="basic content">快分享到FB，看看你的白日夢冒險會在哪裡展開！</p>
-                    </div>
-                    <div class="rightBtnDiv">
-                        <img class="fbShareBtn" onclick="onBtnShare()" src="assets/barPage/btnFB.png" />
+                <div class="centerWrapper shareTextDiv">
+                    <p class="basic title pTitleShare">特調已送至後方展架陳列！</p>
+                    <div class="fbDiv">
+                        <div class="leftTextDiv">
+                            <p class="basic content">快分享到FB，看看你的白日夢冒險會在哪裡展開！</p>
+                        </div>
+                        <div class="rightBtnDiv">
+                            <img class="fbShareBtn XcenterWrapper" onclick="onBtnShare()" src="assets/barPage/btnFB.png" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,10 +67,13 @@
                 <img class="lotteryBtn XcenterWrapper" onclick="onBtnLottery()" src="assets/barPage/btnLottery.png" />
             </div>
             <div id="resultDiv" class="textDiv XcenterWrapper" style="display:none;">
-                <p class="basic title pResult">
-                    感謝你的參與！<br>
-                    人生設計所神秘大獎等著你。
-                </p>
+                <div class="centerWrapper resultTextDiv">
+                    <p class="basic title">
+                        感謝你的參與！<br>
+                        人生設計所神秘大獎等著你。
+                    </p>
+                </div>
+                
             </div>
 
             <div id="termsDiv" class="termDiv centerWrapper" style="display:none;">
