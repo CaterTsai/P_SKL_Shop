@@ -26,20 +26,54 @@ public partial class s_adminApi : System.Web.UI.Page
             //admin
             case "login":
                 {
-                    var sysID = System.Web.Configuration.WebConfigurationManager.AppSettings["adminID"];
-                    var sysPW = System.Web.Configuration.WebConfigurationManager.AppSettings["adminPW"];
                     var ID = Request["id"];
                     var PW = Request["pw"];
 
-                    if (ID == sysID && PW == sysPW)
+                    if(!_dbMgr.checkAdmin(ID))
                     {
-                        rep.result = true;
-                        rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
+                        rep.result = false;
+                        rep.msg = "This Id is not administrator";
                     }
                     else
                     {
-                        rep.result = false;
-                        rep.data = sysID;
+                        var useSKLAuth = System.Web.Configuration.WebConfigurationManager.AppSettings["useSKLAuth"];
+
+                        if (useSKLAuth == "true")
+                        {
+                            try
+                            {
+                                if (checkUserID(ID, PW))
+                                {
+                                    rep.result = true;
+                                    rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
+                                }
+                                else
+                                {
+                                    rep.result = false;
+                                    rep.msg = "SKL ID or PW Wrong";
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                rep.result = false;
+                                rep.msg = "SKLAuthFailed";
+                            }
+                        }
+                        else
+                        {
+                            var sysID = System.Web.Configuration.WebConfigurationManager.AppSettings["adminID"];
+                            var sysPW = System.Web.Configuration.WebConfigurationManager.AppSettings["adminPW"];
+                            if (sysID == ID && sysPW == PW)
+                            {
+                                rep.result = true;
+                                rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
+                            }
+                            else
+                            {
+                                rep.result = false;
+                                rep.msg = "Authorization Failed";
+                            }
+                        }
                     }
                     break;
                 }
@@ -291,5 +325,21 @@ public partial class s_adminApi : System.Web.UI.Page
     {
         var syskey = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
         return key == syskey;
+    }
+
+    private bool checkUserID(string id, string pw)
+    {
+        skl_AuthServiceRef.wsSKL_AuthenticationSoapClient ws = new skl_AuthServiceRef.wsSKL_AuthenticationSoapClient();
+        
+        var result = ws.IsAuthenticated(id, pw, "").Element("Result");
+        var data = result.Element("ResultCode").Value;
+        if (data == "1")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

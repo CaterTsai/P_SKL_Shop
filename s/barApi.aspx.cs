@@ -8,8 +8,17 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
+//TODO Move to DB
+public static class globalVartibles
+{
+    public static string tempGUID { get; set; }
+}
+
+
+
 public partial class barApi : System.Web.UI.Page
 {
+
     private dbMgrBar _dbMgr = new dbMgrBar();
 
     protected void Page_Load(object sender, EventArgs e)
@@ -83,6 +92,13 @@ public partial class barApi : System.Web.UI.Page
                 {
                     barData data = new barData();
                     _dbMgr.getNewBarLiquor(ref data);
+
+                    if(data != null)
+                    {
+                        data.guid = globalVartibles.tempGUID;
+                        globalVartibles.tempGUID = "";
+                    }
+
                     rep.result = true;
                     rep.data = data;
                     break;
@@ -95,6 +111,8 @@ public partial class barApi : System.Web.UI.Page
                     _dbMgr.setBarLiquorNickname(uKey, nickName);
                     checkShare(uKey, nickName);
                     rep.result = true;
+
+                    globalVartibles.tempGUID = uKey;
                     break;
                 }
             case "addBarMobileData":
@@ -104,8 +122,6 @@ public partial class barApi : System.Web.UI.Page
                     var phone = Request["mobile"];
 
                     _dbMgr.addBarMobile(uKey, name, phone);
-
-                    
                     rep.result = true;
                     break;
                 }

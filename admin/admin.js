@@ -26,7 +26,15 @@ function toSLogin() {
             }
             else
             {
-                alert("帳號或密碼錯誤");
+                if (result["msg"] == "SKLAuthFailed")
+                {
+                    alert("員工資料認證錯誤");
+                }
+                else
+                {
+                    alert("帳號或密碼錯誤");
+                }
+                
             }
         }
     )
