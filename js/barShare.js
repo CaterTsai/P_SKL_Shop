@@ -1,5 +1,6 @@
 ﻿var _gGuid = "";
 var _gFrom = "";
+var _gIsSlickInit = false;
 //---------------------------------
 //AJAX
 function toSSetLiquorNickname(nick) {
@@ -44,6 +45,26 @@ function toSAddBarMobileData(name, phone) {
 }
 
 //------------------------------
+function toSGetResultMsg()
+{
+    $.post(
+        "s/barApi.aspx",
+        {
+            active: "getResultMsg"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+
+            if (result["result"]) {
+                $("#resultText").text(result["data"]);
+            }
+        }
+    )
+}
+
+//------------------------------
 //Button Event
 function onBtnSend()
 {
@@ -51,8 +72,6 @@ function onBtnSend()
     if (nickName.length > 0)
     {
         toSSetLiquorNickname(nickName);
-        //$("#sendDiv").fadeOut();
-        //$("#shareDiv").fadeIn();
     }
     else
     {
@@ -84,9 +103,9 @@ function onBtnLottery()
     }
     else
     {
-        toSAddBarMobileData(userName, mobile);
-        //$("#dataDiv").fadeOut();
-        //$("#resultDiv").fadeIn();
+        //toSAddBarMobileData(userName, mobile);
+        $("#dataDiv").fadeOut();
+        $("#resultDiv").fadeIn();
     }
     
 }
@@ -103,14 +122,26 @@ function onBtnClose()
     $("#termsDiv").hide();
 }
 
+//------------------------------
+function onBtnGift()
+{
+    $("#photoDiv").show();
+    initSlick();
+}
+//------------------------------
+function onBtnPhotoClose()
+{
+    $("#photoDiv").hide();
+}
+
 
 //----------------------------------
 //FB
 function fbShare(guid)
 {
     var hashTag = encodeURIComponent("#LIFELab人生設計所");
-    var reurl = encodeURIComponent("http://skllifelab.skl.com.tw/barShare.html?from=afterShare&guid=" + guid);
-    var url = encodeURIComponent("http://skllifelab.skl.com.tw/s/barShare/" + guid + ".html");
+    var reurl = encodeURIComponent("https://skllifelab.skl.com.tw/barShare.html?from=afterShare&guid=" + guid);
+    var url = encodeURIComponent("https://skllifelab.skl.com.tw/s/barShare/" + guid + ".html");
     var share_url = "https://www.facebook.com/dialog/share?"
         + "app_id=2160056277354327"
         + "&href=" + url
@@ -139,6 +170,7 @@ function getUrlParameter() {
     else if(_gFrom == 'afterShare')
     {
         $("#lotteryDiv").show();
+        toSGetResultMsg();
     }
     console.log(_gFrom);
 }
@@ -163,8 +195,20 @@ function loadTerms() {
 	);
 }
 
+//----------------------------------------
+function initSlick()
+{
+    if (!_gIsSlickInit)
+    {
+        $("#photoSliderDiv").slick();
+        _gIsSlickInit = true;
+    }
+    
+}
+
 window.load
 {
     getUrlParameter();
     loadTerms();
+    
 }

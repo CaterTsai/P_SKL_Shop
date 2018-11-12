@@ -8,13 +8,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-//TODO Move to DB
-public static class globalVartibles
-{
-    public static string tempGUID { get; set; }
-}
-
-
 
 public partial class barApi : System.Web.UI.Page
 {
@@ -68,14 +61,28 @@ public partial class barApi : System.Web.UI.Page
                     }
                     break;
                 }
+            case "getBarQuestion":
+                {
+                    barQuestion qData = _dbMgr.getBarQuestion();
+                    if(qData != null)
+                    {
+                        rep.result = true;
+                        rep.data = qData;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "data is null";
+                    }                    
+                    break;
+                }
             case "getBarSetting":
                 {
                     configData barQRT = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
                     bartenderSettingcs setting = new bartenderSettingcs();
                     setting.qrDisplaySecond = barQRT.value_1;
                     rep.result = true;
-                    rep.data = setting;
-                    
+                    rep.data = setting;                    
                     break;
                 }
 
@@ -93,14 +100,18 @@ public partial class barApi : System.Web.UI.Page
                     barData data = new barData();
                     _dbMgr.getNewBarLiquor(ref data);
 
-                    if(data != null)
-                    {
-                        data.guid = globalVartibles.tempGUID;
-                        globalVartibles.tempGUID = "";
-                    }
 
                     rep.result = true;
                     rep.data = data;
+                    break;
+                }
+            case "addLike":
+                {
+                    string uKey = Request["guid"];
+                    int likeCount = _dbMgr.setBarLiquorLike(uKey);
+
+                    rep.result = true;
+                    rep.data = likeCount;
                     break;
                 }
             //Mobile
@@ -111,8 +122,7 @@ public partial class barApi : System.Web.UI.Page
                     _dbMgr.setBarLiquorNickname(uKey, nickName);
                     checkShare(uKey, nickName);
                     rep.result = true;
-
-                    globalVartibles.tempGUID = uKey;
+                    
                     break;
                 }
             case "addBarMobileData":
@@ -123,6 +133,13 @@ public partial class barApi : System.Web.UI.Page
 
                     _dbMgr.addBarMobile(uKey, name, phone);
                     rep.result = true;
+                    break;
+                }
+            case "getResultMsg":
+                {
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"]);
+                    rep.result = true;
+                    rep.data = msg.value_3;
                     break;
                 }
             default:

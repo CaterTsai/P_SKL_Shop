@@ -6,69 +6,115 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
 </head>
 <body>
 
     <div class="container">
+        
         <div id="login">
-            <div class="block">
+            <div class="block" style="display:none">
                 <label for="ID">帳號：</label><input id="ID" type="text" maxlength="20" /><br /><br/>
                 <label for="PW">密碼：</label><input id="PW" type="password" maxlength="20" /><br /><br />
                 <button class="update" onclick="onBtnLogin()">登入</button>
             </div>
         </div>
-        <div id="ctrlPlane" style="display:none">
-            <div class="block">
-                <button class="ctrl" onclick="onBtnClearRun()">重置Lab Run排行榜</button><br />
-            </div>
+        <div id="ctrlDiv">
+            <button class="ctrlPage" onclick="onBtnRunCtrl()">管理Lab Run</button>
+            <button class="ctrlPage" onclick="onBtnBarCtrl()">管理Life Bar</button>
             <hr />
-            <div class="block">
-                <button class="ctrl" onclick="onBtnClearCity()">重置Lab City顯示</button><br />
-            </div>
+            <div id="runCtrlPlane" style="display:none">
+                <div class="block">
+                    <button class="ctrl" onclick="onBtnClearRun()">重置Lab Run排行榜</button><br />
+                </div>
+                <hr />
+                <div class="block">
+                    <button class="ctrl" onclick="onBtnClearCity()">重置Lab City顯示</button><br />
+                </div>
 
-            <hr />
-            <div class="block">
-                <label for="autoClearDay">自動重置時間(日)</label><br />
-                <input id="autoClearDay" type="number" min="1" max="120" /><br />
-                <button class="update" onclick="onBtnUpdateAutoClearDay()">Update</button>
+                <hr />
+                <div class="block">
+                    <label for="autoClearDay">自動重置時間(日)</label><br />
+                    <input id="autoClearDay" type="number" min="1" max="120" /><br />
+                    <button class="update" onclick="onBtnUpdateAutoClearDay()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="shareMsg">分享顯示文字</label><br />
+                    <input id="shareMsg" type="text" maxlength="40" /><br />
+                    <button class="update" onclick="onBtnUpdateShareMsg()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="labRunStartT">Lab Run遊戲Start鍵啟動時間(秒)</label><br />
+                    <input id="labRunStartT" type="number" min="1" max="120" /><br />
+                    <button class="update" onclick="onBtnUpdateLabRunStart()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="labRunResetT">Lab Run結束，QR Code頁倒數返回時間(秒)</label><br />
+                    <input id="labRunResetT" type="number" min="1" max="120" /><br />
+                    <button class="update" onclick="onBtnUpdateLabRunReset()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="labRunBoxType">寶箱種類</label><br />
+                    <select id="labRunBoxType">
+                        <option value="0">預設</option>
+                        <option value="1">新年</option>
+                        <option value="2">中元節</option>
+                        <option value="3">情人節</option>
+                        <option value="4">農曆新年</option>
+                        <option value="5">聖誕節</option>
+                        <option value="6">萬聖節</option>
+                    </select>
+                    <br />
+                    <button class="update" onclick="onBtnUpdateLabBoxType()">Update</button>
+                </div>
             </div>
-            <hr />
-            <div class="block">
-                <label for="shareMsg">分享顯示文字</label><br />
-                <input id="shareMsg" type="text" maxlength="40" /><br />
-                <button class="update" onclick="onBtnUpdateShareMsg()">Update</button>
+            <div id="barCtrlPlane"  style="display:none">
+                <div class="block">
+                    <button class="ctrl" onclick="onBtnResetBar()">重置Bar顯示特調</button><br />
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="bartenderResetT">Bartender結束，QR Code頁倒數返回時間(秒)</label><br />
+                    <input id="bartenderResetT" type="number" min="1" max="120" /><br />
+                    <button class="update" onclick="onBtnUpdateBartenderReset()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="barShareMsg">分享顯示文字</label><br />
+                    <input id="barShareMsg" type="text" maxlength="40" /><br />
+                    <button class="update" onclick="onBtnUpdateBarShareMsg()">Update</button>
+                </div>
+                <hr />
+                <div class="blockBig">
+                    <label>Bartender第四題</label><br />
+                    <label for="barQuestion">問題：</label>
+                    <input id="barQuestion" type="text" maxlength="65" style="width:500px;"/><br /><br />
+                    <label for="barOpt1">選項1：</label>
+                    <input id="barOpt1" type="text" maxlength="20" /><br />
+                    <label for="barOpt2">選項2：</label>
+                    <input id="barOpt2" type="text" maxlength="20" /><br />
+                    <label for="barOpt3">選項3：</label>
+                    <input id="barOpt3" type="text" maxlength="20" /><br />
+                    <label for="barOpt4">選項4：</label>
+                    <input id="barOpt4" type="text" maxlength="20" /><br />
+                    <label for="barOpt5">選項5：</label>
+                    <input id="barOpt5" type="text" maxlength="20" /><br />
+                    <label for="barOpt6">選項6：</label>
+                    <input id="barOpt6" type="text" maxlength="20" /><br />
+                    <button class="update" onclick="onBtnUpdateBarQuestion()">Update</button>
+                </div>
+                <hr />
             </div>
-            <hr />
-            <div class="block">
-                <label for="labRunStartT">Lab Run遊戲Start鍵啟動時間(秒)</label><br />
-                <input id="labRunStartT" type="number" min="1" max="120" /><br />
-                <button class="update" onclick="onBtnUpdateLabRunStart()">Update</button>
-            </div>
-            <hr />
-            <div class="block">
-                <label for="labRunResetT">Lab Run結束，QR Code頁倒數返回時間(秒)</label><br />
-                <input id="labRunResetT" type="number" min="1" max="120" /><br />
-                <button class="update" onclick="onBtnUpdateLabRunReset()">Update</button>
-            </div>
-            <hr />
-            <div class="block">
-                <label for="labRunBoxType">寶箱種類</label><br />
-                <select id="labRunBoxType">
-                    <option value="0">預設</option>
-                    <option value="1">新年</option>
-                    <option value="2">中元節</option>
-                    <option value="3">情人節</option>
-                    <option value="4">農曆新年</option>
-                    <option value="5">聖誕節</option>
-                    <option value="6">萬聖節</option>
-                </select>
-                <br />
-                <button class="update" onclick="onBtnUpdateLabBoxType()">Update</button>
-            </div>
+            
         </div>
         
+        
     </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="admin.js"></script>
 </body>
 </html>

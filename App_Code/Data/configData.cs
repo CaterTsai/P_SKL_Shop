@@ -27,7 +27,9 @@ public class configData
         { "RunResetT", 3},
         { "RunBoxType", 4},
         { "RunStartT", 5},
-        { "BarQRShowT", 6}
+        { "BarQRShowT", 6},
+        { "BarMobileMsg", 7}
+
     };
 }
 

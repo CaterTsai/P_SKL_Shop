@@ -88,7 +88,7 @@ div.textDiv{
     position:absolute;
     width:calc(80vw);
     height:17vh;
-    bottom:calc(35vh * 0.15);    
+    bottom:calc(35vh * 0.145);    
 }
 
 div.touchAreaDiv{
@@ -103,9 +103,17 @@ div.nameDiv{
     height:40%;
 }
 
-div.fbDiv{
+div.fbDivUp{
+    position:absolute;
     width:100%;
-    height:60%;
+    height:6vh;
+}
+
+div.fbDivDown{
+    position:absolute;
+    top:6vh;
+    width:100%;
+    height:7vh;
 }
 
 div.leftTextDiv{
@@ -113,15 +121,17 @@ div.leftTextDiv{
 
     left:0;
     width:70%;
-    height:calc(17vh * 0.6);
+    height:100%;
+    display:table;
 }
+
 
 div.rightBtnDiv{
     position:absolute;
 
     right:0;
     width:30%;
-    height:calc(17vh * 0.6);
+    height:100%;
     text-align:center;
 }
 
@@ -148,7 +158,6 @@ div.rightDataDiv {
     height:calc(17vh * 0.3);
     text-align: center;
 }
-
 div.textCenter{
     text-align: center;
 }
@@ -161,22 +170,53 @@ div.termDiv{
 
 div.nameTextDiv{
     width:100%;
-    height:60%;
+    height:12vh;
 }
 
 div.shareTextDiv{
     width:80%;
-    height:15vh;
+    height:13vh;
 }
 
 div.resultTextDiv{
     width:90%;
     height:10vh;
+    display:table;
+}
+
+div.sendUpDiv
+{
+    position:absolute;
+    width:100%;
+    height:6vh;
+}
+
+div.sendDownDiv{
+    position:absolute;
+    top:6vh;
+    width:100%;
+    height:6vh;
+}
+
+div.photoDiv{
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.9);
+    color:white;
+}
+
+div.photoSliderDiv{
+    width:80vw;
+    height:calc( (80vw * 16 / 9));
 }
 
 img.background {
     width:100%;
     height: 100%;
+}
+
+img.photoSlide{
+    width:100%;
 }
 
 img.table{
@@ -186,10 +226,18 @@ img.table{
     height:35vh;
 }
 
+img.btnGift{
+    position:absolute;
+    width:25vw;
+    bottom:calc(35vh * 0.93);
+    right:5vw;
+}
+
 img.light{
     position:absolute;
     width: 100%;
     bottom:calc(35vh * 0.92);
+    
 }
 
 img.liquor{
@@ -204,7 +252,7 @@ img.btnSend{
 }
 
 img.fbShareBtn{
-    width:80%;
+    width:70%;
 }
 
 img.dr{
@@ -228,6 +276,11 @@ img.btnClose{
     bottom:-4vh;
 }
 
+img.btnPhotoClose{
+    top:calc(50% + 80vw * 16/9 * 0.5 - 2.5vh);
+    height:8vh;
+}
+
 input[type=text].inputNickName{
     position:absolute;
     background: transparent;
@@ -243,7 +296,7 @@ input[type=text].dataInput{
     border: none;
     background: rgba(0, 0, 0, 100);
     color:#fecf8d;
-    font-size:calc(17vh * 0.13);
+    font-size:3.8vw;
     padding: 2px 0px 2px 5px;
 }
 
@@ -260,27 +313,38 @@ label.basic, p.basic{
 
 p.title{
     text-align:center;
-    font-size:calc(17vh * 0.13);
-    margin: 10px 0 10px 0;
+    font-size:4vw;
+    margin: 0;
 }
 
 label.titleSmall, p.titleSmall{
     text-align:center;
-    font-size:calc(17vh * 0.12);
+    font-size:3.8vw;
 }
 
-p.content{    
-    font-size:calc(17vh * 0.12);
+p.pShareContent{    
+    font-size:3.8vw;
     line-height:100%;
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
 }
 
 p.pTitleShare{
-    margin-top:5px;
+    margin: 0px;
 }
 
 p.pResult{
-    margin-top:4vh;
+    display:table-cell;
+    vertical-align:middle;
 }
+
+p.pNameText
+{
+    line-height:6vh;
+}
+
+
 
 label.pTitleData, p.pTitleData{
     margin-top:0px;

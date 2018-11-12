@@ -1,45 +1,8 @@
-﻿var adminKey = "";
+﻿var adminKey;
 
+//------------------------------------
 //AJAX
-function toSLogin() {
-    var adminID = $("#ID").val();
-    var adminPW = $("#PW").val();
-    $.post(
-        "../s/adminApi.aspx",
-        {
-            active: "login",
-            id: adminID,
-            pw: adminPW
-        },
-        'json'
-    ).done(
-        function (data) {
-            var result = JSON.parse(data);
-            
-            if(result["result"])   
-            {
-                adminKey = result["data"];
-                alert("登入成功");
-                document.getElementById("login").style.display = "none";
-                document.getElementById("ctrlPlane").style.display = "block";
-                loadData();
-            }
-            else
-            {
-                if (result["msg"] == "SKLAuthFailed")
-                {
-                    alert("員工資料認證錯誤");
-                }
-                else
-                {
-                    alert("帳號或密碼錯誤");
-                }
-                
-            }
-        }
-    )
-}
-
+//Lab Run & City
 function toSGetShareMsg() {
     $.post(
         "../s/adminApi.aspx",
@@ -277,7 +240,203 @@ function toSUpdateBoxType() {
     )
 }
 
+//Life Bar & Bartender
+function toSClearBar()
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "clearBar",
+        key: adminKey
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("清除Bar資料成功");
+            }
+            else {
+                alert("清除Bar資料失敗");
+            }
+        }
+    )
+}
+
+function toSGetBartenderResetTime()
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getBartenderRestTime"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#bartenderResetT").val(result["data"]);
+        }
+    )
+}
+
+function toSUpdateBartenderResetTime()
+{
+    var newTime = $("#bartenderResetT").val();
+
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateBartenderRestTime",
+            key: adminKey,
+            BarQRShowT: newTime
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+
+function toSGetBarShareMsg()
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getBarShareMsg"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#barShareMsg").val(result["data"]);
+
+        }
+    )
+}
+
+function toSUpdateBarShareMsg()
+{
+    var newMsg = $("#barShareMsg").val();
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateBarShareMsg",
+            key: adminKey,
+            msg: newMsg
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+
+function toSGetBarQuestion()
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getBarQuestion"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data)["data"];
+            $("#barQuestion").val(result.question);
+            $("#barOpt1").val(result.opt1);
+            $("#barOpt2").val(result.opt2);
+            $("#barOpt3").val(result.opt3);
+            $("#barOpt4").val(result.opt4);
+            $("#barOpt5").val(result.opt5);
+            $("#barOpt6").val(result.opt6);
+        }
+    )
+}
+
+function toSUpdateBarQuestion()
+{
+    var qData = {};
+    qData["question"] = $("#barQuestion").val();
+    qData["opt1"] = $("#barOpt1").val();
+    qData["opt2"] = $("#barOpt2").val();
+    qData["opt3"] = $("#barOpt3").val();
+    qData["opt4"] = $("#barOpt4").val();
+    qData["opt5"] = $("#barOpt5").val();
+    qData["opt6"] = $("#barOpt6").val();
+
+
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateBarQuestion",
+            key: adminKey,
+            question: JSON.stringify(qData)
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+//Main
+function toSLogin() {
+    var adminID = $("#ID").val();
+    var adminPW = $("#PW").val();
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "login",
+            id: adminID,
+            pw: adminPW
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+
+            if (result["result"]) {
+                adminKey = result["data"];
+                alert("登入成功");
+                document.getElementById("login").style.display = "none";
+                document.getElementById("ctrlDiv").style.display = "block";
+                loadData();
+            }
+            else {
+                if (result["msg"] == "SKLAuthFailed") {
+                    alert("員工資料認證錯誤");
+                }
+                else {
+                    alert("帳號或密碼錯誤");
+                }
+
+            }
+        }
+    )
+}
 //------------------------------------
+//Button Event
+//Lab Run & City
 function onBtnClearRun() {
     if (adminKey != "") {
         toSClearRun();
@@ -343,6 +502,58 @@ function onBtnUpdateLabBoxType() {
     }
 }
 
+//Life Bar & Bartender
+function onBtnResetBar()
+{
+    if (adminKey != "") {
+        toSClearBar();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateBartenderReset()
+{
+    if (adminKey != "") {
+        toSUpdateBartenderResetTime();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateBarShareMsg()
+{
+    if (adminKey != "") {
+        toSUpdateBarShareMsg();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateBarQuestion()
+{
+    if (adminKey != "") {
+        toSUpdateBarQuestion();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+//Main
+function onBtnRunCtrl() {
+    $("#runCtrlPlane").show();
+    $("#barCtrlPlane").hide();
+}
+
+function onBtnBarCtrl() {
+    $("#runCtrlPlane").hide();
+    $("#barCtrlPlane").show();
+}
+
 function onBtnLogin() {
     toSLogin();
 }
@@ -353,9 +564,13 @@ function loadData() {
     toSGetRunStartTime();
     toSGetRunResetTime();
     toSGetBoxType();
+
+    toSGetBarShareMsg();
+    toSGetBartenderResetTime();
+    toSGetBarQuestion();
 }
 //------------------------------------
 window.onload
 {
-
+    loadData();
 }

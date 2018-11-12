@@ -1,10 +1,17 @@
 ﻿
+
 html, body {
     width: 100%;
     height: 100%;
     margin: 0;
-    font-size:3vh;
+    
 }
+
+* {
+    font-size:2vh;
+}
+
+
 
 div.container
 {
@@ -14,7 +21,14 @@ div.container
 
 div.block
 {
-    height:10vh;
+    height:12vh;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+div.blockBig
+{
+    height:30vh;
     margin-top:10px;
     margin-bottom:10px;
 }
@@ -29,24 +43,21 @@ div.block
 
 
 button.ctrl{
-    
-    height:80%;
+    height:70%;    
     width:80vw;
-    font-size:3vh;
+    margin-top:10px;
 }
 
 button.update{
-    height:33%;
+
     width:50vw;
-    font-size:2.5vh;
+    margin-top:10px;
 }
 
 input{
     text-align:center;
-    font-size:3vh;
 }
 
 select{
     text-align:center;
-    font-size:3vh;
 }

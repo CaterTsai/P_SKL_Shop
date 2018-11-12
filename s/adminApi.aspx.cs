@@ -23,13 +23,14 @@ public partial class s_adminApi : System.Web.UI.Page
         rep.active = active;
         switch (active)
         {
+            #region Admin
             //admin
             case "login":
                 {
                     var ID = Request["id"];
                     var PW = Request["pw"];
 
-                    if(!_dbMgr.checkAdmin(ID))
+                    if (!_dbMgr.checkAdmin(ID))
                     {
                         rep.result = false;
                         rep.msg = "This Id is not administrator";
@@ -77,6 +78,29 @@ public partial class s_adminApi : System.Web.UI.Page
                     }
                     break;
                 }
+            case "addAdmin":
+                {
+
+                    var adminId = Request["adminID"];
+                    _dbMgr.addAdmin(adminId);
+                    rep.result = true;
+                    break;
+                }
+            case "checkAdmin":
+                {
+                    var adminId = Request["adminID"];
+                    bool result = _dbMgr.checkAdmin(adminId);
+                    if (!result)
+                    {
+                        rep.msg = "This id was not in database";
+                    }
+                    rep.result = result;
+                    break;
+                }
+            #endregion
+
+            #region Lab
+            //Lab
             case "getShareMsg":
                 {
                     var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"]);
@@ -106,7 +130,7 @@ public partial class s_adminApi : System.Web.UI.Page
                     }
                     else
                     {
-                        rep.result = true;
+                        rep.result = false;
                     }
 
                     break;
@@ -267,6 +291,126 @@ public partial class s_adminApi : System.Web.UI.Page
                     }
                     break;
                 }
+            #endregion
+
+            #region Bar
+            //Bar
+            case "clearBar":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        _dbMgr.clearBar();
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            case "getBartenderRestTime":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_1;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBartenderRestTime":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarQRShowT"];
+                        config.value_1 = Convert.ToInt32(Request["BarQRShowT"]);
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            case "getBarShareMsg":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"]);
+
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_3;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBarShareMsg":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarMobileMsg"];
+                        config.value_3 = Request["msg"];
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+
+                    break;
+                }
+            case "getBarQuestion":
+                {
+                    barQuestion qData = _dbMgr.getBarQuestion();
+                    if (qData != null)
+                    {
+                        rep.result = true;
+                        rep.data = qData;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "data is null";
+                    }
+                    break;
+                }
+            case "updateBarQuestion":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        if(Request["question"] != null)
+                        {
+                            var qData = JsonConvert.DeserializeObject<barQuestion>(Request["question"]);
+                            _dbMgr.updateQuestion(ref qData);
+                            rep.result = true;
+                        }
+                        else
+                        {
+                            rep.result = false;
+                        }
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            #endregion
             //Config
             case "getConfig":
                 {
@@ -290,26 +434,7 @@ public partial class s_adminApi : System.Web.UI.Page
                     rep.result = true;
                     break;
                 }
-            //Admin
-            case "addAdmin":
-                {
-                    
-                    var adminId = Request["adminID"];
-                    _dbMgr.addAdmin(adminId);
-                    rep.result = true;
-                    break;
-                }
-            case "checkAdmin":
-                {
-                    var adminId = Request["adminID"];
-                    bool result = _dbMgr.checkAdmin(adminId);
-                    if(!result)
-                    {
-                        rep.msg = "This id was not in database";
-                    }
-                    rep.result = result;
-                    break;
-                }
+            
             default:
                 {
                     rep.result = false;

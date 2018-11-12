@@ -11,6 +11,8 @@
     <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
     <META HTTP-EQUIV="EXPIRES" CONTENT="0">
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <link rel="stylesheet" href="slick/slick.css" />
+    <link rel="stylesheet" href="slick/slick-theme.css" />
     <link rel="stylesheet" href="css/barShare.css" />
 </head>
 <body>
@@ -23,24 +25,32 @@
             <img id="liquor" class="liquor XcenterWrapper" src="assets/barPage/test.png" />
             <div id="sendDiv" class="textDiv XcenterWrapper" >
                 <div class="centerWrapper nameTextDiv">
-                    <p class="basic title">請為你的人生特調取個響亮亮的名字吧！</p>
-                    <div class="nameDiv XcenterWrapper">
-                        <img class="btnSend centerWrapper" src="assets/barPage/btnSend.png" />
-                        <input id="nickName" class="inputNickName YcenterWrapper" type="text" maxlength="7" placeholder="特調暱稱" />
-                        <div class="touchAreaDiv" onclick="onBtnSend()"></div>
+                    <div class="sendUpDiv">
+                        <p class="basic title pNameText">請為你的人生特調取個響亮亮的名字吧！</p>
                     </div>
+                    <div class="sendDownDiv">
+                        <div class="nameDiv centerWrapper">
+                            <img class="btnSend centerWrapper" src="assets/barPage/btnSend.png" />
+                            <input id="nickName" class="inputNickName YcenterWrapper" type="text" maxlength="7" placeholder="特調暱稱" />
+                            <div class="touchAreaDiv" onclick="onBtnSend()"></div>
+                        </div>
+                    </div>
+                    
                 </div>
 
             </div>
             <div id="shareDiv" class="textDiv XcenterWrapper" style="display:none">
                 <div class="centerWrapper shareTextDiv">
-                    <p class="basic title pTitleShare">特調已送至後方展架陳列！</p>
-                    <div class="fbDiv">
-                        <div class="leftTextDiv">
-                            <p class="basic content">快分享到FB，看看你的白日夢冒險會在哪裡展開！</p>
+                    <div class="fbDivUp">
+                        <p class="basic title pTitleShare">特調已送至後方展架陳列！</p>
+                    </div>
+                    
+                    <div class="fbDivDown">
+                        <div id="shareText" class="leftTextDiv">
+                            <p  class="basic pShareContent">快分享到FB，看看你的白日夢冒險會在哪裡展開！</p>
                         </div>
                         <div class="rightBtnDiv">
-                            <img class="fbShareBtn XcenterWrapper" onclick="onBtnShare()" src="assets/barPage/btnFB.png" />
+                            <img class="fbShareBtn centerWrapper" onclick="onBtnShare()" src="assets/barPage/btnFB.png" />
                         </div>
                     </div>
                 </div>
@@ -52,6 +62,7 @@
             <img class="table" src="assets/barPage/table.jpg" />
             <img class="bottle XcenterWrapper" src="assets/barPage/bottle.png" />
 
+            <img class="btnGift" src="assets/barPage/btnGift.png" onclick="onBtnGift()" />
             <div id="dataDiv" class="textDiv textCenter XcenterWrapper">
                 <p class="basic titleSmall pTitleData">留下資料參加抽獎！</p>
                 <input type="checkbox" id="datacheck">
@@ -68,7 +79,7 @@
             </div>
             <div id="resultDiv" class="textDiv XcenterWrapper" style="display:none;">
                 <div class="centerWrapper resultTextDiv">
-                    <p class="basic title">
+                    <p id="resultText" class="basic title pResult">
                         感謝你的參與！<br>
                         人生設計所神秘大獎等著你。
                     </p>
@@ -76,8 +87,17 @@
                 
             </div>
 
+            <div id="photoDiv" class="photoDiv centerWrapper" style="display:none;">
+                <div id="photoSliderDiv" class="photoSliderDiv centerWrapper">
+                    <div><img class="photoSlide" src="assets/barPage/p1.jpg" /></div>
+                    <div><img class="photoSlide" src="assets/barPage/p2.jpg" /></div>
+                    <div><img class="photoSlide" src="assets/barPage/p3.jpg" /></div>
+                    <div><img class="photoSlide" src="assets/barPage/p4.jpg" /></div>
+                </div>
+                <img class="btnPhotoClose XcenterWrapper" src="assets/barPage/close.png" onclick="onBtnPhotoClose()" />
+            </div>       
             <div id="termsDiv" class="termDiv centerWrapper" style="display:none;">
-                <p class="title">新光人壽保險股份有限公司蒐集處理及利用個人資料告知書</p>
+                <p class="title">新光人壽保險股份有限公司<br>蒐集處理及利用個人資料告知書</p>
                 <pre id="termText" class="term"></pre>
                 <img class="btnClose XcenterWrapper" src="assets/barPage/close.png" onclick="onBtnClose()"/>
             </div>
@@ -85,6 +105,7 @@
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
     <script type="text/javascript" src="js/barShare.js"></script>
 </body>
 </html>

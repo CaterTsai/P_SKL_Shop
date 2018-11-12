@@ -15,6 +15,7 @@ public class barData
     public int ans3 { get; set; }
     public int ans4 { get; set; }
     public int ans5 { get; set; }
+    public int likeCount { get; set; }
 
     public barData()
     {

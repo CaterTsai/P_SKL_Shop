@@ -188,6 +188,86 @@ public class dbMgrAdmin
         }
         return result == 1;
     }
+
+    public barQuestion getBarQuestion()
+    {
+        using (SqlCommand cmd = new SqlCommand("getQuestion", _sqlConn))
+        {
+            barQuestion qData = new barQuestion();
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                _sqlConn.Open();
+                using (var data = cmd.ExecuteReader())
+                {
+                    if (data.HasRows)
+                    {
+                        data.Read();
+                        qData.question = data["question"].ToString();
+                        qData.question = qData.question.Replace(" ", string.Empty);
+                        qData.question = qData.question.Replace("\r\n", string.Empty);
+                        qData.opt1 = data["opt1"].ToString();
+                        qData.opt1 = qData.opt1.Replace(" ", string.Empty);
+                        qData.opt2 = data["opt2"].ToString();
+                        qData.opt2 = qData.opt2.Replace(" ", string.Empty);
+                        qData.opt3 = data["opt3"].ToString();
+                        qData.opt3 = qData.opt3.Replace(" ", string.Empty);
+                        qData.opt4 = data["opt4"].ToString();
+                        qData.opt4 = qData.opt4.Replace(" ", string.Empty);
+                        qData.opt5 = data["opt5"].ToString();
+                        qData.opt5 = qData.opt5.Replace(" ", string.Empty);
+                        qData.opt6 = data["opt6"].ToString();
+                        qData.opt6 = qData.opt6.Replace(" ", string.Empty);
+                    }
+                    else
+                    {
+                        qData = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+
+            return qData;
+        }
+    }
+
+    public void updateQuestion(ref barQuestion qData)
+    {
+        using (SqlCommand cmd = new SqlCommand("updateBarQuestion", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@question", SqlDbType.NVarChar).Value = qData.question;
+            cmd.Parameters.Add("@opt1", SqlDbType.NVarChar).Value = qData.opt1;
+            cmd.Parameters.Add("@opt2", SqlDbType.NVarChar).Value = qData.opt2;
+            cmd.Parameters.Add("@opt3", SqlDbType.NVarChar).Value = qData.opt3;
+            cmd.Parameters.Add("@opt4", SqlDbType.NVarChar).Value = qData.opt4;
+            cmd.Parameters.Add("@opt5", SqlDbType.NVarChar).Value = qData.opt5;
+            cmd.Parameters.Add("@opt6", SqlDbType.NVarChar).Value = qData.opt6;
+
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     #endregion
 
     #region Lab
@@ -235,5 +315,29 @@ public class dbMgrAdmin
         }
     }
     #endregion
+    
+    #region Bar
+    public void clearBar()
+    {
+        using (SqlCommand cmd = new SqlCommand("clearBar", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
 
+    }
+    #endregion
 }

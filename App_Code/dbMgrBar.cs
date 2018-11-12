@@ -80,6 +80,37 @@ public class dbMgrBar
             }
         }
     }
+
+    public void addBarQuestion(ref barQuestion qData)
+    {
+        using (SqlCommand cmd = new SqlCommand("addQuestion", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@question", SqlDbType.NVarChar).Value = qData.question;
+            cmd.Parameters.Add("@opt1", SqlDbType.NVarChar).Value = qData.opt1;
+            cmd.Parameters.Add("@opt2", SqlDbType.NVarChar).Value = qData.opt2;
+            cmd.Parameters.Add("@opt3", SqlDbType.NVarChar).Value = qData.opt3;
+            cmd.Parameters.Add("@opt4", SqlDbType.NVarChar).Value = qData.opt4;
+            cmd.Parameters.Add("@opt5", SqlDbType.NVarChar).Value = qData.opt5;
+            cmd.Parameters.Add("@opt6", SqlDbType.NVarChar).Value = qData.opt6;
+
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     #endregion
 
     #region Update
@@ -141,6 +172,34 @@ public class dbMgrBar
         }
     }
 
+    public int setBarLiquorLike(string guid)
+    {
+        int result = 0;
+        using (SqlCommand cmd = new SqlCommand("addBarLike", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
+            SqlParameter ret = cmd.Parameters.Add("@ReturnValue", SqlDbType.Int);
+            ret.Direction = ParameterDirection.ReturnValue;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+                result = Convert.ToInt32(ret.Value);
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+        return result;
+    }
     #endregion
 
     #region Get
@@ -168,6 +227,7 @@ public class dbMgrBar
                             
                             barData c = new barData();
                             c.guid = data["uKey"].ToString();
+                            c.guid = c.guid.Replace(" ", string.Empty);
                             c.nickName = data["nickName"].ToString();
                             c.nickName = c.nickName.Replace(" ", string.Empty);
 
@@ -177,6 +237,16 @@ public class dbMgrBar
                             c.ans3 = Convert.ToInt32(data["ans3"]);
                             c.ans4 = Convert.ToInt32(data["ans4"]);
                             c.ans5 = Convert.ToInt32(data["ans5"]);
+                            
+                            if(!data.IsDBNull(7))
+                            {
+                                c.likeCount = Convert.ToInt32(data["likeCount"]);
+                            }
+                            else
+                            {
+                                c.likeCount = 0;
+                            }
+                            
                             barDataList.Add(c);
                         }
                     }
@@ -208,14 +278,19 @@ public class dbMgrBar
                     if (data.HasRows)
                     {
                         data.Read();
+
+                        bData.guid = data["uKey"].ToString();
+                        bData.guid = bData.guid.Replace(" ", string.Empty);
                         bData.nickName = data["nickName"].ToString();
                         bData.nickName = bData.nickName.Replace(" ", string.Empty);
-                        bData.ans1 = data["ans1"].ToString();
-                        bData.ans1 = bData.ans1.Replace(" ", string.Empty);
+
+                        DateTime date = DateTime.Parse(data["ans1"].ToString());
+                        bData.ans1 = date.ToString("yyyy-MM-dd");
                         bData.ans2 = Convert.ToInt32(data["ans2"]);
                         bData.ans3 = Convert.ToInt32(data["ans3"]);
                         bData.ans4 = Convert.ToInt32(data["ans4"]);
                         bData.ans5 = Convert.ToInt32(data["ans5"]);
+                        bData.likeCount = Convert.ToInt32(data["likeCount"]);
                     }
                     else
                     {
@@ -276,6 +351,56 @@ public class dbMgrBar
             }
 
             return bData;
+        }
+    }
+
+    public barQuestion getBarQuestion()
+    {
+        using (SqlCommand cmd = new SqlCommand("getQuestion", _sqlConn))
+        {
+            barQuestion qData = new barQuestion();
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                _sqlConn.Open();
+                using (var data = cmd.ExecuteReader())
+                {
+                    if (data.HasRows)
+                    {
+                        data.Read();
+                        qData.question = data["question"].ToString();
+                        qData.question = qData.question.Replace(" ", string.Empty);
+                        qData.question = qData.question.Replace("\r\n", string.Empty);
+                        qData.opt1 = data["opt1"].ToString();
+                        qData.opt1 = qData.opt1.Replace(" ", string.Empty);
+                        qData.opt2 = data["opt2"].ToString();
+                        qData.opt2 = qData.opt2.Replace(" ", string.Empty);
+                        qData.opt3 = data["opt3"].ToString();
+                        qData.opt3 = qData.opt3.Replace(" ", string.Empty);
+                        qData.opt4 = data["opt4"].ToString();
+                        qData.opt4 = qData.opt4.Replace(" ", string.Empty);
+                        qData.opt5 = data["opt5"].ToString();
+                        qData.opt5 = qData.opt5.Replace(" ", string.Empty);
+                        qData.opt6 = data["opt6"].ToString();
+                        qData.opt6 = qData.opt6.Replace(" ", string.Empty);
+                    }
+                    else
+                    {
+                        qData = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+
+            return qData;
         }
     }
 
