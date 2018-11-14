@@ -16,6 +16,7 @@ public partial class barApi : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         _dbMgr.connDB();
         handleActive();
     }
@@ -91,6 +92,16 @@ public partial class barApi : System.Web.UI.Page
                 {
                     List<barData> barList = new List<barData>();
                     _dbMgr.getBarLiquorDisplay(ref barList);
+                    if(barList.Count < 16)
+                    {
+                        int addNum = (16 - barList.Count);
+                        parameter.loadDefaultLiquor(Server.MapPath("~/s/defaultLiquor.json"));
+                        for(int i = 0; i < addNum; i++)
+                        {
+                            barList.Add(parameter._barDefault[i]);
+                        }
+                    }
+
                     rep.result = true;
                     rep.data = barList;
                     break;
@@ -180,7 +191,6 @@ public partial class barApi : System.Web.UI.Page
 
     private void createImage(string uKey, string shareStr, string nickname)
     {
-
         Bitmap bg = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/assets/bar_ShareBG.png"));
         Bitmap cup = (Bitmap)System.Drawing.Image.FromFile(Server.MapPath("~/s/liquor/" + uKey + ".png"));
         Font font = new Font("Noto Sans CJK TC Regular", 31, FontStyle.Regular);

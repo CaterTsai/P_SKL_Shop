@@ -76,6 +76,37 @@ public class dbMgrAdmin
             }
         }
     }
+
+    public void addBarQuestion(ref barQuestion qData)
+    {
+        using (SqlCommand cmd = new SqlCommand("addQuestion", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@question", SqlDbType.NVarChar).Value = qData.question;
+            cmd.Parameters.Add("@opt1", SqlDbType.NVarChar).Value = qData.opt1;
+            cmd.Parameters.Add("@opt2", SqlDbType.NVarChar).Value = qData.opt2;
+            cmd.Parameters.Add("@opt3", SqlDbType.NVarChar).Value = qData.opt3;
+            cmd.Parameters.Add("@opt4", SqlDbType.NVarChar).Value = qData.opt4;
+            cmd.Parameters.Add("@opt5", SqlDbType.NVarChar).Value = qData.opt5;
+            cmd.Parameters.Add("@opt6", SqlDbType.NVarChar).Value = qData.opt6;
+
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     #endregion
 
     #region Update

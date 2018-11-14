@@ -2,14 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// parameter 的摘要描述
 /// </summary>
 public class parameter
 {
-    public parameter()
+    public static void loadDefaultLiquor(string path)
     {
+        if(_barDefault.Count == 0)
+        {
+            JObject obj = JObject.Parse(System.IO.File.ReadAllText(path));
+            var barData = obj["barData"];
+            for(int i = 0; i < 16; i++)
+            {
+                _barDefault.Add(barData[i].ToObject<barData>());
+            }
+        }
+        
+        
     }
     public static string _serverUrl = "http://192.168.1.120/";
     //public static string _serverUrl = "https://skllifelab.skl.com.tw/";
@@ -93,5 +106,9 @@ public class parameter
         "埃及展開，走進吉薩金字塔開始古老而神秘的探險，乘著郵輪享受尼羅河的紅海風情",
         "墨西哥展開，戴上草帽、畫上亡靈節的彩妝，吃一口辣味十足的墨西哥料理，與傳統瑪利亞奇樂隊一起跳舞"
         }
-);
+    );
+
+    public static List<barData> _barDefault = new List<barData>();
+
+
 }

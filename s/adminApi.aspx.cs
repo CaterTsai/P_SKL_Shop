@@ -97,6 +97,21 @@ public partial class s_adminApi : System.Web.UI.Page
                     rep.result = result;
                     break;
                 }
+            case "addQuestion":
+                {
+                    var qData = JsonConvert.DeserializeObject<barQuestion>(Request["question"]);
+                    if(qData != null)
+                    {
+                        _dbMgr.addBarQuestion(ref qData);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    
+                    break;
+                }
             #endregion
 
             #region Lab
