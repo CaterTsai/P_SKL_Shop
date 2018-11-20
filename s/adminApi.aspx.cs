@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 public partial class s_adminApi : System.Web.UI.Page
 {
@@ -377,7 +378,7 @@ public partial class s_adminApi : System.Web.UI.Page
                     {
                         configData config = new configData();
                         config.id = configData.ConfigMap["BarMobileMsg"];
-                        config.value_3 = Request["msg"];
+                        config.value_3 = Regex.Replace(Request["msg"], @"\r|\n|\r\n", "<br>");
 
                         _dbMgr.updateConfigData(config);
                         rep.result = true;
@@ -387,6 +388,72 @@ public partial class s_adminApi : System.Web.UI.Page
                         rep.result = false;
                     }
 
+                    break;
+                }
+            case "getBarPopoutMsg":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"]);
+
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_3;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBarPopoutMsg":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarPopoutMsg"];
+                        config.value_3 = Regex.Replace(Request["msg"], @"\r|\n|\r\n", "<br>");
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            case "getBarDataMsg":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"]);
+
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_3;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateBarDataMsg":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarDataMsg"];
+                        config.value_3 = Request["msg"];
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             case "getBarQuestion":

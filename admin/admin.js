@@ -314,8 +314,9 @@ function toSGetBarShareMsg()
     'json'
     ).done(
         function (data) {
-            var result = JSON.parse(data);
-            $("#barShareMsg").val(result["data"]);
+            var result = JSON.parse(data)["data"];
+            result = result.replace('<br>', '\n');
+            $("#barShareMsg").val(result);
 
         }
     )
@@ -345,6 +346,85 @@ function toSUpdateBarShareMsg()
     )
 }
 
+function toSGetBarPopOutMsg() {
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getBarPopoutMsg"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data)["data"];
+            result = result.replace('<br>', '\n');
+            $("#barPopoutMsg").val(result);
+        }
+    )
+}
+
+function toSUpdateBarPopOutMsg() {
+    var newMsg = $("#barPopoutMsg").val();
+    console.log(newMsg);
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateBarPopoutMsg",
+            key: adminKey,
+            msg: newMsg
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+
+function toSGetBarDataMsg() {
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getBarDataMsg"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data)["data"];
+            $("#barDataMsg").val(result);
+        }
+    )
+}
+
+function toSUpdateBarDataMsg() {
+    var newMsg = $("#barDataMsg").val();
+    console.log(newMsg);
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateBarDataMsg",
+            key: adminKey,
+            msg: newMsg
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+
 function toSGetBarQuestion()
 {
     $.post(
@@ -356,6 +436,7 @@ function toSGetBarQuestion()
     ).done(
         function (data) {
             var result = JSON.parse(data)["data"];
+            
             $("#barQuestion").val(result.question);
             $("#barOpt1").val(result.opt1);
             $("#barOpt2").val(result.opt2);
@@ -363,6 +444,7 @@ function toSGetBarQuestion()
             $("#barOpt4").val(result.opt4);
             $("#barOpt5").val(result.opt5);
             $("#barOpt6").val(result.opt6);
+            
         }
     )
 }
@@ -399,6 +481,7 @@ function toSUpdateBarQuestion()
         }
     )
 }
+
 //Main
 function toSLogin() {
     var adminID = $("#ID").val();
@@ -533,10 +616,30 @@ function onBtnUpdateBarShareMsg()
     }
 }
 
+function onBtnUpdatePopOutMsg()
+{
+    if (adminKey != "") {
+        toSUpdateBarPopOutMsg();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
 function onBtnUpdateBarQuestion()
 {
     if (adminKey != "") {
         toSUpdateBarQuestion();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateDataMsg()
+{
+    if (adminKey != "") {
+        toSUpdateBarDataMsg();
     }
     else {
         alert("請先登入");
@@ -566,11 +669,13 @@ function loadData() {
     toSGetBoxType();
 
     toSGetBarShareMsg();
+    toSGetBarPopOutMsg();
     toSGetBartenderResetTime();
     toSGetBarQuestion();
+    toSGetBarDataMsg();
 }
 //------------------------------------
 window.onload
 {
-    loadData();
+    //loadData();
 }

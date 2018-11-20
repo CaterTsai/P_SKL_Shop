@@ -13,13 +13,13 @@
     <div class="container">
         
         <div id="login">
-            <div class="block" style="display:none">
+            <div class="block">
                 <label for="ID">帳號：</label><input id="ID" type="text" maxlength="20" /><br /><br/>
                 <label for="PW">密碼：</label><input id="PW" type="password" maxlength="20" /><br /><br />
                 <button class="update" onclick="onBtnLogin()">登入</button>
             </div>
         </div>
-        <div id="ctrlDiv">
+        <div id="ctrlDiv" style="display:none">
             <button class="ctrlPage" onclick="onBtnRunCtrl()">管理Lab Run</button>
             <button class="ctrlPage" onclick="onBtnBarCtrl()">管理Life Bar</button>
             <hr />
@@ -85,14 +85,26 @@
                 <hr />
                 <div class="block">
                     <label for="barShareMsg">分享顯示文字</label><br />
-                    <input id="barShareMsg" type="text" maxlength="40" /><br />
+                    <textarea id="barShareMsg" rows="3" cols="30"></textarea><br />
                     <button class="update" onclick="onBtnUpdateBarShareMsg()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="barPopOutMsg">彈出視窗訊息</label><br />
+                    <textarea id="barPopoutMsg" rows="3" cols="30"></textarea><br />
+                    <button class="update" onclick="onBtnUpdatePopOutMsg()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
+                    <label for="barDataMsg">留資訊訊息</label><br />
+                    <input id="barDataMsg" type="text" maxlength="10" /><br />
+                    <button class="update" onclick="onBtnUpdateDataMsg()">Update</button>
                 </div>
                 <hr />
                 <div class="blockBig">
                     <label>Bartender第四題</label><br />
                     <label for="barQuestion">問題：</label>
-                    <input id="barQuestion" type="text" maxlength="65" style="width:500px;"/><br /><br />
+                    <textarea id="barQuestion" rows="3" cols="100"></textarea><br/>
                     <label for="barOpt1">選項1：</label>
                     <input id="barOpt1" type="text" maxlength="20" /><br />
                     <label for="barOpt2">選項2：</label>

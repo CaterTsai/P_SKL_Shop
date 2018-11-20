@@ -62,14 +62,13 @@
             <img class="table" src="assets/barPage/table.jpg" />
             <img class="bottle XcenterWrapper" src="assets/barPage/bottle.png" />
 
-            <div class="presentDiv" onclick="onBtnGift()">
+            <div id ="presentDiv" class="presentDiv" onclick="onBtnGift()">
                 <img class="presentLight rotating" src="assets/barPage/presentLight.png" />
                 <img class="present centerWrapper" src="assets/barPage/btnPresent.png" />
-                <img class="presentMark XcenterWrapper" src="assets/barPage/presentMark.png" />
                 
             </div>
             <div id="dataDiv" class="textDiv textCenter XcenterWrapper">
-                <p class="basic titleSmall pTitleData">留下資料參加抽獎！</p>
+                <p id="dataMsg" class="basic titleSmall pTitleData">留下資料參加抽獎！</p>
                 <input type="checkbox" id="datacheck">
                 <label for="datacheck" class="basic titleSmall pTitleData">我同意<a href="#" onclick="onBtnTerm()">個人資料告知事項</a></label>
                 <div class="dataInputDiv">
@@ -77,7 +76,7 @@
                         <input class="dataInput centerWrapper" id="nameData" type="text" placeholder="姓名" maxlength="10"/>
                     </div>
                     <div class="rightDataDiv">
-                        <input class="dataInput centerWrapper" id="mobileData" type="text" placeholder="電話" maxlength="10" />
+                        <input class="dataInput centerWrapper" id="mobileData" type="text" pattern="\d*" placeholder="電話" maxlength="12"/>
                     </div>
                 </div>
                 <img class="lotteryBtn XcenterWrapper" onclick="onBtnLottery()" src="assets/barPage/btnLottery.png" />
@@ -106,6 +105,13 @@
                 <pre id="termText" class="term"></pre>
                 <img class="btnClose" src="assets/barPage/btnClose.png" onclick="onBtnClose()"/>
             </div>
+        </div>
+
+        <div id="popoutDiv" class="popoutDiv" style="display:none;">
+            <div class="popoutMsgDiv centerWrapper">
+                <p id="popoutMsg" class="popoutMsg centerWrapper">測試</p>
+            </div>
+            <img class="btnPopCloseClose" src="assets/barPage/btnClose.png" onclick="onBtnPopoutClose()" />
         </div>
     </div>
 

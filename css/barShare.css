@@ -219,6 +219,31 @@ div.presentDiv{
     width:30vw;
     top:calc(50% - 15vw);
     right:5vw;
+    -ms-transform: translateY(calc(-1 * (50vh + 15vw)));
+    -webkit-transform: translateY(calc(-1 * (50vh + 15vw)));
+    transform: translateY(calc(-1 * (50vh + 15vw)));
+    transition:all 1s ease-in
+}
+
+div.popoutDiv{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.6);
+}
+
+div.popoutMsgDiv{
+    height:15vh;
+    width:70vw;
+    background-color:rgba(0, 0, 0, 0.9);
+    color:white;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(250, 183, 0, 0.8);
+    
+}
+
+.enter{
+    transform: translateY(0) !important; 
+    
 }
 
 img.background {
@@ -243,12 +268,7 @@ img.presentLight{
 }
 
 img.present{
-    width:70%;
-}
-
-img.presentMark{
-    top:0;
-    width:40%;
+    width:120%;
 }
 
 img.light{
@@ -291,18 +311,24 @@ img.lotteryBtn{
 
 img.btnClose{
     position:absolute;
-    right:-2vh;
-    height:4vh;
-    bottom:-2vh;
+    right:-3vh;
+    height:6vh;
+    bottom:-3vh;
 }
 
 img.btnPhotoClose{
     position:absolute;
-    right:calc(10vw - 2vh);
+    right:calc(10vw - 3vh);
     top:calc(50% + 80vw * 16/9 * 0.5 - 2.5vh);
-    height:4vh;
+    height:6vh;
 }
 
+img.btnPopCloseClose{
+    position:absolute;
+    right:calc(15vw - 3vh);
+    top:calc(50% + 15vh * 0.5 - 3vh);
+    height:6vh;
+}
 
 
 input[type=text].inputNickName{
@@ -325,6 +351,19 @@ input[type=text].dataInput{
 }
 
 input[type=text].dataInput::placeholder {
+    color:#fecf8d;
+}
+
+input[type=number].dataInput{
+    width:80%;
+    border: none;
+    background: rgba(0, 0, 0, 100);
+    color:#fecf8d;
+    font-size:3.8vw;
+    padding: 2px 0px 2px 5px;
+}
+
+input[type=number].dataInput::placeholder {
     color:#fecf8d;
 }
 
@@ -368,6 +407,13 @@ p.pNameText
     line-height:6vh;
 }
 
+p.popoutMsg
+{
+    text-align:center;
+    font-size:4vw;
+    margin: 0;
+    width:80%;
+}
 
 
 label.pTitleData, p.pTitleData{

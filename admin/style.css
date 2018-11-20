@@ -21,14 +21,14 @@ div.container
 
 div.block
 {
-    height:12vh;
+    height:20vh;
     margin-top:10px;
     margin-bottom:10px;
 }
 
 div.blockBig
 {
-    height:30vh;
+    height:40vh;
     margin-top:10px;
     margin-bottom:10px;
 }

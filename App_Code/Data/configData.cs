@@ -28,7 +28,9 @@ public class configData
         { "RunBoxType", 4},
         { "RunStartT", 5},
         { "BarQRShowT", 6},
-        { "BarMobileMsg", 7}
+        { "BarMobileMsg", 7},
+        { "BarPopoutMsg", 8},
+        { "BarDataMsg", 9}
 
     };
 }

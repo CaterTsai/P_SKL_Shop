@@ -1,6 +1,8 @@
 ﻿var _gGuid = "";
 var _gFrom = "";
 var _gIsSlickInit = false;
+var _gIsEnterLottery = false;
+
 //---------------------------------
 //AJAX
 function toSSetLiquorNickname(nick) {
@@ -58,7 +60,45 @@ function toSGetResultMsg()
             var result = JSON.parse(data);
 
             if (result["result"]) {
-                $("#resultText").text(result["data"]);
+                $("#resultText").html(result["data"]);
+            }
+        }
+    )
+}
+
+//------------------------------
+function toSGetPopoutMsg() {
+    $.post(
+        "s/barApi.aspx",
+        {
+            active: "getPopoutMsg"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+
+            if (result["result"]) {
+                popoutHtml(result["data"]);
+            }
+        }
+    )
+}
+
+//------------------------------
+function toSGetDataMsg() {
+    $.post(
+        "s/barApi.aspx",
+        {
+            active: "getDataMsg"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+
+            if (result["result"]) {
+                $("#dataMsg").text(result["data"]);
             }
         }
     )
@@ -75,7 +115,7 @@ function onBtnSend()
     }
     else
     {
-        alert("請輸入暱名");
+        popout("請輸入暱名");
     }
 }
 
@@ -83,8 +123,10 @@ function onBtnSend()
 function onBtnShare()
 {   
     fbShare(_gGuid);
-    $("barDiv").fadeOut();
-    $("lotteryDiv").fadeIn();
+
+    setTimeout(function () {
+        initSharePage();
+    }, 2000);
 }
 
 //------------------------------
@@ -93,19 +135,24 @@ function onBtnLottery()
     var userName = $("#nameData").val();
     var mobile = $("#mobileData").val();
     var term = $("#datacheck").is(':checked');
-    if (userName.length == 0 || mobile.length == 0)
+    if (userName.length == 0)
     {   
-        alert("請先填入個人資料");
+        popout("請填入姓名");
+    }
+    else if(mobile.length == 0)
+    {
+        popout("請填入電話");
+    }
+    else if (!$("#mobileData")[0].checkValidity()) {
+        popout("請填入正確的電話格式");
     }
     else if(!term)
     {
-        alert("請勾選同意個人資料告知事項");
+        popout("請勾選同意個人資料告知事項");
     }
     else
     {
-        //toSAddBarMobileData(userName, mobile);
-        $("#dataDiv").fadeOut();
-        $("#resultDiv").fadeIn();
+        toSAddBarMobileData(userName, mobile);
     }
     
 }
@@ -132,6 +179,19 @@ function onBtnGift()
 function onBtnPhotoClose()
 {
     $("#photoDiv").hide();
+}
+//------------------------------
+function onBtnPopoutClose()
+{
+    $("#popoutDiv").hide();
+
+    if (_gIsEnterLottery)
+    {
+        setTimeout(function () {
+            $("#presentDiv").addClass("enter");
+        }, 1000);
+        _gIsEnterLottery = false;
+    }
 }
 
 
@@ -169,10 +229,8 @@ function getUrlParameter() {
     }
     else if(_gFrom == 'afterShare')
     {
-        $("#lotteryDiv").show();
-        toSGetResultMsg();
+        initSharePage();
     }
-    console.log(_gFrom);
 }
 
 //----------------------------------------
@@ -203,12 +261,35 @@ function initSlick()
         $("#photoSliderDiv").slick();
         _gIsSlickInit = true;
     }
-    
+}
+
+//----------------------------------------
+function popout(msg)
+{
+    $("#popoutDiv").show();
+    $("#popoutMsg").text(msg);
+
+}
+
+//----------------------------------------
+function popoutHtml(msg) {
+    $("#popoutDiv").show();
+    $("#popoutMsg").html(msg);
+
+}
+
+//----------------------------------------
+function initSharePage()
+{
+    $("#lotteryDiv").show();
+    toSGetResultMsg();
+    toSGetPopoutMsg();
+    toSGetDataMsg();
+    _gIsEnterLottery = true;
 }
 
 window.load
 {
     getUrlParameter();
     loadTerms();
-    
 }

@@ -153,6 +153,20 @@ public partial class barApi : System.Web.UI.Page
                     rep.data = msg.value_3;
                     break;
                 }
+            case "getPopoutMsg":
+                {
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"]);
+                    rep.result = true;
+                    rep.data = msg.value_3;
+                    break;
+                }
+            case "getDataMsg":
+                {
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"]);
+                    rep.result = true;
+                    rep.data = msg.value_3;
+                    break;
+                }
             default:
                 {
                     rep.result = false;
