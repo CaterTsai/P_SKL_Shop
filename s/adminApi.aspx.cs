@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.IO;
 
 public partial class s_adminApi : System.Web.UI.Page
 {
@@ -81,7 +82,6 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "addAdmin":
                 {
-
                     var adminId = Request["adminID"];
                     _dbMgr.addAdmin(adminId);
                     rep.result = true;
@@ -324,6 +324,38 @@ public partial class s_adminApi : System.Web.UI.Page
                     }
                     break;
                 }
+            case "getLiquorDisplayT":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_1;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateLiquorDisplayT":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarLiquorDisplayT"];
+                        config.value_1 = Convert.ToInt32(Request["liquorDisplayT"]);
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
             case "getBartenderRestTime":
                 {
                     var config = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
@@ -490,6 +522,33 @@ public partial class s_adminApi : System.Web.UI.Page
                     {
                         rep.result = false;
                     }
+                    break;
+                }
+            case "updateInfoImg":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        try
+                        {
+                            foreach (string fileName in Request.Files)
+                            {
+                                var file = Request.Files[fileName];
+                                var path = Path.Combine(Server.MapPath("~/s/barShareInfo/"), fileName + ".jpg");
+                                file.SaveAs(path);
+                            }                            
+                            rep.result = true;
+                        }
+                        catch (Exception e)
+                        {
+                            rep.msg = e.Message;
+                            rep.result = false;
+                        }
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    
                     break;
                 }
             #endregion

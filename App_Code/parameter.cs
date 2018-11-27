@@ -49,7 +49,7 @@ public class parameter
 
     public static string _shareDesc = "超乎想像的人生設計所，讓人生好好玩！快進來看看吧~";
     public static string _barShareTitle = "Dr. Robot為我打造的人生特調";
-    public static string _barShareDesc = "超乎想像的人生設計所，讓人生好好玩！快進來看看吧~";
+    public static string _barShareDesc = "你的人生特調已經製作完成，超乎想像的成分內容，快看看吧。";
 
 
     //{0}:image url

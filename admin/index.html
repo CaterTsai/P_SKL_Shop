@@ -84,6 +84,12 @@
                 </div>
                 <hr />
                 <div class="block">
+                    <label for="LiquorDisplayT">新特調停留時間(秒)</label><br />
+                    <input id="LiquorDisplayT" type="number" min="1" max="120" /><br />
+                    <button class="update" onclick="onBtnUpdateLiquorDisplayT()">Update</button>
+                </div>
+                <hr />
+                <div class="block">
                     <label for="barShareMsg">分享顯示文字</label><br />
                     <textarea id="barShareMsg" rows="3" cols="30"></textarea><br />
                     <button class="update" onclick="onBtnUpdateBarShareMsg()">Update</button>
@@ -120,8 +126,48 @@
                     <button class="update" onclick="onBtnUpdateBarQuestion()">Update</button>
                 </div>
                 <hr />
+                <div class="blockBig">
+                    <label>更換分享頁面資訊圖(JPG 16:9)</label><br />
+                    <div class="infoGridCotainer">
+                        <div>
+                            <img id="img1" class="infoImg" src="../s/barShareInfo/p1.jpg"/><br/>
+
+                            <label class="btn">
+                                <input id="infoImg1" type="file" onchange="readUrl(0, 'img1', this);" style="display:none">
+                                更換
+                            </label><br />
+                            <button id="upload1" class="upload" onclick="onBtnUpdateInfoImage(0)" disabled>Upload</button>
+                            
+                        </div>
+                        <div>
+                            <img id="img2" class="infoImg" src="../s/barShareInfo/p2.jpg" /><br />
+                            <label class="btn">
+                                <input id="infoImg2" type="file" onchange="readUrl(1, 'img2', this);" style="display:none">
+                                更換
+                            </label><br />
+                            <button id="upload2" class="upload" onclick="onBtnUpdateInfoImage(1)" disabled>Upload</button>
+                        </div>
+                        <div>
+                            <img id="img3" class="infoImg" src="../s/barShareInfo/p3.jpg" /><br/>
+                            <label class="btn">
+                                <input id="infoImg3" type="file" onchange="readUrl(2, 'img3', this);" style="display:none">
+                                更換
+                            </label><br />
+                            <button id="upload3" class="upload" onclick="onBtnUpdateInfoImage(2)" disabled>Upload</button>
+                        </div>
+                        <div>
+                            <img id="img4" class="infoImg" src="../s/barShareInfo/p4.jpg" /><br />
+                            <label class="btn">
+                                <input id="infoImg4" type="file" onchange="readUrl(3, 'img4', this);" style="display:none">
+                                更換
+                            </label><br />
+                            <button id="upload4" class="upload" onclick="onBtnUpdateInfoImage(3)" disabled>Upload</button>
+                        </div>
+                     </div>
+                    
+                </div>
+                
             </div>
-            
         </div>
         
         

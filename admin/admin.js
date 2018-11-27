@@ -1,5 +1,5 @@
 ﻿var adminKey;
-
+var infoImgFlag = [false, false, false, false];
 //------------------------------------
 //AJAX
 //Lab Run & City
@@ -25,7 +25,7 @@ function toSUpdateShareMsg() {
         "../s/adminApi.aspx",
         {
             active: "updateShareMsg",
-            key:adminKey,
+            key: adminKey,
             msg: newMsg
         },
         'json'
@@ -241,8 +241,7 @@ function toSUpdateBoxType() {
 }
 
 //Life Bar & Bartender
-function toSClearBar()
-{
+function toSClearBar() {
     $.post(
     "../s/adminApi.aspx",
     {
@@ -263,8 +262,7 @@ function toSClearBar()
     )
 }
 
-function toSGetBartenderResetTime()
-{
+function toSGetBartenderResetTime() {
     $.post(
     "../s/adminApi.aspx",
     {
@@ -279,8 +277,7 @@ function toSGetBartenderResetTime()
     )
 }
 
-function toSUpdateBartenderResetTime()
-{
+function toSUpdateBartenderResetTime() {
     var newTime = $("#bartenderResetT").val();
 
     $.post(
@@ -304,8 +301,46 @@ function toSUpdateBartenderResetTime()
     )
 }
 
-function toSGetBarShareMsg()
-{
+function toSGetLiquorDisplayTime() {
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "getLiquorDisplayT"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            $("#LiquorDisplayT").val(result["data"]);
+        }
+    )
+}
+
+function toSUpdateLiquorDisplayTime() {
+    var newTime = $("#LiquorDisplayT").val();
+
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "updateLiquorDisplayT",
+            key: adminKey,
+            liquorDisplayT: newTime
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
+
+function toSGetBarShareMsg() {
     $.post(
     "../s/adminApi.aspx",
     {
@@ -322,8 +357,7 @@ function toSGetBarShareMsg()
     )
 }
 
-function toSUpdateBarShareMsg()
-{
+function toSUpdateBarShareMsg() {
     var newMsg = $("#barShareMsg").val();
     $.post(
         "../s/adminApi.aspx",
@@ -425,8 +459,7 @@ function toSUpdateBarDataMsg() {
     )
 }
 
-function toSGetBarQuestion()
-{
+function toSGetBarQuestion() {
     $.post(
     "../s/adminApi.aspx",
     {
@@ -436,7 +469,7 @@ function toSGetBarQuestion()
     ).done(
         function (data) {
             var result = JSON.parse(data)["data"];
-            
+
             $("#barQuestion").val(result.question);
             $("#barOpt1").val(result.opt1);
             $("#barOpt2").val(result.opt2);
@@ -444,13 +477,12 @@ function toSGetBarQuestion()
             $("#barOpt4").val(result.opt4);
             $("#barOpt5").val(result.opt5);
             $("#barOpt6").val(result.opt6);
-            
+
         }
     )
 }
 
-function toSUpdateBarQuestion()
-{
+function toSUpdateBarQuestion() {
     var qData = {};
     qData["question"] = $("#barQuestion").val();
     qData["opt1"] = $("#barOpt1").val();
@@ -480,6 +512,36 @@ function toSUpdateBarQuestion()
             }
         }
     )
+}
+
+function toSUpdateInfoImg(id) {
+    
+    var fData = new FormData();
+    fData.append("active", "updateInfoImg");
+    fData.append("key", adminKey);
+
+    var idName = "#infoImg" + (id + 1).toString();
+    if (infoImgFlag[id] && $(idName).prop('files').length > 0) {
+        var file = $(idName).prop('files')[0];
+        fData.append("p" + (id + 1).toString(), file);
+
+        $.ajax({
+            url: "../s/adminApi.aspx",
+            type: "POST",
+            data: fData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result["result"]) {
+                    alert("更新成功");
+                }
+                else {
+                    alert("更新失敗");
+                }
+            }
+        })
+    }
 }
 
 //Main
@@ -571,23 +633,20 @@ function onBtnUpdateLabRunReset() {
     }
     else {
         alert("請先登入");
-    }    
+    }
 }
 
 function onBtnUpdateLabBoxType() {
-    if (adminKey != "")
-    {
+    if (adminKey != "") {
         toSUpdateBoxType();
     }
-    else
-    {
+    else {
         alert("請先登入");
     }
 }
 
 //Life Bar & Bartender
-function onBtnResetBar()
-{
+function onBtnResetBar() {
     if (adminKey != "") {
         toSClearBar();
     }
@@ -596,8 +655,7 @@ function onBtnResetBar()
     }
 }
 
-function onBtnUpdateBartenderReset()
-{
+function onBtnUpdateBartenderReset() {
     if (adminKey != "") {
         toSUpdateBartenderResetTime();
     }
@@ -606,18 +664,7 @@ function onBtnUpdateBartenderReset()
     }
 }
 
-function onBtnUpdateBarShareMsg()
-{
-    if (adminKey != "") {
-        toSUpdateBarShareMsg();
-    }
-    else {
-        alert("請先登入");
-    }
-}
-
-function onBtnUpdatePopOutMsg()
-{
+function onBtnUpdateLiquorDisplayT() {
     if (adminKey != "") {
         toSUpdateBarPopOutMsg();
     }
@@ -626,8 +673,25 @@ function onBtnUpdatePopOutMsg()
     }
 }
 
-function onBtnUpdateBarQuestion()
-{
+function onBtnUpdateBarShareMsg() {
+    if (adminKey != "") {
+        toSUpdateBarShareMsg();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdatePopOutMsg() {
+    if (adminKey != "") {
+        toSUpdateBarPopOutMsg();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateBarQuestion() {
     if (adminKey != "") {
         toSUpdateBarQuestion();
     }
@@ -636,10 +700,19 @@ function onBtnUpdateBarQuestion()
     }
 }
 
-function onBtnUpdateDataMsg()
-{
+function onBtnUpdateDataMsg() {
     if (adminKey != "") {
         toSUpdateBarDataMsg();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function onBtnUpdateInfoImage(id)
+{
+    if (adminKey != "") {
+        toSUpdateInfoImg(id);
     }
     else {
         alert("請先登入");
@@ -671,9 +744,26 @@ function loadData() {
     toSGetBarShareMsg();
     toSGetBarPopOutMsg();
     toSGetBartenderResetTime();
+    toSGetLiquorDisplayTime();
     toSGetBarQuestion();
     toSGetBarDataMsg();
 }
+
+function readUrl(idx, id, input) {
+    if(input.files && input.files[0])
+    {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#" + id).attr('src', e.target.result)
+        };
+
+        reader.readAsDataURL(input.files[0]);
+        infoImgFlag[idx] = true;
+
+        $("#upload" + (idx + 1).toString()).prop("disabled", false);
+    }
+}
+
 //------------------------------------
 window.onload
 {
