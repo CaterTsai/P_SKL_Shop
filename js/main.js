@@ -26,24 +26,6 @@ function toSCreateMobileData() {
     }
 }
 
-function toSCreateCityData() {
-    _nickName = $('#nickInput').val();
-
-    $.post(
-        "s/labApi.aspx",
-        {
-            active: "addCityData"
-            , guid: _gGuid
-            , nick: _nickName
-        },
-        'json'
-    ).done(
-        function (data) {
-            console.log(data);
-        }
-    )
-}
-
 function toSUpdateUserData() {
 
     var gender = $("#genderSelect").val();
@@ -145,13 +127,6 @@ function onBtnLegRight() {
     $("#" + _gLegPrefix + FormatNumberLength(_gLegIdx + 1, 2)).toggleClass("slide");
 }
 
-function onBtnGONick() {
-
-    toSCreateCityData();
-    $("#nickPage").hide();
-    $("#inputMsg").show();
-}
-
 function onBtnGOInfo() {
     $("#inputMsg").hide();
     var career = $("#careerSelect").val();
@@ -177,9 +152,9 @@ function onBtnFB() {
             var url = encodeURIComponent(result['data']);
 
             var hashTag = encodeURIComponent("#LIFELab人生設計所");
-            var reurl = encodeURIComponent("https://lifelab.skl.com.tw/");
+            var reurl = encodeURIComponent("http://event2.artgital.com/redirection.html");
             var share_url = "https://www.facebook.com/dialog/share?"
-				+ "app_id=2160056277354327"
+				+ "app_id=194996280892626"
 				+ "&href=" + url
 				+ "&hashtag=" + hashTag
 				+ "&redirect_uri=" + reurl;
@@ -319,21 +294,6 @@ function get(name) {
 
 //---------------------------------
 //
-function checkNickInput() {
-    var nickInput = $("#nickInput");
-    nickInput.change(function (e) {
-        if (nickInput.val().length > _gNickNameMaxLength) {
-            nickInput.val(nickInput.val().substr(0, 5));
-        }
-
-        if (nickInput.val().length > 0) {
-            $("#btnGoNick").show();
-        }
-        else {
-            $("#btnGoNick").hide();
-        }
-    });
-}
 
 function mobilecheck(){
     var check = false;
@@ -344,9 +304,6 @@ function mobilecheck(){
 window.onload
 {
     _gIsMobile = mobilecheck();
-
     getUrlParameter();
     toSCreateMobileData();
-
-    checkNickInput();
 }

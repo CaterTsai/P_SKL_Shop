@@ -1,11 +1,11 @@
 ﻿div.infoMsg {
     position: absolute;
-    width: 95%;
+    width: 98%;
     top: 5vh;
     text-align: center;
-    font-size: 3vh;
+    font-size: 5vw;
     color: rgb(255, 255, 255);
-    line-height: 5vh;
+    line-height: 6vw;
 }
 
 div.career {
@@ -34,7 +34,7 @@ select.careerSelect{
     outline: none;
     width:100%;
     height:100%;
-    font-size:2.8vh;
+    font-size:6vw;
     font-family: 'font', sans-serif;
     text-align:center;
     
@@ -48,7 +48,7 @@ select.genderSelect{
     outline: none;
     width:100%;
     height:100%;
-    font-size:2.8vh;
+    font-size:6vw;
     font-family: 'font', sans-serif;
     text-align:center;
     border-radius: 0px;

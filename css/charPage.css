@@ -3,9 +3,9 @@
     width: 95%;
     top: 2vh;
     text-align: center;
-    font-size: 3vh;
+    font-size: 6vw;
     color: rgb(255, 255, 255);
-    line-height: 5vh;
+    line-height: 6vh;
 }
 
 div.charDiv {
@@ -45,14 +45,14 @@ img.leg {
 /*-------------------------------*/
 img.headBtn {
     position: absolute;
-    top: 5vh;
-    height: 8vh;
+    top: calc(55vw * 0.1);
+    height: 15vw;
 }
 
 img.legBtn {
     position: absolute;
-    top: 25vh;
-    height: 8vh;
+    top: calc(55vw * 0.8);
+    height: 15vw;
 }
 
 img.btnLeft {

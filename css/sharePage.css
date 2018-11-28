@@ -14,9 +14,9 @@ div.shareMsg{
     width: 95%;
     top: 3vh;
     text-align: center;
-    font-size: 3vh;
+    font-size: 5vw;
     color: rgb(255, 255, 255);
-    line-height: 4vh;
+    line-height: 6vw;
 }
 
 div.shareBtn{
@@ -46,7 +46,7 @@ img.shareMsgImg {
 }
 
 img.shareBtn{
-    height:70%;
+    height:50%;
 }
 
 p.shareMsg{
