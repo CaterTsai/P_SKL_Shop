@@ -288,8 +288,19 @@ function initSharePage()
     _gIsEnterLottery = true;
 }
 
+
+var viewW;
+var viewH;
 window.load
 {
     getUrlParameter();
     loadTerms();
+
+    viewW = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    viewH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+}
+
+window.onresize = function(event) {
+    var viewport = $('meta[name="viewport"]');
+    viewport.attr("content", "width="+ viewW + ",height=" + viewH +", initial-scale=1.0");
 }
