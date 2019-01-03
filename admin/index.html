@@ -74,7 +74,7 @@
             </div>
             <div id="barCtrlPlane"  style="display:none">
                 <div class="block">
-                    <button class="ctrl" onclick="onBtnResetBar()">重置Bar顯示特調</button><br />
+                    <button class="ctrl" onclick="onBtnResetBar()">重置為預設特調</button><br />
                 </div>
                 <hr />
                 <div class="block">
@@ -90,19 +90,19 @@
                 </div>
                 <hr />
                 <div class="block">
-                    <label for="barShareMsg">分享顯示文字</label><br />
+                    <label for="barShareMsg">分享流程Ending畫面顯示文字</label><br />
                     <textarea id="barShareMsg" rows="3" cols="30"></textarea><br />
                     <button class="update" onclick="onBtnUpdateBarShareMsg()">Update</button>
                 </div>
                 <hr />
                 <div class="block">
-                    <label for="barPopOutMsg">彈出視窗訊息</label><br />
+                    <label for="barPopOutMsg">分享FB後系統彈出視窗訊息</label><br />
                     <textarea id="barPopoutMsg" rows="3" cols="30"></textarea><br />
                     <button class="update" onclick="onBtnUpdatePopOutMsg()">Update</button>
                 </div>
                 <hr />
                 <div class="block">
-                    <label for="barDataMsg">留資訊訊息</label><br />
+                    <label for="barDataMsg">留下姓名電話活動說明（例：留下資料參加抽獎）</label><br />
                     <input id="barDataMsg" type="text" maxlength="10" /><br />
                     <button class="update" onclick="onBtnUpdateDataMsg()">Update</button>
                 </div>
@@ -131,7 +131,8 @@
                     <div class="infoGridCotainer">
                         <div>
                             <img id="img1" class="infoImg" src="../s/barShareInfo/p1.jpg"/><br/>
-
+                            <label for="info1">是否顯示</label>
+                            <input type="checkbox" id="info1" value="info1" /><br />
                             <label class="btn">
                                 <input id="infoImg1" type="file" onchange="readUrl(0, 'img1', this);" style="display:none">
                                 更換
@@ -140,7 +141,10 @@
                             
                         </div>
                         <div>
+                            
                             <img id="img2" class="infoImg" src="../s/barShareInfo/p2.jpg" /><br />
+                            <label for="info2">是否顯示</label>
+                            <input type="checkbox" id="info2" value="info2" /><br />
                             <label class="btn">
                                 <input id="infoImg2" type="file" onchange="readUrl(1, 'img2', this);" style="display:none">
                                 更換
@@ -148,7 +152,10 @@
                             <button id="upload2" class="upload" onclick="onBtnUpdateInfoImage(1)" disabled>Upload</button>
                         </div>
                         <div>
+                            
                             <img id="img3" class="infoImg" src="../s/barShareInfo/p3.jpg" /><br/>
+                            <label for="info3">是否顯示</label>
+                            <input type="checkbox" id="info3" value="info3" /><br />
                             <label class="btn">
                                 <input id="infoImg3" type="file" onchange="readUrl(2, 'img3', this);" style="display:none">
                                 更換
@@ -157,6 +164,8 @@
                         </div>
                         <div>
                             <img id="img4" class="infoImg" src="../s/barShareInfo/p4.jpg" /><br />
+                            <label for="info4">是否顯示</label>
+                            <input type="checkbox" id="info4" value="info4" /><br />
                             <label class="btn">
                                 <input id="infoImg4" type="file" onchange="readUrl(3, 'img4', this);" style="display:none">
                                 更換
@@ -164,7 +173,7 @@
                             <button id="upload4" class="upload" onclick="onBtnUpdateInfoImage(3)" disabled>Upload</button>
                         </div>
                      </div>
-                    
+                    <button class="upload" onclick="onBtnUpdateInfo()">更新顯示狀態</button>
                 </div>
                 
             </div>

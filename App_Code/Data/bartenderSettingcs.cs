@@ -9,9 +9,10 @@ using System.Web;
 public class bartenderSettingcs
 {
     public int qrDisplaySecond { get; set; }
-    
+    public int liquorDisplaySecoud { get; set; }
     public bartenderSettingcs()
     {
         qrDisplaySecond = 10;
+        liquorDisplaySecoud = 10;
     }
 }

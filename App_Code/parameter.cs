@@ -24,8 +24,7 @@ public class parameter
         
         
     }
-    public static string _serverUrl = "http://192.168.1.120/";
-    //public static string _serverUrl = "https://skllifelab.skl.com.tw/";
+    public static string _serverUrl = "https://skllifelab.skl.com.tw/";
     public static string _websiteUrl = "https://lifelab.skl.com.tw/";
     public static string _videoUrl = _serverUrl + "video.html?vType=";
 

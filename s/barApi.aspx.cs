@@ -80,8 +80,11 @@ public partial class barApi : System.Web.UI.Page
             case "getBarSetting":
                 {
                     configData barQRT = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
+                    configData barLiquorT = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"]);
+
                     bartenderSettingcs setting = new bartenderSettingcs();
                     setting.qrDisplaySecond = barQRT.value_1;
+                    setting.liquorDisplaySecoud = barLiquorT.value_1;
                     rep.result = true;
                     rep.data = setting;                    
                     break;
@@ -106,11 +109,11 @@ public partial class barApi : System.Web.UI.Page
                     rep.data = barList;
                     break;
                 }
+            
             case "getNewBarLiquor":
                 {
                     barData data = new barData();
                     _dbMgr.getNewBarLiquor(ref data);
-
 
                     rep.result = true;
                     rep.data = data;
@@ -165,6 +168,13 @@ public partial class barApi : System.Web.UI.Page
                     var msg = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"]);
                     rep.result = true;
                     rep.data = msg.value_3;
+                    break;
+                }
+            case "getInfoState":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"]);
+                    rep.result = true;
+                    rep.data = config.value_3;
                     break;
                 }
             default:

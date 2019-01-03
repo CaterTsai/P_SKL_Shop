@@ -31,7 +31,8 @@ public class configData
         { "BarMobileMsg", 7},
         { "BarPopoutMsg", 8},
         { "BarDataMsg", 9},
-        { "BarLiquorDisplayT", 10}
+        { "BarLiquorDisplayT", 10},
+        { "BarInfoState", 11}
 
     };
 }

@@ -519,7 +519,7 @@ function toSUpdateInfoImg(id) {
     var fData = new FormData();
     fData.append("active", "updateInfoImg");
     fData.append("key", adminKey);
-
+    fData.append("infoState", getInfoState());
     var idName = "#infoImg" + (id + 1).toString();
     if (infoImgFlag[id] && $(idName).prop('files').length > 0) {
         var file = $(idName).prop('files')[0];
@@ -544,6 +544,45 @@ function toSUpdateInfoImg(id) {
     }
 }
 
+function toSGetInfoState()
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "getInfoState"
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data)["data"];
+            setInfoState(result);
+        }
+    )
+}
+
+function toSUpdateInfoState()
+{
+    var state = getInfoState()
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "updateInfoState",
+        key: adminKey,
+        infoState: state
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["result"]) {
+                alert("更新成功");
+            }
+            else {
+                alert("更新失敗");
+            }
+        }
+    )
+}
 //Main
 function toSLogin() {
     var adminID = $("#ID").val();
@@ -719,6 +758,50 @@ function onBtnUpdateInfoImage(id)
     }
 }
 
+function onBtnUpdateInfo()
+{
+    if (adminKey != "") {
+        toSUpdateInfoState();
+    }
+    else {
+        alert("請先登入");
+    }
+}
+
+function setInfoState(state)
+{
+    for(var i = 0; i < state.length; i++)
+    {
+        var s = state.charAt(i);
+
+        if(s == '1')
+        {
+            $("#info" + (i + 1)).prop('checked', true);
+        }
+        else
+        {
+            $("#info" + (i + 1)).prop('checked', false);
+        }
+    }
+}
+
+function getInfoState()
+{
+    var state = "";
+    for(var i = 1; i <= 4; i++)
+    {
+        if ($("#info" + i).prop('checked'))
+        {
+            state += '1';
+        }
+        else
+        {
+            state += '0';
+        }
+    }
+    return state;
+}
+
 //Main
 function onBtnRunCtrl() {
     $("#runCtrlPlane").show();
@@ -747,6 +830,7 @@ function loadData() {
     toSGetLiquorDisplayTime();
     toSGetBarQuestion();
     toSGetBarDataMsg();
+    toSGetInfoState();
 }
 
 function readUrl(idx, id, input) {

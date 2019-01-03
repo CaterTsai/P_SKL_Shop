@@ -25,6 +25,7 @@ function toSSetLiquorNickname(nick) {
     }
 }
 
+//------------------------------
 function toSAddBarMobileData(name, phone) {
 
     if (_gGuid != "") {
@@ -99,6 +100,33 @@ function toSGetDataMsg() {
 
             if (result["result"]) {
                 $("#dataMsg").text(result["data"]);
+            }
+        }
+    )
+}
+
+//------------------------------
+function toSGetInfoState()
+{
+    $.post(
+        "s/barApi.aspx",
+        {
+            active: "getInfoState"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+
+            if (result["result"]) {
+                var state = result["data"];
+                for(var i = 0; i < state.length; i++)
+                {
+                    if(state.charAt(i) == '0')
+                    {
+                        $("#shareInfoDiv" + (i + 1)).hide();
+                    }
+                }
             }
         }
     )
@@ -285,6 +313,7 @@ function initSharePage()
     toSGetResultMsg();
     toSGetPopoutMsg();
     toSGetDataMsg();
+    toSGetInfoState();
     _gIsEnterLottery = true;
 }
 

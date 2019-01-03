@@ -524,6 +524,38 @@ public partial class s_adminApi : System.Web.UI.Page
                     }
                     break;
                 }
+            case "getInfoState":
+                {
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"]);
+                    if (config != null)
+                    {
+                        rep.result = true;
+                        rep.data = config.value_3;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                        rep.msg = "Can't found config data";
+                    }
+                    break;
+                }
+            case "updateInfoState":
+                {
+                    if (checkAdminKey(Request["key"]))
+                    {
+                        configData config = new configData();
+                        config.id = configData.ConfigMap["BarInfoState"];
+                        config.value_3 = Request["infoState"];
+
+                        _dbMgr.updateConfigData(config);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
             case "updateInfoImg":
                 {
                     if (checkAdminKey(Request["key"]))
@@ -535,8 +567,7 @@ public partial class s_adminApi : System.Web.UI.Page
                                 var file = Request.Files[fileName];
                                 var path = Path.Combine(Server.MapPath("~/s/barShareInfo/"), fileName + ".jpg");
                                 file.SaveAs(path);
-                            }                            
-                            rep.result = true;
+                            }
                         }
                         catch (Exception e)
                         {
@@ -547,8 +578,7 @@ public partial class s_adminApi : System.Web.UI.Page
                     else
                     {
                         rep.result = false;
-                    }
-                    
+                    }                    
                     break;
                 }
             #endregion
