@@ -50,5 +50,29 @@ public class dbMgrWall
             }
         }
     }
-    
+
+    public void addWallWebLog(int type)
+    {
+        using (SqlCommand cmd = new SqlCommand("addWallWebData", _sqlConn))
+        {
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.TinyInt).Value = type;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
 }

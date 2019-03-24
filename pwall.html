@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>小舖光雕牆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="css/pWall.css" />
+</head>
+<body>
+    <div class="headerBar">
+        <a class="logoLink YcenterWrapper" href="https://lifelab.skl.com.tw/">
+            <img src="assets/wall/logo.svg" width="110" height="39"/>
+        </a>
+        
+    </div>
+    <div class="content">
+        <div class="gridContainer">
+            <div><img class="page" src="assets/wall/p1_work.png" onclick="onContent(0)"/></div>
+            <div><img class="page" src="assets/wall/p2_wedding.png" onclick="onContent(1)"/></div>
+            <div><img class="page" src="assets/wall/p3_house.png" onclick="onContent(2)"/></div>
+            <div><img class="page" src="assets/wall/p4_baby.png" onclick="onContent(3)"/></div>
+            <div><img class="page" src="assets/wall/p5_education.png" onclick="onContent(4)"/></div>
+            <div><img class="page" src="assets/wall/p6_retirement.png" onclick="onContent(5)"/></div>
+            <div><img class="page" src="assets/wall/p7_firstMoney.png" onclick="onContent(6)"/></div>
+        </div>
+    </div>
+    <div class="popout" style="display:none">
+        <div class="popBG"></div>
+        <div class="popoutInfo centerWrapper" >
+            <div class="popoutGridContiner XcenterWrapper">
+                <div style="height:100%;"><img class="popoutImg" src="assets/wall/baby.png"/></div>
+                <div><span class="title" id="popoutTitle"></span></div>
+                <div><span class="subtitle" id="popoutSubtitle"></span></div>
+                <div style="height:100%;"><pre style="text-align:left" class="popoutContent"></pre></div>
+                <div style="text-align:left"><span class="link">資料來源：<a id="ref" href=""></a></span></div>
+            </div>
+        </div>
+        <img class="close" src="assets/wall/btnClose.png" onclick="onClosePopout();"/>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/pWall.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+﻿/*#region BASIC */
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: "微軟正黑體";
+}
+
+span.title{
+    margin:0;
+    font-size:1.3em;
+    font-weight:bold;
+}
+
+span.subtitle{
+    margin:0;
+    font-size:1.1em;
+    line-height:90%;
+    white-space:pre-line;
+    font-weight:bold;
+}
+
+span.link{
+    margin:0;
+    font-size:0.8em;
+}
+
+
+pre{
+    font-family: "微軟正黑體";
+}
+
+.centerWrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.XcenterWrapper {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+.YcenterWrapper {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+/*#endregion */
+
+/*#region DIV-HeaderBar */
+div.headerBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 60px;
+    background: #000000;
+    opacity: 0.8;
+    z-index: 10;
+}
+
+    div.headerBar > a.logoLink {
+        left: 30px;
+    }
+/*#endregion */
+
+/*#region DIV-PopOut */
+div.popout {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+}
+
+    div.popout > div.popBG {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: white;
+        opacity: 0.8;
+    }
+
+    div.popout > div.popoutInfo {
+        width: 90%;
+        height: 90%;
+        border: 2px solid black;
+        border-radius: 5vw;
+        background: white;
+    }
+
+div.popoutInfo > div.popoutGridContiner {
+    display: grid;
+    top: 1%;
+    width: 95%;
+    height: 98%;
+    grid-template-columns: 100%;
+    grid-template-rows: 40% 8% 10% 35% 7%;
+    text-align:center;
+    align-items:center;
+}
+
+div.popout > img.close {
+    position: absolute;
+    width: 10%;
+    right: 2.5%;
+    top:2.5%;
+}
+
+img.popoutImg{
+    height:100%;
+    width:100%;
+    object-fit:contain;
+}
+
+pre.popoutContent{
+    width:100%;
+    height:100%;
+    margin:4px 0 0 0;
+    overflow-y:auto;
+    white-space: pre-wrap;
+    font-size:1.0em;
+}
+
+/*#endregion */
+
+/*#region DIV-Content */
+div.content {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+}
+
+    div.content > div.gridContainer {
+        display: grid;
+        top: 0;
+        width: 100%;
+        grid-template-columns: 100%;
+    }
+
+img.page {
+    width: 100%;
+}
+
+/*#endregion */

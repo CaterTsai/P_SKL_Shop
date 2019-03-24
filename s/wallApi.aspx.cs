@@ -23,6 +23,11 @@ public partial class wallApi : System.Web.UI.Page
             _dbMgr.addWallLog(Convert.ToInt32(Request["type"]));
             rep.result = true;
         }
+        else if(active == "addWallWebLog")
+        {
+            _dbMgr.addWallWebLog(Convert.ToInt32(Request["type"]));
+            rep.result = true;
+        }
         else
         {
             rep.result = false;
