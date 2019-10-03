@@ -27,16 +27,16 @@ public class dbMgrAdmin
     }
 
     #region Add
-    public void addConfigData(configData data)
+    public void addConfigData(configData data, int store)
     {
         using (SqlCommand cmd = new SqlCommand("addConfigData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = data.id;
             cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
             cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
             cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
-
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -110,15 +110,16 @@ public class dbMgrAdmin
     #endregion
 
     #region Update
-    public void updateConfigData(configData data)
+    public void updateConfigData(configData data, int store)
     {
         using (SqlCommand cmd = new SqlCommand("updateConfigData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = data.id;
             cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
             cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
             cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
 
             try
             {
@@ -139,14 +140,15 @@ public class dbMgrAdmin
     #endregion
 
     #region Get
-    public configData getConfigData(int id)
+    public configData getConfigData(int id, int store)
     {
 
         configData config = new configData();
         using (SqlCommand cmd = new SqlCommand("getConfig", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();

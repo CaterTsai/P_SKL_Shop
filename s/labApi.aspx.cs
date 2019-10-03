@@ -22,6 +22,7 @@ public partial class labApi : System.Web.UI.Page
     private void handleActive()
     {
         var active = Request["active"];
+        var store = Int32.Parse(Request["store"]);
         response rep = new response();
         
         rep.active = active;
@@ -30,7 +31,7 @@ public partial class labApi : System.Web.UI.Page
             //admin
             case "getShareMsg":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"], store);
 
                     if (config != null)
                     {
@@ -46,7 +47,7 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "getLabRunStartTime":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -61,7 +62,7 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "getLabRunRestTime":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -76,7 +77,7 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "getBoxType":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -92,7 +93,7 @@ public partial class labApi : System.Web.UI.Page
             //Lab Run
             case "getRunRank":
                 {
-                    getRunRank(ref rep);
+                    getRunRank(ref rep, store);
 
                     break;
                 }
@@ -110,7 +111,7 @@ public partial class labApi : System.Web.UI.Page
             case "createRunData":
                 {
                     string guid = getShortGUID();
-                    _dbMgr.addRunData(guid);
+                    _dbMgr.addRunData(guid, store);
                     rep.result = true;
                     rep.data = guid;
                     break;
@@ -119,7 +120,7 @@ public partial class labApi : System.Web.UI.Page
                 {
                     int rank = -1;
                     int score = 0;
-                    _dbMgr.getUserRank(Request["guid"], ref rank, ref score);
+                    _dbMgr.getUserRank(Request["guid"], ref rank, ref score, store);
 
                     if (rank != -1)
                     {
@@ -130,9 +131,9 @@ public partial class labApi : System.Web.UI.Page
                 }
             case "getRunSetting":
                 {
-                    configData runResetT = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"]);
-                    configData boxType = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
-                    configData runStartT = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"]);
+                    configData runResetT = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"], store);
+                    configData boxType = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"], store);
+                    configData runStartT = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"], store);
                     runSetting setting = new runSetting();
                     setting.resetSecond = runResetT.value_1;
                     setting.boxType = boxType.value_1;
@@ -144,7 +145,7 @@ public partial class labApi : System.Web.UI.Page
             //LabCity
             case "getCityData":
                 {
-                    getCityData(ref rep);
+                    getCityData(ref rep, store);
                     break;
                 }
             case "getNewCityUser":
@@ -152,7 +153,7 @@ public partial class labApi : System.Web.UI.Page
                     cityDisplayData cityData = new cityDisplayData();
                     try
                     {
-                        _dbMgr.getNewCityUser(ref cityData);
+                        _dbMgr.getNewCityUser(ref cityData, store);
                         rep.result = true;
                         rep.data = cityData;
                     }
@@ -200,9 +201,9 @@ public partial class labApi : System.Web.UI.Page
                     {
                         int rank = -1;
                         int score = 0;
-                        _dbMgr.getUserRank(Request["guid"], ref rank, ref score);
+                        _dbMgr.getUserRank(Request["guid"], ref rank, ref score, store);
 
-                        cityDisplayData cityData = _dbMgr.addCityData(ukey, nickName, rank);
+                        cityDisplayData cityData = _dbMgr.addCityData(ukey, nickName, rank, store);
                         if (cityData == null)
                         {
                             rep.result = false;
@@ -233,7 +234,7 @@ public partial class labApi : System.Web.UI.Page
                     var ukey = Request["guid"];
                     var imgData = Request["img"];
                     var shareTo = Request["share"];
-                    if (!checkShare(ukey, ref imgData))
+                    if (!checkShare(ukey, ref imgData, store))
                     {
                         rep.result = false;
                         rep.msg = "DB error";
@@ -299,18 +300,18 @@ public partial class labApi : System.Web.UI.Page
         return guid;
     }
 
-    private void getRunRank(ref response rep)
+    private void getRunRank(ref response rep, int store)
     {
         List<runRankData> rank = new List<runRankData>();
-        _dbMgr.getRunRank(ref rank);
+        _dbMgr.getRunRank(ref rank, store);
         rep.result = true;
         rep.data = rank;
     }
 
-    private void getCityData(ref response rep)
+    private void getCityData(ref response rep, int store)
     {
         List<cityDisplayData> city = new List<cityDisplayData>();
-        _dbMgr.getCityDisplay(ref city);
+        _dbMgr.getCityDisplay(ref city, store);
         rep.result = true;
         rep.data = city;
     }
@@ -322,12 +323,12 @@ public partial class labApi : System.Web.UI.Page
         sender.send(msg);
     }
 
-    private bool checkShare(string uKey, ref string imgData)
+    private bool checkShare(string uKey, ref string imgData, int store)
     {
         bool result = true;
         if (!File.Exists(Server.MapPath("~/s/shareImg/" + uKey + ".jpg")))
         {
-            runData data = _dbMgr.getUserRunData(uKey);
+            runData data = _dbMgr.getUserRunData(uKey, store);
             if (data != null)
             {
                 createImage(uKey, ref data, ref imgData);

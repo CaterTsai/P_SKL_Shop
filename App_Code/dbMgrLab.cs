@@ -40,13 +40,13 @@ public class dbMgrLab
     }
 
     #region Add
-    public void addRunData(string guid)
+    public void addRunData(string guid, int store)
     {
         using (SqlCommand cmd = new SqlCommand("addRunData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -64,7 +64,7 @@ public class dbMgrLab
         }
     }
 
-    public cityDisplayData addCityData(string guid, string nick, int rank)
+    public cityDisplayData addCityData(string guid, string nick, int rank, int store)
     {
         cityDisplayData c = new cityDisplayData();
         using (SqlCommand cmd = new SqlCommand("addCityData", _sqlConn))
@@ -74,7 +74,7 @@ public class dbMgrLab
             cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
             cmd.Parameters.Add("@nick", SqlDbType.NChar).Value = nick;
             cmd.Parameters.Add("@rank", SqlDbType.Int).Value = rank;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -131,33 +131,6 @@ public class dbMgrLab
             }
         }
         return result == 1;
-    }
-
-    public void addConfigData(configData data)
-    {
-        using (SqlCommand cmd = new SqlCommand("addConfigData", _sqlConn))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
-            cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
-            cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
-            cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
-
-            try
-            {
-                _sqlConn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                _sqlConn.Close();
-                cmd.Dispose();
-            }
-        }
     }
     #endregion
 
@@ -224,34 +197,7 @@ public class dbMgrLab
             }
         }
     }
-
-    public void updateConfigData(configData data)
-    {
-        using (SqlCommand cmd = new SqlCommand("updateConfigData", _sqlConn))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
-            cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
-            cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
-            cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
-
-            try
-            {
-                _sqlConn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                _sqlConn.Close();
-                cmd.Dispose();
-            }
-        }
-    }
-
+    
     public void updateShare(string guid, int isFB, int isLine)
     {
         using (SqlCommand cmd = new SqlCommand("setShare", _sqlConn))
@@ -280,12 +226,12 @@ public class dbMgrLab
     #endregion
 
     #region Get
-    public void getRunRank(ref List<runRankData> rankData)
+    public void getRunRank(ref List<runRankData> rankData, int store)
     {
         using (SqlCommand cmd = new SqlCommand("getRunRank", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -328,7 +274,7 @@ public class dbMgrLab
         }
     }
 
-    public void getUserRank(string guid, ref int rank, ref int score)
+    public void getUserRank(string guid, ref int rank, ref int score, int store)
     {
         if (guid == "")
         {
@@ -340,7 +286,7 @@ public class dbMgrLab
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
 
             try
             {
@@ -384,12 +330,12 @@ public class dbMgrLab
 
     }
 
-    public void getCityDisplay(ref List<cityDisplayData> cityDataList)
+    public void getCityDisplay(ref List<cityDisplayData> cityDataList, int store)
     {
         using (SqlCommand cmd = new SqlCommand("getCityDisplay", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -429,12 +375,12 @@ public class dbMgrLab
         }
     }
 
-    public void getNewCityUser(ref cityDisplayData cityData)
+    public void getNewCityUser(ref cityDisplayData cityData, int store)
     {
         using (SqlCommand cmd = new SqlCommand("getNewCityUser", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -468,7 +414,7 @@ public class dbMgrLab
         }
     }
 
-    public runData getUserRunData(string guid)
+    public runData getUserRunData(string guid, int store)
     {
         if (guid == "")
         {
@@ -480,7 +426,7 @@ public class dbMgrLab
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@uKey", SqlDbType.NChar).Value = guid;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -518,14 +464,15 @@ public class dbMgrLab
         return rData;
     }
 
-    public configData getConfigData(int id)
+    public configData getConfigData(int id, int store)
     {
 
         configData config = new configData();
         using (SqlCommand cmd = new SqlCommand("getConfig", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -570,7 +517,7 @@ public class dbMgrLab
         return config;
     }
     #endregion
-    
+
     #region Private Method
     private int getRank(int score)
     {

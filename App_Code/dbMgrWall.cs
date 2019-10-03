@@ -26,14 +26,14 @@ public class dbMgrWall
         _sqlConn = new SqlConnection(strConn);
     }
 
-    public void addWallLog(int type)
+    public void addWallLog(int type, int store)
     {
         using (SqlCommand cmd = new SqlCommand("addWallData", _sqlConn))
         {
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@type", SqlDbType.TinyInt).Value = type;
-            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = 1;
+            cmd.Parameters.Add("@store", SqlDbType.TinyInt).Value = store;
             try
             {
                 _sqlConn.Open();
