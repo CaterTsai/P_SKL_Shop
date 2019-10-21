@@ -24,6 +24,7 @@ public partial class barApi : System.Web.UI.Page
     private void handleActive()
     {
         var active = Request["active"];
+        var store = Int32.Parse(Request["store"]);
         response rep = new response();
         rep.active = active;
         switch (active)
@@ -32,7 +33,7 @@ public partial class barApi : System.Web.UI.Page
             case "createBarData":
                 {
                     string guid = getShortGUID();
-                    _dbMgr.addBarData(guid);
+                    _dbMgr.addBarData(guid, store);
                     rep.result = true;
                     rep.data = guid;
                     break;
@@ -79,8 +80,8 @@ public partial class barApi : System.Web.UI.Page
                 }
             case "getBarSetting":
                 {
-                    configData barQRT = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
-                    configData barLiquorT = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"]);
+                    configData barQRT = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"], store);
+                    configData barLiquorT = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"], store);
 
                     bartenderSettingcs setting = new bartenderSettingcs();
                     setting.qrDisplaySecond = barQRT.value_1;
@@ -94,7 +95,7 @@ public partial class barApi : System.Web.UI.Page
             case "getBarLiquorDisplay":
                 {
                     List<barData> barList = new List<barData>();
-                    _dbMgr.getBarLiquorDisplay(ref barList);
+                    _dbMgr.getBarLiquorDisplay(ref barList, store);
                     if(barList.Count < 16)
                     {
                         int addNum = (16 - barList.Count);
@@ -113,7 +114,7 @@ public partial class barApi : System.Web.UI.Page
             case "getNewBarLiquor":
                 {
                     barData data = new barData();
-                    _dbMgr.getNewBarLiquor(ref data);
+                    _dbMgr.getNewBarLiquor(ref data, store);
 
                     rep.result = true;
                     rep.data = data;
@@ -133,8 +134,8 @@ public partial class barApi : System.Web.UI.Page
                 {
                     var uKey = Request["guid"];
                     var nickName = Request["nickname"];
-                    _dbMgr.setBarLiquorNickname(uKey, nickName);
-                    checkShare(uKey, nickName);
+                    _dbMgr.setBarLiquorNickname(uKey, nickName, store);
+                    checkShare(uKey, nickName, store);
                     rep.result = true;
                     
                     break;
@@ -151,28 +152,28 @@ public partial class barApi : System.Web.UI.Page
                 }
             case "getResultMsg":
                 {
-                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"]);
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"], store);
                     rep.result = true;
                     rep.data = msg.value_3;
                     break;
                 }
             case "getPopoutMsg":
                 {
-                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"]);
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"], store);
                     rep.result = true;
                     rep.data = msg.value_3;
                     break;
                 }
             case "getDataMsg":
                 {
-                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"]);
+                    var msg = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"], store);
                     rep.result = true;
                     rep.data = msg.value_3;
                     break;
                 }
             case "getInfoState":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"], store);
                     rep.result = true;
                     rep.data = config.value_3;
                     break;
@@ -196,12 +197,12 @@ public partial class barApi : System.Web.UI.Page
         return guid;
     }
 
-    private bool checkShare(string uKey, string nickame)
+    private bool checkShare(string uKey, string nickame, int store)
     {
         bool result = true;
         if (!File.Exists(Server.MapPath("~/s/barShareImg/" + uKey + ".jpg")))
         {
-            barData data = _dbMgr.getBarLiquorData(uKey);
+            barData data = _dbMgr.getBarLiquorData(uKey, store);
             if(data != null)
             {
                 string shareStr = getShareMsg(ref data);

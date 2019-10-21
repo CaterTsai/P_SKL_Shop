@@ -27,16 +27,16 @@ public class dbMgrAdmin
     }
 
     #region Add
-    public void addConfigData(configData data)
+    public void addConfigData(configData data, int store)
     {
         using (SqlCommand cmd = new SqlCommand("addConfigData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = data.id;
             cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
             cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
             cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
-
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -107,19 +107,99 @@ public class dbMgrAdmin
             }
         }
     }
+
+    public void addStoreData(storeData storeData)
+    {
+        using (SqlCommand cmd = new SqlCommand("addAdmin", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@storeNo", SqlDbType.NChar).Value = storeData.storeNo;
+            cmd.Parameters.Add("@storeName", SqlDbType.NChar).Value = storeData.storeName;
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
     #endregion
 
     #region Update
-    public void updateConfigData(configData data)
+    public void updateConfigData(configData data, int store)
     {
         using (SqlCommand cmd = new SqlCommand("updateConfigData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = data.id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = data.id;
             cmd.Parameters.Add("@value_1", SqlDbType.Int).Value = data.value_1;
             cmd.Parameters.Add("@value_2", SqlDbType.Float).Value = data.value_2;
             cmd.Parameters.Add("@value_3", SqlDbType.NChar).Value = data.value_3;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
 
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
+
+    public void updateQuestion(ref barQuestion qData)
+    {
+        using (SqlCommand cmd = new SqlCommand("updateBarQuestion", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@question", SqlDbType.NVarChar).Value = qData.question;
+            cmd.Parameters.Add("@opt1", SqlDbType.NVarChar).Value = qData.opt1;
+            cmd.Parameters.Add("@opt2", SqlDbType.NVarChar).Value = qData.opt2;
+            cmd.Parameters.Add("@opt3", SqlDbType.NVarChar).Value = qData.opt3;
+            cmd.Parameters.Add("@opt4", SqlDbType.NVarChar).Value = qData.opt4;
+            cmd.Parameters.Add("@opt5", SqlDbType.NVarChar).Value = qData.opt5;
+            cmd.Parameters.Add("@opt6", SqlDbType.NVarChar).Value = qData.opt6;
+
+            try
+            {
+                _sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _sqlConn.Close();
+                cmd.Dispose();
+            }
+        }
+    }
+
+    public void updateStoreData(storeData storeData)
+    {
+        using (SqlCommand cmd = new SqlCommand("updateStoreData", _sqlConn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@storeId", SqlDbType.Int).Value = storeData.storeId;
+            cmd.Parameters.Add("@storeNo", SqlDbType.NChar).Value = storeData.storeNo;
+            cmd.Parameters.Add("@storeName", SqlDbType.NChar).Value = storeData.storeName;
             try
             {
                 _sqlConn.Open();
@@ -139,14 +219,15 @@ public class dbMgrAdmin
     #endregion
 
     #region Get
-    public configData getConfigData(int id)
+    public configData getConfigData(int id, int store)
     {
 
         configData config = new configData();
         using (SqlCommand cmd = new SqlCommand("getConfig", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@cid", SqlDbType.TinyInt).Value = id;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -270,23 +351,34 @@ public class dbMgrAdmin
         }
     }
 
-    public void updateQuestion(ref barQuestion qData)
+    public List<storeData> getStoreData()
     {
-        using (SqlCommand cmd = new SqlCommand("updateBarQuestion", _sqlConn))
+        List<storeData> storeDataList = new List<storeData>();
+        using (SqlCommand cmd = new SqlCommand("getStoreData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@question", SqlDbType.NVarChar).Value = qData.question;
-            cmd.Parameters.Add("@opt1", SqlDbType.NVarChar).Value = qData.opt1;
-            cmd.Parameters.Add("@opt2", SqlDbType.NVarChar).Value = qData.opt2;
-            cmd.Parameters.Add("@opt3", SqlDbType.NVarChar).Value = qData.opt3;
-            cmd.Parameters.Add("@opt4", SqlDbType.NVarChar).Value = qData.opt4;
-            cmd.Parameters.Add("@opt5", SqlDbType.NVarChar).Value = qData.opt5;
-            cmd.Parameters.Add("@opt6", SqlDbType.NVarChar).Value = qData.opt6;
-
             try
             {
                 _sqlConn.Open();
-                cmd.ExecuteNonQuery();
+                using (var data = cmd.ExecuteReader())
+                {
+                    while(data.Read())
+                    {
+                        if (data[0].Equals(DBNull.Value))
+                        {
+                            break;
+                        }
+
+                        storeData sd = new storeData();
+                        sd.storeId = Convert.ToInt32(data["storeId"]);
+                        sd.storeName = data["storeName"].ToString();
+                        sd.storeName = sd.storeName.Replace(" ", string.Empty);
+                        sd.storeNo = data["storeNo"].ToString();
+                        sd.storeNo = sd.storeNo.Replace(" ", string.Empty);
+
+                        storeDataList.Add(sd);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -297,16 +389,21 @@ public class dbMgrAdmin
                 _sqlConn.Close();
                 cmd.Dispose();
             }
+
+            return storeDataList;
         }
     }
+
+    
     #endregion
 
     #region Lab
-    public void clearRun()
+    public void clearRun(int store)
     {
         using (SqlCommand cmd = new SqlCommand("clearRun", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -324,11 +421,12 @@ public class dbMgrAdmin
         }
     }
 
-    public void clearCity()
+    public void clearCity(int store)
     {
         using (SqlCommand cmd = new SqlCommand("clearCity", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();
@@ -346,13 +444,14 @@ public class dbMgrAdmin
         }
     }
     #endregion
-    
+
     #region Bar
-    public void clearBar()
+    public void clearBar(int store)
     {
         using (SqlCommand cmd = new SqlCommand("clearBar", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@store", SqlDbType.Int).Value = store;
             try
             {
                 _sqlConn.Open();

@@ -1,5 +1,6 @@
 ﻿var adminKey;
 var infoImgFlag = [false, false, false, false];
+var storeId = 1;
 //------------------------------------
 //AJAX
 //Lab Run & City
@@ -8,6 +9,7 @@ function toSGetShareMsg() {
         "../s/adminApi.aspx",
         {
             active: "getShareMsg"
+            ,store:storeId
         },
         'json'
     ).done(
@@ -25,8 +27,10 @@ function toSUpdateShareMsg() {
         "../s/adminApi.aspx",
         {
             active: "updateShareMsg",
+            store: storeId,
             key: adminKey,
             msg: newMsg
+            
         },
         'json'
     ).done(
@@ -46,7 +50,8 @@ function toSGetAutoClearDay() {
     $.post(
         "../s/adminApi.aspx",
         {
-            active: "getAutoClearDay"
+            active: "getAutoClearDay",
+            store: storeId
         },
         'json'
     ).done(
@@ -64,6 +69,7 @@ function toSUpdateAutoClearDay() {
         "../s/adminApi.aspx",
         {
             active: "updateAutoClearDay",
+            store: storeId,
             key: adminKey,
             day: newDay
         },
@@ -86,6 +92,7 @@ function toSClearRun() {
     "../s/adminApi.aspx",
     {
         active: "clearRun",
+        store: storeId,
         key: adminKey
     },
     'json'
@@ -107,6 +114,7 @@ function toSClearCity() {
     "../s/adminApi.aspx",
     {
         active: "clearCity",
+        store: storeId,
         key: adminKey
     },
     'json'
@@ -127,7 +135,9 @@ function toSGetRunStartTime() {
     $.post(
         "../s/adminApi.aspx",
         {
-            active: "getLabRunStartTime"
+            active: "getLabRunStartTime",
+            store: storeId,
+
         },
         'json'
     ).done(
@@ -145,6 +155,7 @@ function toSUpdateRunStartTime() {
         "../s/adminApi.aspx",
         {
             active: "updateRunStartTime",
+            store: storeId,
             key: adminKey,
             RunStartT: newTime
         },
@@ -166,7 +177,8 @@ function toSGetRunResetTime() {
     $.post(
         "../s/adminApi.aspx",
         {
-            active: "getLabRunRestTime"
+            active: "getLabRunRestTime",
+            store: storeId,
         },
         'json'
     ).done(
@@ -184,6 +196,7 @@ function toSUpdateRunResetTime() {
         "../s/adminApi.aspx",
         {
             active: "updateRunRestTime",
+            store: storeId,
             key: adminKey,
             RunResetT: newTime
         },
@@ -205,7 +218,8 @@ function toSGetBoxType() {
     $.post(
         "../s/adminApi.aspx",
         {
-            active: "getBoxType"
+            active: "getBoxType",
+            store: storeId,
         },
         'json'
     ).done(
@@ -223,6 +237,7 @@ function toSUpdateBoxType() {
         "../s/adminApi.aspx",
         {
             active: "updateBoxType",
+            store: storeId,
             key: adminKey,
             BoxType: boxType
         },
@@ -246,6 +261,7 @@ function toSClearBar() {
     "../s/adminApi.aspx",
     {
         active: "clearBar",
+        store: storeId,
         key: adminKey
     },
     'json'
@@ -266,7 +282,8 @@ function toSGetBartenderResetTime() {
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getBartenderRestTime"
+        active: "getBartenderRestTime",
+        store: storeId
     },
     'json'
     ).done(
@@ -284,6 +301,7 @@ function toSUpdateBartenderResetTime() {
         "../s/adminApi.aspx",
         {
             active: "updateBartenderRestTime",
+            store: storeId,
             key: adminKey,
             BarQRShowT: newTime
         },
@@ -305,7 +323,8 @@ function toSGetLiquorDisplayTime() {
     $.post(
         "../s/adminApi.aspx",
         {
-            active: "getLiquorDisplayT"
+            active: "getLiquorDisplayT",
+            store: storeId
         },
         'json'
     ).done(
@@ -323,6 +342,7 @@ function toSUpdateLiquorDisplayTime() {
         "../s/adminApi.aspx",
         {
             active: "updateLiquorDisplayT",
+            store: storeId,
             key: adminKey,
             liquorDisplayT: newTime
         },
@@ -344,7 +364,8 @@ function toSGetBarShareMsg() {
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getBarShareMsg"
+        active: "getBarShareMsg",
+        store: storeId
     },
     'json'
     ).done(
@@ -363,6 +384,7 @@ function toSUpdateBarShareMsg() {
         "../s/adminApi.aspx",
         {
             active: "updateBarShareMsg",
+            store: storeId,
             key: adminKey,
             msg: newMsg
         },
@@ -384,7 +406,8 @@ function toSGetBarPopOutMsg() {
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getBarPopoutMsg"
+        active: "getBarPopoutMsg",
+        store: storeId
     },
     'json'
     ).done(
@@ -403,6 +426,7 @@ function toSUpdateBarPopOutMsg() {
         "../s/adminApi.aspx",
         {
             active: "updateBarPopoutMsg",
+            store: storeId,
             key: adminKey,
             msg: newMsg
         },
@@ -424,7 +448,8 @@ function toSGetBarDataMsg() {
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getBarDataMsg"
+        active: "getBarDataMsg",
+        store: storeId
     },
     'json'
     ).done(
@@ -442,6 +467,7 @@ function toSUpdateBarDataMsg() {
         "../s/adminApi.aspx",
         {
             active: "updateBarDataMsg",
+            store: storeId,
             key: adminKey,
             msg: newMsg
         },
@@ -463,7 +489,8 @@ function toSGetBarQuestion() {
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getBarQuestion"
+        active: "getBarQuestion",
+        store: storeId
     },
     'json'
     ).done(
@@ -497,6 +524,7 @@ function toSUpdateBarQuestion() {
         "../s/adminApi.aspx",
         {
             active: "updateBarQuestion",
+            store: storeId,
             key: adminKey,
             question: JSON.stringify(qData)
         },
@@ -527,6 +555,7 @@ function toSUpdateInfoImg(id) {
 
         $.ajax({
             url: "../s/adminApi.aspx",
+            store: storeId,
             type: "POST",
             data: fData,
             processData: false,
@@ -549,7 +578,8 @@ function toSGetInfoState()
     $.post(
     "../s/adminApi.aspx",
     {
-        active: "getInfoState"
+        active: "getInfoState",
+        store: storeId
     },
     'json'
     ).done(
@@ -567,6 +597,7 @@ function toSUpdateInfoState()
     "../s/adminApi.aspx",
     {
         active: "updateInfoState",
+        store: storeId,
         key: adminKey,
         infoState: state
     },
@@ -584,6 +615,26 @@ function toSUpdateInfoState()
     )
 }
 //Main
+function toSGetStoreList() {
+    $.post(
+        "../s/adminApi.aspx",
+        {
+            active: "getStoreData",
+            store: -1
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            var storeList = result.data;
+            storeList.forEach(function (store) {
+                var optName = store.storeName.toString() + "(" + store.storeNo.toString() + ")";
+                $("#storeChoose").append("<option value=" + store.storeId.toString() + ">" + optName + "</option>");
+            });
+        }
+    )
+}
+
 function toSLogin() {
     var adminID = $("#ID").val();
     var adminPW = $("#PW").val();
@@ -592,7 +643,8 @@ function toSLogin() {
         {
             active: "login",
             id: adminID,
-            pw: adminPW
+            pw: adminPW,
+            store: storeId
         },
         'json'
     ).done(
@@ -618,6 +670,7 @@ function toSLogin() {
         }
     )
 }
+
 //------------------------------------
 //Button Event
 //Lab Run & City
@@ -814,10 +867,12 @@ function onBtnBarCtrl() {
 }
 
 function onBtnLogin() {
+    storeId = parseInt($('#storeChoose').val());
     toSLogin();
 }
 
 function loadData() {
+    
     toSGetShareMsg();
     toSGetAutoClearDay();
     toSGetRunStartTime();
@@ -852,4 +907,5 @@ function readUrl(idx, id, input) {
 window.onload
 {
     //loadData();
+    toSGetStoreList();
 }

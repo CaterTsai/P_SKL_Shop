@@ -12,12 +12,13 @@ public class response
     public bool result { get; set; }
     public string msg { get; set; }
     public object data { get; set; }
-
+    public int store { get; set; }
     public response()
     {
         active = "unknow";
         result = false;
         msg = "";
         data = null;
+        store = 0;
     }
 }

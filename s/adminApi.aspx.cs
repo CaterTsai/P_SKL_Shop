@@ -20,9 +20,11 @@ public partial class s_adminApi : System.Web.UI.Page
     private void handleActive()
     {
         var active = Request["active"];
+        var store = Int32.Parse(Request["store"]);
         response rep = new response();
 
         rep.active = active;
+        rep.store = store;
         switch (active)
         {
             #region Admin
@@ -101,7 +103,7 @@ public partial class s_adminApi : System.Web.UI.Page
             case "addQuestion":
                 {
                     var qData = JsonConvert.DeserializeObject<barQuestion>(Request["question"]);
-                    if(qData != null)
+                    if (qData != null)
                     {
                         _dbMgr.addBarQuestion(ref qData);
                         rep.result = true;
@@ -110,7 +112,53 @@ public partial class s_adminApi : System.Web.UI.Page
                     {
                         rep.result = false;
                     }
-                    
+
+                    break;
+                }
+
+            #endregion
+
+            #region Store Data
+            case "addStoreData":
+                {
+                    var storeData = JsonConvert.DeserializeObject<storeData>(Request["storeData"]);
+                    if (storeData != null)
+                    {
+                        _dbMgr.addStoreData(storeData);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            case "updateStoreData":
+                {
+                    var storeData = JsonConvert.DeserializeObject<storeData>(Request["storeData"]);
+                    if (storeData != null)
+                    {
+                        _dbMgr.updateStoreData(storeData);
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
+                    break;
+                }
+            case "getStoreData":
+                {
+                    var data = _dbMgr.getStoreData();
+                    if (data != null)
+                    {
+                        rep.data = data;
+                        rep.result = true;
+                    }
+                    else
+                    {
+                        rep.result = false;
+                    }
                     break;
                 }
             #endregion
@@ -119,7 +167,7 @@ public partial class s_adminApi : System.Web.UI.Page
             //Lab
             case "getShareMsg":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["MobileMsg"], store);
 
                     if (config != null)
                     {
@@ -141,7 +189,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["MobileMsg"];
                         config.value_3 = Request["msg"];
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -153,7 +201,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getAutoClearDay":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["AutoClearDay"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["AutoClearDay"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -174,7 +222,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["AutoClearDay"];
                         config.value_1 = Convert.ToInt32(Request["day"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -187,7 +235,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 {
                     if (checkAdminKey(Request["key"]))
                     {
-                        _dbMgr.clearRun();
+                        _dbMgr.clearRun(store);
                         rep.result = true;
                     }
                     else
@@ -201,7 +249,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 {
                     if (checkAdminKey(Request["key"]))
                     {
-                        _dbMgr.clearCity();
+                        _dbMgr.clearCity(store);
                         rep.result = true;
                     }
                     else
@@ -212,7 +260,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getLabRunStartTime":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunStartT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -233,7 +281,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["RunStartT"];
                         config.value_1 = Convert.ToInt32(Request["RunStartT"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -244,7 +292,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getLabRunRestTime":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunResetT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -265,7 +313,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["RunResetT"];
                         config.value_1 = Convert.ToInt32(Request["RunResetT"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -276,7 +324,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getBoxType":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["RunBoxType"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -297,7 +345,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["RunBoxType"];
                         config.value_1 = Convert.ToInt32(Request["BoxType"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                         break;
                     }
@@ -315,7 +363,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 {
                     if (checkAdminKey(Request["key"]))
                     {
-                        _dbMgr.clearBar();
+                        _dbMgr.clearBar(store);
                         rep.result = true;
                     }
                     else
@@ -326,7 +374,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getLiquorDisplayT":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarLiquorDisplayT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -347,7 +395,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarLiquorDisplayT"];
                         config.value_1 = Convert.ToInt32(Request["liquorDisplayT"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -358,7 +406,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getBartenderRestTime":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarQRShowT"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -379,7 +427,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarQRShowT"];
                         config.value_1 = Convert.ToInt32(Request["BarQRShowT"]);
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -390,7 +438,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getBarShareMsg":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarMobileMsg"], store);
 
                     if (config != null)
                     {
@@ -412,7 +460,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarMobileMsg"];
                         config.value_3 = Regex.Replace(Request["msg"], @"\r|\n|\r\n", "<br>");
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -424,7 +472,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getBarPopoutMsg":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarPopoutMsg"], store);
 
                     if (config != null)
                     {
@@ -446,7 +494,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarPopoutMsg"];
                         config.value_3 = Regex.Replace(Request["msg"], @"\r|\n|\r\n", "<br>");
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -457,7 +505,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getBarDataMsg":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarDataMsg"], store);
 
                     if (config != null)
                     {
@@ -479,7 +527,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarDataMsg"];
                         config.value_3 = Request["msg"];
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -507,7 +555,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 {
                     if (checkAdminKey(Request["key"]))
                     {
-                        if(Request["question"] != null)
+                        if (Request["question"] != null)
                         {
                             var qData = JsonConvert.DeserializeObject<barQuestion>(Request["question"]);
                             _dbMgr.updateQuestion(ref qData);
@@ -526,7 +574,7 @@ public partial class s_adminApi : System.Web.UI.Page
                 }
             case "getInfoState":
                 {
-                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"]);
+                    var config = _dbMgr.getConfigData(configData.ConfigMap["BarInfoState"], store);
                     if (config != null)
                     {
                         rep.result = true;
@@ -547,7 +595,7 @@ public partial class s_adminApi : System.Web.UI.Page
                         config.id = configData.ConfigMap["BarInfoState"];
                         config.value_3 = Request["infoState"];
 
-                        _dbMgr.updateConfigData(config);
+                        _dbMgr.updateConfigData(config, store);
                         rep.result = true;
                     }
                     else
@@ -578,15 +626,17 @@ public partial class s_adminApi : System.Web.UI.Page
                     else
                     {
                         rep.result = false;
-                    }                    
+                    }
                     break;
                 }
             #endregion
+
+            #region Config
             //Config
             case "getConfig":
                 {
                     var config = Request["config"];
-                    configData data = _dbMgr.getConfigData(Convert.ToInt32(config));
+                    configData data = _dbMgr.getConfigData(Convert.ToInt32(config), store);
                     rep.result = true;
                     rep.data = data;
                     break;
@@ -594,18 +644,20 @@ public partial class s_adminApi : System.Web.UI.Page
             case "addConfig":
                 {
                     configData data = JsonConvert.DeserializeObject<configData>(Request["config"]);
-                    _dbMgr.addConfigData(data);
+                    _dbMgr.addConfigData(data, store);
                     rep.result = true;
                     break;
                 }
             case "updateConfig":
                 {
                     configData data = JsonConvert.DeserializeObject<configData>(Request["config"]);
-                    _dbMgr.updateConfigData(data);
+                    _dbMgr.updateConfigData(data, store);
                     rep.result = true;
                     break;
                 }
-            
+
+            #endregion
+
             default:
                 {
                     rep.result = false;
@@ -626,7 +678,7 @@ public partial class s_adminApi : System.Web.UI.Page
     private bool checkUserID(string id, string pw)
     {
         skl_AuthServiceRef.wsSKL_AuthenticationSoapClient ws = new skl_AuthServiceRef.wsSKL_AuthenticationSoapClient();
-        
+
         var result = ws.IsAuthenticated(id, pw, "").Element("Result");
         var data = result.Element("ResultCode").Value;
         if (data == "1")

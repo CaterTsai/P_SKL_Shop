@@ -15,17 +15,18 @@ public partial class wallApi : System.Web.UI.Page
     private void handleActive()
     {
         var active = Request["active"];
+        var store = Int32.Parse(Request["store"]);
         response rep = new response();
         rep.active = active;
 
         if (active == "addWallLog")
         {
-            _dbMgr.addWallLog(Convert.ToInt32(Request["type"]));
+            _dbMgr.addWallLog(Convert.ToInt32(Request["type"]), store);
             rep.result = true;
         }
         else if(active == "addWallWebLog")
         {
-            _dbMgr.addWallWebLog(Convert.ToInt32(Request["type"]));
+            _dbMgr.addWallWebLog(Convert.ToInt32(Request["type"]), store);
             rep.result = true;
         }
         else
