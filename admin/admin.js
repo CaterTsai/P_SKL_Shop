@@ -867,7 +867,7 @@ function onBtnBarCtrl() {
 }
 
 function onBtnLogin() {
-    storeId = parseInt($('#storeChoose').val());
+    //storeId = parseInt($('#storeChoose').val());
     toSLogin();
 }
 

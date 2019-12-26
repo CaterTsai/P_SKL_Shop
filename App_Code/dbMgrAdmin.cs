@@ -110,7 +110,7 @@ public class dbMgrAdmin
 
     public void addStoreData(storeData storeData)
     {
-        using (SqlCommand cmd = new SqlCommand("addAdmin", _sqlConn))
+        using (SqlCommand cmd = new SqlCommand("addStoreData", _sqlConn))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@storeNo", SqlDbType.NChar).Value = storeData.storeNo;
