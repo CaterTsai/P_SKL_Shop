@@ -635,6 +635,24 @@ function toSGetStoreList() {
     )
 }
 
+function toSAddStore(storeData)
+{
+    $.post(
+    "../s/adminApi.aspx",
+    {
+        active: "addStoreData",
+        store: -1,
+        storeData: storeData
+    },
+    'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            console.log(result);
+        }
+    )
+}
+
 function toSLogin() {
     var adminID = $("#ID").val();
     var adminPW = $("#PW").val();
@@ -657,6 +675,8 @@ function toSLogin() {
                 document.getElementById("login").style.display = "none";
                 document.getElementById("ctrlDiv").style.display = "block";
                 loadData();
+
+                setLoginCookie();
             }
             else {
                 if (result["msg"] == "SKLAuthFailed") {
@@ -668,9 +688,34 @@ function toSLogin() {
 
             }
         }
-    )
+    ).fail(function (data) { console.log(data); })
 }
 
+function toSKLLogin()
+{
+    var adminID = $("#ID").val();
+    var adminPW = $("#PW").val();
+
+    $.post(
+        "https://ws.skl.com.tw/ws/Auth/Login",
+        {
+            Account: adminID,
+            Pass: adminPW,
+            AuthType: "A"
+        },
+        'json'
+    ).done(
+        function (data) {
+            var result = JSON.parse(data);
+            if (result["isAuth"]) {
+                toSLogin();
+            }
+            else {
+                alert("員工資料認證錯誤");
+            }
+        }
+    )
+}
 //------------------------------------
 //Button Event
 //Lab Run & City
@@ -868,6 +913,7 @@ function onBtnBarCtrl() {
 
 function onBtnLogin() {
     //storeId = parseInt($('#storeChoose').val());
+    //toSKLLogin();
     toSLogin();
 }
 
@@ -903,9 +949,30 @@ function readUrl(idx, id, input) {
     }
 }
 
+function checkLoginCookie() {
+    adminKey = Cookies.get('sklKey');
+    if(adminKey == undefined)
+    {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function setLoginCookie() {
+    Cookies.set('sklKey', adminKey, { expires: 1 });
+}
+
 //------------------------------------
 window.onload
 {
+    if(checkLoginCookie())
+    {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("ctrlDiv").style.display = "block";
+        loadData();
+    }
     //loadData();
-    toSGetStoreList();
+    //toSGetStoreList();
 }

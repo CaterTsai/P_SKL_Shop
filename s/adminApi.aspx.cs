@@ -7,12 +7,17 @@ using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 public partial class s_adminApi : System.Web.UI.Page
 {
     private dbMgrAdmin _dbMgr = new dbMgrAdmin();
     protected void Page_Load(object sender, EventArgs e)
     {
+        ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         _dbMgr.connDB();
         handleActive();
     }
@@ -34,52 +39,8 @@ public partial class s_adminApi : System.Web.UI.Page
                     var ID = Request["id"];
                     var PW = Request["pw"];
 
-                    if (!_dbMgr.checkAdmin(ID))
-                    {
-                        rep.result = false;
-                        rep.msg = "This Id is not administrator";
-                    }
-                    else
-                    {
-                        var useSKLAuth = System.Web.Configuration.WebConfigurationManager.AppSettings["useSKLAuth"];
-
-                        if (useSKLAuth == "true")
-                        {
-                            try
-                            {
-                                if (checkUserID(ID, PW))
-                                {
-                                    rep.result = true;
-                                    rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
-                                }
-                                else
-                                {
-                                    rep.result = false;
-                                    rep.msg = "SKL ID or PW Wrong";
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                rep.result = false;
-                                rep.msg = "SKLAuthFailed";
-                            }
-                        }
-                        else
-                        {
-                            var sysID = System.Web.Configuration.WebConfigurationManager.AppSettings["adminID"];
-                            var sysPW = System.Web.Configuration.WebConfigurationManager.AppSettings["adminPW"];
-                            if (sysID == ID && sysPW == PW)
-                            {
-                                rep.result = true;
-                                rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
-                            }
-                            else
-                            {
-                                rep.result = false;
-                                rep.msg = "Authorization Failed";
-                            }
-                        }
-                    }
+                    rep.result = sklLogin("https://ws.skl.com.tw/ws/Auth/Login", ID, PW);
+                    rep.data = System.Web.Configuration.WebConfigurationManager.AppSettings["adminKey"];
                     break;
                 }
             case "addAdmin":
@@ -689,5 +650,36 @@ public partial class s_adminApi : System.Web.UI.Page
         {
             return false;
         }
+    }
+
+    private bool sklLogin(string url, string account, string pw)
+    {
+        var request = (HttpWebRequest)WebRequest.Create(url);
+        request.ContentType = "application/json";
+        request.Method = "POST";
+
+        var postData = new sklLoginData();
+        postData.Account = account;
+        postData.Pass = pw;
+        postData.AuthType = "A";
+       
+        string postJson = JsonConvert.SerializeObject(postData);
+        using (StreamWriter reqStream = new StreamWriter(request.GetRequestStream()))
+        {
+            reqStream.Write(postJson);
+        }
+
+
+        string responseStr = "";
+        using (WebResponse response = request.GetResponse())
+        {
+            using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            {
+                responseStr = reader.ReadToEnd();
+            }
+
+        }
+        dynamic o = JObject.Parse(responseStr);
+        return (bool)o.isAuth;
     }
 }
